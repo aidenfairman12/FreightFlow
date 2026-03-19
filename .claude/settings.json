@@ -1,0 +1,54 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/Aiden/Desktop/PlaneLogistics/.claude/hooks/api-sync-check.sh",
+            "statusMessage": "Checking API route ↔ frontend sync..."
+          },
+          {
+            "type": "command",
+            "command": "bash /Users/Aiden/Desktop/PlaneLogistics/.claude/hooks/tsc-check.sh",
+            "statusMessage": "Running TypeScript check...",
+            "timeout": 60
+          },
+          {
+            "type": "command",
+            "command": "bash /Users/Aiden/Desktop/PlaneLogistics/.claude/hooks/model-reminder.sh",
+            "statusMessage": "Checking Pydantic ↔ TypeScript type sync..."
+          },
+          {
+            "type": "command",
+            "command": "bash /Users/Aiden/Desktop/PlaneLogistics/.claude/hooks/ruff-lint.sh",
+            "statusMessage": "Running ruff lint..."
+          },
+          {
+            "type": "command",
+            "command": "bash /Users/Aiden/Desktop/PlaneLogistics/.claude/hooks/service-callers.sh",
+            "statusMessage": "Finding service function callers..."
+          },
+          {
+            "type": "command",
+            "command": "bash /Users/Aiden/Desktop/PlaneLogistics/.claude/hooks/schema-reminder.sh",
+            "statusMessage": "Checking schema ↔ model sync..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/Aiden/Desktop/PlaneLogistics/.claude/hooks/creds-guard.sh",
+            "statusMessage": "Checking for credential exposure..."
+          }
+        ]
+      }
+    ]
+  }
+}
