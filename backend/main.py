@@ -1,5 +1,13 @@
 import logging
+import sys
 from contextlib import asynccontextmanager
+
+# Configure app-level logging (uvicorn only configures its own loggers)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(levelname)s:     %(name)s - %(message)s",
+    stream=sys.stdout,
+)
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from fastapi import FastAPI
