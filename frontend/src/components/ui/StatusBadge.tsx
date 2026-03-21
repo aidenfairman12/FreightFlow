@@ -1,3 +1,5 @@
+import { Badge } from '@/components/ui/badge'
+
 interface StatusBadgeProps {
   label: string
   color: string
@@ -5,17 +7,12 @@ interface StatusBadgeProps {
 
 export function StatusBadge({ label, color }: StatusBadgeProps) {
   return (
-    <span style={{
-      display: 'inline-block',
-      padding: '2px 8px',
-      borderRadius: 9999,
-      fontSize: 11,
-      fontWeight: 600,
-      color: color,
-      background: `${color}20`,
-      textTransform: 'capitalize',
-    }}>
+    <Badge
+      variant="outline"
+      className="text-xs font-semibold capitalize"
+      style={{ color, borderColor: color, backgroundColor: `${color}20` }}
+    >
       {label}
-    </span>
+    </Badge>
   )
 }

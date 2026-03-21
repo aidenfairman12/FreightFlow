@@ -1,31 +1,8 @@
-import { colors } from '@/styles/theme'
-
-interface LoadingSpinnerProps {
-  message?: string
-}
-
-export function LoadingSpinner({ message = 'Loading…' }: LoadingSpinnerProps) {
+export function LoadingSpinner({ message = 'Loading…' }: { message?: string }) {
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 40,
-      gap: 12,
-    }}>
-      <div
-        style={{
-          width: 28,
-          height: 28,
-          border: `3px solid ${colors.border}`,
-          borderTop: `3px solid ${colors.accent}`,
-          borderRadius: '50%',
-          animation: 'spin 0.8s linear infinite',
-        }}
-      />
-      <span style={{ color: colors.textMuted, fontSize: 13 }}>{message}</span>
-      <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
+    <div className="flex flex-col items-center justify-center gap-3 p-10">
+      <div className="h-7 w-7 animate-spin rounded-full border-[3px] border-muted border-t-primary" />
+      <span className="text-sm text-muted-foreground">{message}</span>
     </div>
   )
 }

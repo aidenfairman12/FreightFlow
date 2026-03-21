@@ -1,4 +1,12 @@
-import { colors } from '@/styles/theme'
+import { cn } from '@/lib/utils'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 import { EmptyState } from './EmptyState'
 
 interface Column<T> {
@@ -30,58 +38,43 @@ export function DataTable<T extends Record<string, unknown>>({
   }
 
   return (
-    <div style={{ overflowX: 'auto' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
-        <thead>
-          <tr>
-            {columns.map(col => (
-              <th
-                key={col.key}
-                style={{
-                  textAlign: col.align ?? 'left',
-                  padding: '8px 10px',
-                  color: colors.textMuted,
-                  fontSize: 11,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
-                  borderBottom: `1px solid ${colors.border}`,
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {col.label}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, i) => (
-            <tr
-              key={i}
-              onClick={() => onRowClick?.(row)}
-              style={{
-                cursor: onRowClick ? 'pointer' : undefined,
-                borderBottom: `1px solid ${colors.border}`,
-              }}
+    <Table>
+      <TableHeader>
+        <TableRow>
+          {columns.map(col => (
+            <TableHead
+              key={col.key}
+              className={cn(
+                col.align === 'right' && 'text-right',
+                col.align === 'center' && 'text-center'
+              )}
             >
-              {columns.map(col => (
-                <td
-                  key={col.key}
-                  style={{
-                    padding: '8px 10px',
-                    color: colors.text,
-                    textAlign: col.align ?? 'left',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  {col.render
-                    ? col.render(row)
-                    : String(row[col.key] ?? '—')}
-                </td>
-              ))}
-            </tr>
+              {col.label}
+            </TableHead>
           ))}
-        </tbody>
-      </table>
-    </div>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {rows.map((row, i) => (
+          <TableRow
+            key={i}
+            onClick={() => onRowClick?.(row)}
+            className={onRowClick ? 'cursor-pointer' : ''}
+          >
+            {columns.map(col => (
+              <TableCell
+                key={col.key}
+                className={cn(
+                  col.align === 'right' && 'text-right',
+                  col.align === 'center' && 'text-center'
+                )}
+              >
+                {col.render ? col.render(row) : String(row[col.key] ?? '—')}
+              </TableCell>
+            ))}
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   )
 }
