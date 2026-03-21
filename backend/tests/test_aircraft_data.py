@@ -69,3 +69,31 @@ class TestGetAircraftSpec:
 
     def test_none_returns_none(self):
         assert get_aircraft_spec(None) is None
+
+
+class TestEdelweissOverrides:
+    def test_edw_a320_seats(self):
+        assert get_seat_count("A320", "EDW100") == 174
+
+    def test_edw_a343_seats(self):
+        assert get_seat_count("A343", "EDW55") == 314
+
+    def test_edw_a359_seats(self):
+        assert get_seat_count("A359", "EDW200") == 339
+
+    def test_swr_a320_uses_swiss_spec(self):
+        assert get_seat_count("A320", "SWR100") == 180
+
+    def test_no_callsign_uses_swiss_spec(self):
+        assert get_seat_count("A320") == 180
+
+    def test_edw_unknown_type_falls_back_to_main(self):
+        assert get_seat_count("B77W", "EDW10") == 320
+
+    def test_edw_spec_returns_correct_object(self):
+        spec = get_aircraft_spec("A359", "EDW200")
+        assert spec.seats == 339
+        assert spec.typecode == "A359"
+
+    def test_edw_callsign_case_insensitive(self):
+        assert get_seat_count("A320", "edw100") == 174
