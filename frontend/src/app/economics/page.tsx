@@ -7,8 +7,9 @@ import {
 } from 'recharts'
 import { api } from '@/lib/api'
 import { useApiData } from '@/hooks/useApiData'
-import { Card, LoadingSpinner, ErrorBanner, EmptyState } from '@/components/ui'
-import { colors, buttonPrimaryStyle, tooltipStyle } from '@/styles/theme'
+import { Card, CardHeader, CardTitle, CardContent, LoadingSpinner, ErrorBanner, EmptyState, Button } from '@/components/ui'
+import { cn } from '@/lib/utils'
+import { chartTooltipStyle, chartAxisTick, chartGridStroke } from '@/lib/chart-theme'
 
 const CASK_COLORS: Record<string, string> = {
   fuel: '#f59e0b',
@@ -68,18 +69,18 @@ export default function EconomicsPage() {
   if (factors.loading && cask.loading && ueHistoryRaw.loading) return <LoadingSpinner message="Loading financial data…" />
 
   return (
-    <div style={{ padding: 24, overflowY: 'auto', height: '100%' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-        <h1 style={{ margin: 0, fontSize: 22, color: colors.text }}>Financial Intelligence</h1>
-        <button onClick={handleRefresh} disabled={refreshing} style={{ ...buttonPrimaryStyle, opacity: refreshing ? 0.6 : 1 }}>
+    <div className="h-full overflow-y-auto p-6">
+      <div className="mb-5 flex items-center justify-between">
+        <h1 className="text-xl font-bold text-foreground">Financial Intelligence</h1>
+        <Button onClick={handleRefresh} disabled={refreshing}>
           {refreshing ? 'Refreshing…' : 'Refresh Data'}
-        </button>
+        </Button>
       </div>
 
       {anyError && <ErrorBanner message={anyError} onRetry={() => { factors.refresh(); cask.refresh(); ueHistoryRaw.refresh() }} />}
 
       {/* Economic Indicators */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: 12, marginBottom: 24 }}>
+      <div className="mb-6 grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3">
         {FACTOR_CARDS.map(fc => {
           const data = factors.data?.[fc.key]
           const isSelected = selectedFactor === fc.key
@@ -87,121 +88,130 @@ export default function EconomicsPage() {
             <div
               key={fc.key}
               onClick={() => handleFactorClick(fc.key)}
-              style={{
-                background: isSelected ? colors.cardHover : colors.card,
-                borderRadius: 8,
-                padding: 16,
-                cursor: 'pointer',
-                border: isSelected ? `1px solid ${colors.accent}` : `1px solid transparent`,
-                transition: 'all 0.15s',
-              }}
+              className={cn(
+                'cursor-pointer rounded-xl p-4 transition-all ring-1',
+                isSelected
+                  ? 'bg-secondary ring-primary'
+                  : 'bg-card ring-foreground/10 hover:bg-secondary/50'
+              )}
             >
-              <div style={{ fontSize: 11, color: colors.textMuted, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 4 }}>
+              <div className="mb-1 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
                 {fc.label}
               </div>
-              <div style={{ fontSize: 22, fontWeight: 700, color: fc.color }}>
+              <div className="text-[22px] font-bold" style={{ color: fc.color }}>
                 {data ? data.value.toFixed(fc.key.includes('chf') ? 4 : 2) : '—'}
               </div>
-              <div style={{ fontSize: 11, color: colors.textDim }}>
+              <div className="text-[11px] text-muted-foreground">
                 {data ? `${data.unit} (${data.source})` : 'Not yet fetched'}
               </div>
-              {data && <div style={{ fontSize: 10, color: '#475569', marginTop: 2 }}>as of {data.date}</div>}
+              {data && <div className="mt-0.5 text-[10px] text-muted-foreground/60">as of {data.date}</div>}
             </div>
           )
         })}
       </div>
 
-      {/* Factor History Chart (shown when a factor card is clicked) */}
+      {/* Factor History Chart */}
       {selectedFactor && (
-        <Card
-          title={`${FACTOR_CARDS.find(f => f.key === selectedFactor)?.label ?? selectedFactor} — 90 Day History`}
-          style={{ marginBottom: 24 }}
-        >
-          {factorHistory.loading ? (
-            <LoadingSpinner message="Loading history…" />
-          ) : factorHistory.data && (factorHistory.data as unknown[]).length > 0 ? (
-            <ResponsiveContainer width="100%" height={220}>
-              <LineChart data={factorHistory.data as unknown[]}>
-                <CartesianGrid strokeDasharray="3 3" stroke={colors.border} />
-                <XAxis dataKey="date" tick={{ fontSize: 10, fill: colors.textMuted }}
-                  tickFormatter={v => new Date(v).toLocaleDateString('en', { month: 'short', day: 'numeric' })} />
-                <YAxis tick={{ fontSize: 10, fill: colors.textMuted }} />
-                <Tooltip contentStyle={tooltipStyle} />
-                <Line type="monotone" dataKey="value" stroke={FACTOR_CARDS.find(f => f.key === selectedFactor)?.color ?? colors.accent} strokeWidth={2} dot={false} />
-              </LineChart>
-            </ResponsiveContainer>
-          ) : (
-            <EmptyState message="No historical data available for this factor" />
-          )}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle>{FACTOR_CARDS.find(f => f.key === selectedFactor)?.label ?? selectedFactor} — 90 Day History</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {factorHistory.loading ? (
+              <LoadingSpinner message="Loading history…" />
+            ) : factorHistory.data && (factorHistory.data as unknown[]).length > 0 ? (
+              <ResponsiveContainer width="100%" height={220}>
+                <LineChart data={factorHistory.data as unknown[]}>
+                  <CartesianGrid strokeDasharray="3 3" stroke={chartGridStroke} />
+                  <XAxis dataKey="date" tick={chartAxisTick}
+                    tickFormatter={v => new Date(v).toLocaleDateString('en', { month: 'short', day: 'numeric' })} />
+                  <YAxis tick={chartAxisTick} />
+                  <Tooltip contentStyle={chartTooltipStyle} />
+                  <Line type="monotone" dataKey="value" stroke={FACTOR_CARDS.find(f => f.key === selectedFactor)?.color ?? '#38bdf8'} strokeWidth={2} dot={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            ) : (
+              <EmptyState message="No historical data available for this factor" />
+            )}
+          </CardContent>
         </Card>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))', gap: 16, marginBottom: 24 }}>
+      <div className="mb-6 grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-4">
         {/* CASK Breakdown Pie */}
-        <Card title="CASK Breakdown (CHF-cents per ASK)">
-          {cask.data ? (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <ResponsiveContainer width="60%" height={240}>
-                <PieChart>
-                  <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%"
-                    innerRadius={50} outerRadius={90} paddingAngle={2}>
-                    {pieData.map((entry, i) => <Cell key={i} fill={entry.color} />)}
-                  </Pie>
-                  <Tooltip contentStyle={tooltipStyle} />
-                </PieChart>
-              </ResponsiveContainer>
-              <div style={{ flex: 1, fontSize: 12 }}>
-                {pieData.map(d => (
-                  <div key={d.name} style={{ display: 'flex', justifyContent: 'space-between', padding: '3px 0', color: colors.text }}>
-                    <span style={{ color: d.color }}>{d.name}</span>
-                    <span>{d.value} ct</span>
+        <Card>
+          <CardHeader><CardTitle>CASK Breakdown (CHF-cents per ASK)</CardTitle></CardHeader>
+          <CardContent>
+            {cask.data ? (
+              <div className="flex items-center">
+                <ResponsiveContainer width="60%" height={240}>
+                  <PieChart>
+                    <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%"
+                      innerRadius={50} outerRadius={90} paddingAngle={2}>
+                      {pieData.map((entry, i) => <Cell key={i} fill={entry.color} />)}
+                    </Pie>
+                    <Tooltip contentStyle={chartTooltipStyle} />
+                  </PieChart>
+                </ResponsiveContainer>
+                <div className="flex-1 text-xs">
+                  {pieData.map(d => (
+                    <div key={d.name} className="flex justify-between py-0.5 text-foreground">
+                      <span style={{ color: d.color }}>{d.name}</span>
+                      <span>{d.value} ct</span>
+                    </div>
+                  ))}
+                  <div className="mt-1.5 border-t border-border pt-1.5 font-semibold text-foreground">
+                    Total CASK: {cask.data.total_cask.toFixed(2)} ct
                   </div>
-                ))}
-                <div style={{ borderTop: `1px solid ${colors.border}`, marginTop: 6, paddingTop: 6, fontWeight: 600, color: colors.text }}>
-                  Total CASK: {cask.data.total_cask.toFixed(2)} ct
                 </div>
               </div>
-            </div>
-          ) : (
-            <EmptyState message="No CASK data yet. Run KPI computation first." />
-          )}
+            ) : (
+              <EmptyState message="No CASK data yet. Run KPI computation first." />
+            )}
+          </CardContent>
         </Card>
 
         {/* CASK vs RASK Trend */}
-        <Card title="CASK vs RASK Trend">
-          <ResponsiveContainer width="100%" height={240}>
-            <LineChart data={ueHistory}>
-              <CartesianGrid strokeDasharray="3 3" stroke={colors.border} />
-              <XAxis dataKey="period_start" tick={{ fontSize: 10, fill: colors.textMuted }}
-                tickFormatter={v => new Date(v).toLocaleDateString('en', { month: 'short', day: 'numeric' })} />
-              <YAxis tick={{ fontSize: 10, fill: colors.textMuted }} label={{ value: 'ct/ASK', angle: -90, position: 'insideLeft', fill: colors.textDim, fontSize: 10 }} />
-              <Tooltip contentStyle={tooltipStyle} />
-              <Legend wrapperStyle={{ fontSize: 11 }} />
-              <Line type="monotone" dataKey="total_cask" stroke={colors.red} strokeWidth={2} dot={false} name="CASK" />
-              <Line type="monotone" dataKey="estimated_rask" stroke={colors.green} strokeWidth={2} dot={false} name="RASK" />
-            </LineChart>
-          </ResponsiveContainer>
+        <Card>
+          <CardHeader><CardTitle>CASK vs RASK Trend</CardTitle></CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={240}>
+              <LineChart data={ueHistory}>
+                <CartesianGrid strokeDasharray="3 3" stroke={chartGridStroke} />
+                <XAxis dataKey="period_start" tick={chartAxisTick}
+                  tickFormatter={v => new Date(v).toLocaleDateString('en', { month: 'short', day: 'numeric' })} />
+                <YAxis tick={chartAxisTick} label={{ value: 'ct/ASK', angle: -90, position: 'insideLeft', fill: 'var(--muted-foreground)', fontSize: 10 }} />
+                <Tooltip contentStyle={chartTooltipStyle} />
+                <Legend wrapperStyle={{ fontSize: 11 }} />
+                <Line type="monotone" dataKey="total_cask" stroke="#ef4444" strokeWidth={2} dot={false} name="CASK" />
+                <Line type="monotone" dataKey="estimated_rask" stroke="#22c55e" strokeWidth={2} dot={false} name="RASK" />
+              </LineChart>
+            </ResponsiveContainer>
+          </CardContent>
         </Card>
       </div>
 
       {/* CASK Component Stacked Trend */}
-      <Card title="CASK Components Over Time">
-        <ResponsiveContainer width="100%" height={280}>
-          <BarChart data={ueHistory}>
-            <CartesianGrid strokeDasharray="3 3" stroke={colors.border} />
-            <XAxis dataKey="period_start" tick={{ fontSize: 10, fill: colors.textMuted }}
-              tickFormatter={v => new Date(v).toLocaleDateString('en', { month: 'short', day: 'numeric' })} />
-            <YAxis tick={{ fontSize: 10, fill: colors.textMuted }} />
-            <Tooltip contentStyle={tooltipStyle} />
-            <Legend wrapperStyle={{ fontSize: 11 }} />
-            <Bar dataKey="fuel_cost_per_ask" stackId="cask" fill="#f59e0b" name="Fuel" />
-            <Bar dataKey="carbon_cost_per_ask" stackId="cask" fill="#22c55e" name="Carbon" />
-            <Bar dataKey="nav_charges_per_ask" stackId="cask" fill="#3b82f6" name="Navigation" />
-            <Bar dataKey="airport_cost_per_ask" stackId="cask" fill="#8b5cf6" name="Airport" />
-            <Bar dataKey="crew_cost_per_ask" stackId="cask" fill="#ec4899" name="Crew" />
-            <Bar dataKey="other_cost_per_ask" stackId="cask" fill="#6b7280" name="Other" />
-          </BarChart>
-        </ResponsiveContainer>
+      <Card>
+        <CardHeader><CardTitle>CASK Components Over Time</CardTitle></CardHeader>
+        <CardContent>
+          <ResponsiveContainer width="100%" height={280}>
+            <BarChart data={ueHistory}>
+              <CartesianGrid strokeDasharray="3 3" stroke={chartGridStroke} />
+              <XAxis dataKey="period_start" tick={chartAxisTick}
+                tickFormatter={v => new Date(v).toLocaleDateString('en', { month: 'short', day: 'numeric' })} />
+              <YAxis tick={chartAxisTick} />
+              <Tooltip contentStyle={chartTooltipStyle} />
+              <Legend wrapperStyle={{ fontSize: 11 }} />
+              <Bar dataKey="fuel_cost_per_ask" stackId="cask" fill="#f59e0b" name="Fuel" />
+              <Bar dataKey="carbon_cost_per_ask" stackId="cask" fill="#22c55e" name="Carbon" />
+              <Bar dataKey="nav_charges_per_ask" stackId="cask" fill="#3b82f6" name="Navigation" />
+              <Bar dataKey="airport_cost_per_ask" stackId="cask" fill="#8b5cf6" name="Airport" />
+              <Bar dataKey="crew_cost_per_ask" stackId="cask" fill="#ec4899" name="Crew" />
+              <Bar dataKey="other_cost_per_ask" stackId="cask" fill="#6b7280" name="Other" />
+            </BarChart>
+          </ResponsiveContainer>
+        </CardContent>
       </Card>
     </div>
   )

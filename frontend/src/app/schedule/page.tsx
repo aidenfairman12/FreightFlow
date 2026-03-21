@@ -3,8 +3,8 @@
 import { useState, useMemo } from 'react'
 import { api } from '@/lib/api'
 import { useApiData } from '@/hooks/useApiData'
-import { Card, DataTable, LoadingSpinner, ErrorBanner, StatusBadge } from '@/components/ui'
-import { colors, buttonStyle, buttonPrimaryStyle } from '@/styles/theme'
+import { Card, CardHeader, CardTitle, CardContent, DataTable, LoadingSpinner, ErrorBanner, StatusBadge, Button } from '@/components/ui'
+import { cn } from '@/lib/utils'
 import type { SchedulePattern, ImputedFlight } from '@/types'
 
 const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -15,9 +15,9 @@ const TIME_SLOTS = [
 ]
 
 const STATUS_COLORS: Record<string, string> = {
-  expected: colors.accent,
-  confirmed: colors.green,
-  missed: colors.red,
+  expected: '#38bdf8',
+  confirmed: '#22c55e',
+  missed: '#ef4444',
 }
 
 type StatusFilter = 'all' | 'expected' | 'confirmed' | 'missed'
@@ -31,7 +31,6 @@ export default function SchedulePage() {
     statusFilter === 'all' ? undefined : statusFilter, 200,
   ), { refreshInterval: 30000 })
 
-  // Recount by status from all imputed flights (fetch all for summary)
   const allImputed = useApiData(() => api.getImputedFlights(undefined, 1000))
 
   const summary = useMemo(() => {
@@ -46,7 +45,6 @@ export default function SchedulePage() {
     }
   }, [patterns.data, allImputed.data])
 
-  // Build weekly schedule grid
   const grid = useMemo(() => {
     if (!patterns.data) return null
     const cells: Record<string, SchedulePattern[]> = {}
@@ -74,18 +72,14 @@ export default function SchedulePage() {
   if (patterns.loading && imputed.loading) return <LoadingSpinner message="Loading schedule data…" />
 
   return (
-    <div style={{ padding: 20, maxWidth: 1400, margin: '0 auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-        <h1 style={{ fontSize: 20, fontWeight: 700, color: colors.text, margin: 0 }}>
+    <div className="mx-auto max-w-[1400px] overflow-y-auto p-5 h-full">
+      <div className="mb-5 flex items-center justify-between">
+        <h1 className="text-xl font-bold text-foreground">
           Flight Schedule Intelligence
         </h1>
-        <button
-          onClick={handleRun}
-          disabled={running}
-          style={{ ...buttonPrimaryStyle, opacity: running ? 0.6 : 1 }}
-        >
+        <Button onClick={handleRun} disabled={running}>
           {running ? 'Running…' : 'Run Imputation'}
-        </button>
+        </Button>
       </div>
 
       {(patterns.error || imputed.error) && (
@@ -96,141 +90,127 @@ export default function SchedulePage() {
       )}
 
       {/* Summary Cards */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))',
-        gap: 12,
-        marginBottom: 24,
-      }}>
-        <SummaryCard label="Patterns Learned" value={summary.totalPatterns} color={colors.accent} />
-        <SummaryCard label="Expected Today" value={summary.expected} color={colors.orange} />
-        <SummaryCard label="Confirmed Today" value={summary.confirmed} color={colors.green} />
-        <SummaryCard label="Missed Today" value={summary.missed} color={colors.red} />
+      <div className="mb-6 grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3">
+        <SummaryCard label="Patterns Learned" value={summary.totalPatterns} color="#38bdf8" />
+        <SummaryCard label="Expected Today" value={summary.expected} color="#f59e0b" />
+        <SummaryCard label="Confirmed Today" value={summary.confirmed} color="#22c55e" />
+        <SummaryCard label="Missed Today" value={summary.missed} color="#ef4444" />
       </div>
 
       {/* Weekly Schedule Grid */}
-      <Card title="Weekly Schedule Heatmap" style={{ marginBottom: 24 }}>
-        {grid ? (
-          <div style={{ overflowX: 'auto' }}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '100px repeat(7, 1fr)',
-              gap: 2,
-              minWidth: 700,
-            }}>
-              {/* Header row */}
-              <div />
-              {DAY_NAMES.map(d => (
-                <div key={d} style={{
-                  textAlign: 'center', fontSize: 12, fontWeight: 600,
-                  color: colors.textMuted, padding: '6px 0',
-                }}>
-                  {d}
-                </div>
-              ))}
-              {/* Time rows */}
-              {TIME_SLOTS.map((slot, slotIdx) => (
-                <>
-                  <div key={`label-${slotIdx}`} style={{
-                    fontSize: 11, color: colors.textDim, padding: '8px 4px',
-                    display: 'flex', alignItems: 'center',
-                  }}>
-                    {slot}
+      <Card className="mb-6">
+        <CardHeader>
+          <CardTitle>Weekly Schedule Heatmap</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {grid ? (
+            <div className="overflow-x-auto">
+              <div className="grid grid-cols-[100px_repeat(7,1fr)] gap-0.5 min-w-[700px]">
+                {/* Header row */}
+                <div />
+                {DAY_NAMES.map(d => (
+                  <div key={d} className="text-center text-xs font-semibold text-muted-foreground py-1.5">
+                    {d}
                   </div>
-                  {Array.from({ length: 7 }, (_, dow) => {
-                    const key = `${dow}-${slotIdx}`
-                    const cell = grid[key] ?? []
-                    const intensity = Math.min(1, cell.length / 8)
-                    return (
-                      <div
-                        key={key}
-                        style={{
-                          background: cell.length > 0
-                            ? `rgba(56, 189, 248, ${0.08 + intensity * 0.35})`
-                            : `rgba(255,255,255,0.02)`,
-                          borderRadius: 4,
-                          padding: '4px 6px',
-                          minHeight: 36,
-                          fontSize: 11,
-                          color: colors.text,
-                        }}
-                        title={cell.map(p => `${p.callsign} ${p.origin_icao ?? '?'}→${p.destination_icao ?? '?'}`).join('\n')}
-                      >
-                        {cell.length > 0 && (
-                          <span style={{ fontWeight: 600, fontSize: 13 }}>{cell.length}</span>
-                        )}
-                        {cell.length > 0 && cell.length <= 3 && (
-                          <div style={{ color: colors.textMuted, fontSize: 10, marginTop: 2 }}>
-                            {cell.slice(0, 3).map(p => p.callsign).join(', ')}
-                          </div>
-                        )}
-                      </div>
-                    )
-                  })}
-                </>
-              ))}
+                ))}
+                {/* Time rows */}
+                {TIME_SLOTS.map((slot, slotIdx) => (
+                  <div key={`row-${slotIdx}`} className="contents">
+                    <div className="flex items-center text-[11px] text-muted-foreground px-1 py-2">
+                      {slot}
+                    </div>
+                    {Array.from({ length: 7 }, (_, dow) => {
+                      const key = `${dow}-${slotIdx}`
+                      const cell = grid[key] ?? []
+                      const intensity = Math.min(1, cell.length / 8)
+                      return (
+                        <div
+                          key={key}
+                          className="rounded min-h-9 px-1.5 py-1 text-[11px] text-foreground"
+                          style={{
+                            background: cell.length > 0
+                              ? `rgba(56, 189, 248, ${0.08 + intensity * 0.35})`
+                              : 'rgba(255,255,255,0.02)',
+                          }}
+                          title={cell.map(p => `${p.callsign} ${p.origin_icao ?? '?'}→${p.destination_icao ?? '?'}`).join('\n')}
+                        >
+                          {cell.length > 0 && (
+                            <span className="font-semibold text-[13px]">{cell.length}</span>
+                          )}
+                          {cell.length > 0 && cell.length <= 3 && (
+                            <div className="text-muted-foreground text-[10px] mt-0.5">
+                              {cell.slice(0, 3).map(p => p.callsign).join(', ')}
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ) : (
-          <div style={{ color: colors.textDim, fontSize: 13, padding: 20, textAlign: 'center' }}>
-            No schedule patterns learned yet. Data collection must run for a few days.
-          </div>
-        )}
+          ) : (
+            <div className="p-5 text-center text-sm text-muted-foreground">
+              No schedule patterns learned yet. Data collection must run for a few days.
+            </div>
+          )}
+        </CardContent>
       </Card>
 
       {/* Imputed Flights Table */}
-      <Card title="Imputed Flights">
-        <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
-          {(['all', 'expected', 'confirmed', 'missed'] as StatusFilter[]).map(f => (
-            <button
-              key={f}
-              onClick={() => setStatusFilter(f)}
-              style={{
-                ...buttonStyle,
-                background: statusFilter === f ? colors.accent : colors.card,
-                color: statusFilter === f ? colors.bg : colors.text,
-                fontWeight: statusFilter === f ? 600 : 400,
-                textTransform: 'capitalize',
-              }}
-            >
-              {f}
-            </button>
-          ))}
-        </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Imputed Flights</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="mb-3 flex gap-1.5">
+            {(['all', 'expected', 'confirmed', 'missed'] as StatusFilter[]).map(f => (
+              <Button
+                key={f}
+                variant={statusFilter === f ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setStatusFilter(f)}
+                className="capitalize"
+              >
+                {f}
+              </Button>
+            ))}
+          </div>
 
-        <DataTable<ImputedFlight & Record<string, unknown>>
-          columns={[
-            { key: 'callsign', label: 'Callsign' },
-            {
-              key: 'expected_departure',
-              label: 'Expected Departure',
-              render: (r) => r.expected_departure
-                ? new Date(r.expected_departure).toLocaleString()
-                : '—',
-            },
-            {
-              key: 'route',
-              label: 'Route',
-              render: (r) => `${r.origin_icao ?? '?'} → ${r.destination_icao ?? '?'}`,
-            },
-            {
-              key: 'status',
-              label: 'Status',
-              render: (r) => (
-                <StatusBadge label={r.status} color={STATUS_COLORS[r.status] ?? colors.textMuted} />
-              ),
-            },
-            {
-              key: 'confidence',
-              label: 'Confidence',
-              align: 'right',
-              render: (r) => `${(r.confidence * 100).toFixed(0)}%`,
-            },
-          ]}
-          data={(imputed.data ?? []) as (ImputedFlight & Record<string, unknown>)[]}
-          emptyMessage="No imputed flights found"
-          maxRows={100}
-        />
+          <DataTable<ImputedFlight & Record<string, unknown>>
+            columns={[
+              { key: 'callsign', label: 'Callsign' },
+              {
+                key: 'expected_departure',
+                label: 'Expected Departure',
+                render: (r) => r.expected_departure
+                  ? new Date(r.expected_departure).toLocaleString()
+                  : '—',
+              },
+              {
+                key: 'route',
+                label: 'Route',
+                render: (r) => `${r.origin_icao ?? '?'} → ${r.destination_icao ?? '?'}`,
+              },
+              {
+                key: 'status',
+                label: 'Status',
+                render: (r) => (
+                  <StatusBadge label={r.status} color={STATUS_COLORS[r.status] ?? '#94a3b8'} />
+                ),
+              },
+              {
+                key: 'confidence',
+                label: 'Confidence',
+                align: 'right',
+                render: (r) => `${(r.confidence * 100).toFixed(0)}%`,
+              },
+            ]}
+            data={(imputed.data ?? []) as (ImputedFlight & Record<string, unknown>)[]}
+            emptyMessage="No imputed flights found"
+            maxRows={100}
+          />
+        </CardContent>
       </Card>
     </div>
   )
@@ -239,12 +219,14 @@ export default function SchedulePage() {
 function SummaryCard({ label, value, color }: { label: string; value: number; color: string }) {
   return (
     <Card>
-      <div style={{ fontSize: 11, color: colors.textMuted, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-        {label}
-      </div>
-      <div style={{ fontSize: 28, fontWeight: 700, color, marginTop: 4 }}>
-        {value.toLocaleString()}
-      </div>
+      <CardContent className="pt-4">
+        <div className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+          {label}
+        </div>
+        <div className="mt-1 text-[28px] font-bold" style={{ color }}>
+          {value.toLocaleString()}
+        </div>
+      </CardContent>
     </Card>
   )
 }

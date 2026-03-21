@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
 import { api } from '@/lib/api'
 import { useApiData } from '@/hooks/useApiData'
-import { Card, DataTable, LoadingSpinner, ErrorBanner, StatusBadge } from '@/components/ui'
-import { colors, buttonStyle, tooltipStyle } from '@/styles/theme'
+import { Card, CardHeader, CardTitle, CardContent, DataTable, LoadingSpinner, ErrorBanner, StatusBadge, Button, Input, Label } from '@/components/ui'
+import { chartTooltipStyle, chartAxisTick, chartColors } from '@/lib/chart-theme'
 import type { ScenarioResults, Scenario } from '@/types'
 
 export default function ScenariosPage() {
@@ -56,141 +56,145 @@ export default function ScenariosPage() {
   if (presets.loading && history.loading) return <LoadingSpinner message="Loading scenarios…" />
 
   return (
-    <div style={{ padding: 24, overflowY: 'auto', height: '100%' }}>
-      <h1 style={{ margin: '0 0 20px', fontSize: 22, color: colors.text }}>Scenario Engine</h1>
+    <div className="h-full overflow-y-auto p-6">
+      <h1 className="mb-5 text-xl font-bold text-foreground">Scenario Engine</h1>
 
       {anyError && <ErrorBanner message={anyError} onRetry={() => { presets.refresh(); history.refresh() }} />}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))', gap: 16, marginBottom: 24 }}>
+      <div className="mb-6 grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-4">
         {/* Preset Scenarios */}
-        <Card title="Scenario Presets">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {(presets.data ?? []).map(p => (
-              <button
-                key={p.name}
-                onClick={() => runScenario(p.name, p.description, p.parameters)}
-                disabled={running}
-                style={{
-                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                  padding: '10px 14px', background: colors.bg, border: `1px solid ${colors.border}`,
-                  borderRadius: 6, cursor: running ? 'wait' : 'pointer', color: colors.text,
-                  textAlign: 'left', fontSize: 13,
-                }}
-              >
-                <div>
-                  <div style={{ fontWeight: 600, marginBottom: 2 }}>{p.name}</div>
-                  <div style={{ fontSize: 11, color: colors.textDim }}>{p.description}</div>
-                </div>
-                <span style={{ color: colors.accent, fontSize: 18, marginLeft: 12 }}>&rarr;</span>
-              </button>
-            ))}
-          </div>
+        <Card>
+          <CardHeader><CardTitle>Scenario Presets</CardTitle></CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-2">
+              {(presets.data ?? []).map(p => (
+                <button
+                  key={p.name}
+                  onClick={() => runScenario(p.name, p.description, p.parameters)}
+                  disabled={running}
+                  className="flex items-center justify-between rounded-lg border border-border bg-background p-3 text-left text-sm text-foreground transition-colors hover:bg-secondary disabled:cursor-wait"
+                >
+                  <div>
+                    <div className="mb-0.5 font-semibold">{p.name}</div>
+                    <div className="text-[11px] text-muted-foreground">{p.description}</div>
+                  </div>
+                  <span className="ml-3 text-lg text-primary">&rarr;</span>
+                </button>
+              ))}
+            </div>
+          </CardContent>
         </Card>
 
         {/* Custom Scenario Builder */}
-        <Card title="Custom Scenario">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-            {[
-              { key: 'fuel_price_change_pct', label: 'Fuel Price Change (%)' },
-              { key: 'carbon_price_change_pct', label: 'Carbon Price Change (%)' },
-              { key: 'load_factor_change_pct', label: 'Load Factor Change (%)' },
-              { key: 'capacity_change_pct', label: 'Capacity Change (%)' },
-            ].map(field => (
-              <div key={field.key} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <label style={{ fontSize: 13, color: colors.textMuted, width: 180 }}>{field.label}</label>
-                <input
-                  type="number"
-                  value={customParams[field.key]}
-                  onChange={e => setCustomParams(prev => ({ ...prev, [field.key]: e.target.value }))}
-                  style={{
-                    flex: 1, padding: '6px 10px', background: colors.bg, border: `1px solid ${colors.border}`,
-                    borderRadius: 4, color: colors.text, fontSize: 13, outline: 'none',
-                  }}
-                />
-              </div>
-            ))}
-            <button
-              onClick={runCustom}
-              disabled={running}
-              style={{
-                marginTop: 8, padding: '10px 16px', background: colors.green, color: colors.bg,
-                border: 'none', borderRadius: 6, fontWeight: 600, cursor: running ? 'wait' : 'pointer', fontSize: 13,
-              }}
-            >
-              {running ? 'Running…' : 'Run Scenario'}
-            </button>
-          </div>
+        <Card>
+          <CardHeader><CardTitle>Custom Scenario</CardTitle></CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-3">
+              {[
+                { key: 'fuel_price_change_pct', label: 'Fuel Price Change (%)' },
+                { key: 'carbon_price_change_pct', label: 'Carbon Price Change (%)' },
+                { key: 'load_factor_change_pct', label: 'Load Factor Change (%)' },
+                { key: 'capacity_change_pct', label: 'Capacity Change (%)' },
+              ].map(field => (
+                <div key={field.key} className="flex items-center gap-2.5">
+                  <Label className="w-44 text-sm text-muted-foreground">{field.label}</Label>
+                  <Input
+                    type="number"
+                    value={customParams[field.key]}
+                    onChange={e => setCustomParams(prev => ({ ...prev, [field.key]: e.target.value }))}
+                    className="flex-1"
+                  />
+                </div>
+              ))}
+              <Button
+                onClick={runCustom}
+                disabled={running}
+                className="mt-2 bg-success text-background hover:bg-success/80"
+              >
+                {running ? 'Running…' : 'Run Scenario'}
+              </Button>
+            </div>
+          </CardContent>
         </Card>
       </div>
 
       {/* Results */}
       {activeResult && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))', gap: 16, marginBottom: 24 }}>
-          <Card title={`Scenario Result: ${activeName}`}>
-            <div style={{ fontSize: 13, color: colors.textMuted, marginBottom: 12 }}>
-              {activeResult.impact_summary}
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
-              {[
-                { label: 'Baseline CASK', value: activeResult.baseline.total_cask, unit: 'ct/ASK' },
-                { label: 'Scenario CASK', value: activeResult.scenario.total_cask, unit: 'ct/ASK' },
-                { label: 'CASK Delta', value: activeResult.deltas.total_cask, unit: 'ct/ASK',
-                  color: activeResult.deltas.total_cask > 0 ? colors.red : colors.green },
-                { label: 'Baseline RASK', value: activeResult.baseline.estimated_rask, unit: 'ct/ASK' },
-                { label: 'Scenario RASK', value: activeResult.scenario.estimated_rask, unit: 'ct/ASK' },
-                { label: 'Spread Delta', value: activeResult.deltas.spread, unit: 'ct/ASK',
-                  color: activeResult.deltas.spread > 0 ? colors.green : colors.red },
-              ].map(item => (
-                <div key={item.label} style={{ padding: 8, background: colors.bg, borderRadius: 6 }}>
-                  <div style={{ fontSize: 10, color: colors.textDim, marginBottom: 2 }}>{item.label}</div>
-                  <div style={{ fontSize: 18, fontWeight: 700, color: item.color ?? colors.text }}>
-                    {item.value >= 0 && item.color ? '+' : ''}{item.value.toFixed(2)}
+        <div className="mb-6 grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-4">
+          <Card>
+            <CardHeader><CardTitle>Scenario Result: {activeName}</CardTitle></CardHeader>
+            <CardContent>
+              <div className="mb-3 text-sm text-muted-foreground">
+                {activeResult.impact_summary}
+              </div>
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { label: 'Baseline CASK', value: activeResult.baseline.total_cask, unit: 'ct/ASK' },
+                  { label: 'Scenario CASK', value: activeResult.scenario.total_cask, unit: 'ct/ASK' },
+                  { label: 'CASK Delta', value: activeResult.deltas.total_cask, unit: 'ct/ASK',
+                    color: activeResult.deltas.total_cask > 0 ? chartColors.red : chartColors.green },
+                  { label: 'Baseline RASK', value: activeResult.baseline.estimated_rask, unit: 'ct/ASK' },
+                  { label: 'Scenario RASK', value: activeResult.scenario.estimated_rask, unit: 'ct/ASK' },
+                  { label: 'Spread Delta', value: activeResult.deltas.spread, unit: 'ct/ASK',
+                    color: activeResult.deltas.spread > 0 ? chartColors.green : chartColors.red },
+                ].map(item => (
+                  <div key={item.label} className="rounded-md bg-background p-2">
+                    <div className="mb-0.5 text-[10px] text-muted-foreground">{item.label}</div>
+                    <div className="text-lg font-bold" style={{ color: item.color }}>
+                      {item.value >= 0 && item.color ? '+' : ''}{item.value.toFixed(2)}
+                    </div>
+                    <div className="text-[10px] text-muted-foreground/60">{item.unit}</div>
                   </div>
-                  <div style={{ fontSize: 10, color: '#475569' }}>{item.unit}</div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </CardContent>
           </Card>
 
-          <Card title="Impact by Component">
-            <ResponsiveContainer width="100%" height={240}>
-              <BarChart data={deltaBar} layout="vertical" margin={{ left: 80 }}>
-                <XAxis type="number" tick={{ fontSize: 10, fill: colors.textMuted }} />
-                <YAxis type="category" dataKey="name" tick={{ fontSize: 12, fill: colors.textMuted }} width={80} />
-                <Tooltip contentStyle={tooltipStyle}
-                  formatter={(v: number) => `${v >= 0 ? '+' : ''}${v.toFixed(4)} ct/ASK`} />
-                <Bar dataKey="delta" radius={[0, 4, 4, 0]}>
-                  {deltaBar.map((entry, i) => (
-                    <Cell key={i} fill={entry.delta >= 0 ? colors.red : colors.green} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+          <Card>
+            <CardHeader><CardTitle>Impact by Component</CardTitle></CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={240}>
+                <BarChart data={deltaBar} layout="vertical" margin={{ left: 80 }}>
+                  <XAxis type="number" tick={chartAxisTick} />
+                  <YAxis type="category" dataKey="name" tick={{ fontSize: 12, fill: 'var(--muted-foreground)' }} width={80} />
+                  <Tooltip contentStyle={chartTooltipStyle}
+                    formatter={(v: number) => `${v >= 0 ? '+' : ''}${v.toFixed(4)} ct/ASK`} />
+                  <Bar dataKey="delta" radius={[0, 4, 4, 0]}>
+                    {deltaBar.map((entry, i) => (
+                      <Cell key={i} fill={entry.delta >= 0 ? chartColors.red : chartColors.green} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
           </Card>
         </div>
       )}
 
       {/* Scenario History */}
-      <Card title="Scenario History">
-        <DataTable<Scenario & Record<string, unknown>>
-          columns={[
-            { key: 'name', label: 'Name' },
-            {
-              key: 'status', label: 'Status',
-              render: r => <StatusBadge label={r.status} color={r.status === 'completed' ? colors.green : colors.orange} />,
-            },
-            {
-              key: 'parameters', label: 'Parameters',
-              render: r => <span style={{ fontSize: 11, fontFamily: 'monospace', color: colors.textMuted }}>{JSON.stringify(r.parameters)}</span>,
-            },
-            {
-              key: 'created_at', label: 'Created',
-              render: r => <span style={{ fontSize: 11 }}>{new Date(r.created_at).toLocaleString()}</span>,
-            },
-          ]}
-          data={(history.data ?? []) as (Scenario & Record<string, unknown>)[]}
-          emptyMessage="No scenarios run yet."
-        />
+      <Card>
+        <CardHeader><CardTitle>Scenario History</CardTitle></CardHeader>
+        <CardContent>
+          <DataTable<Scenario & Record<string, unknown>>
+            columns={[
+              { key: 'name', label: 'Name' },
+              {
+                key: 'status', label: 'Status',
+                render: r => <StatusBadge label={r.status} color={r.status === 'completed' ? chartColors.green : chartColors.orange} />,
+              },
+              {
+                key: 'parameters', label: 'Parameters',
+                render: r => <span className="font-mono text-[11px] text-muted-foreground">{JSON.stringify(r.parameters)}</span>,
+              },
+              {
+                key: 'created_at', label: 'Created',
+                render: r => <span className="text-[11px]">{new Date(r.created_at).toLocaleString()}</span>,
+              },
+            ]}
+            data={(history.data ?? []) as (Scenario & Record<string, unknown>)[]}
+            emptyMessage="No scenarios run yet."
+          />
+        </CardContent>
       </Card>
     </div>
   )

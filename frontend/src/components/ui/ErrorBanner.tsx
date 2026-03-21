@@ -1,4 +1,5 @@
-import { colors, buttonStyle } from '@/styles/theme'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
 
 interface ErrorBannerProps {
   message: string
@@ -7,23 +8,15 @@ interface ErrorBannerProps {
 
 export function ErrorBanner({ message, onRetry }: ErrorBannerProps) {
   return (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: 12,
-      padding: '10px 14px',
-      background: 'rgba(239, 68, 68, 0.1)',
-      border: `1px solid ${colors.red}`,
-      borderRadius: 8,
-      color: colors.red,
-      fontSize: 13,
-    }}>
-      <span style={{ flex: 1 }}>{message}</span>
-      {onRetry && (
-        <button onClick={onRetry} style={{ ...buttonStyle, fontSize: 12, padding: '4px 10px' }}>
-          Retry
-        </button>
-      )}
-    </div>
+    <Alert variant="destructive" className="mb-4">
+      <AlertDescription className="flex items-center gap-3">
+        <span className="flex-1">{message}</span>
+        {onRetry && (
+          <Button variant="outline" size="sm" onClick={onRetry}>
+            Retry
+          </Button>
+        )}
+      </AlertDescription>
+    </Alert>
   )
 }

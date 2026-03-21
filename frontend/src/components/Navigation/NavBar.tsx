@@ -2,6 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { cn } from '@/lib/utils'
+import { Plane } from 'lucide-react'
 
 const NAV_ITEMS = [
   { href: '/dashboard', label: 'Live Map' },
@@ -16,24 +18,12 @@ export default function NavBar() {
   const pathname = usePathname()
 
   return (
-    <nav style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: 4,
-      padding: '0 16px',
-      height: 48,
-      background: '#0f172a',
-      borderBottom: '1px solid #1e293b',
-      flexShrink: 0,
-    }}>
-      <Link href="/dashboard" style={{
-        fontWeight: 700,
-        fontSize: 15,
-        color: '#38bdf8',
-        textDecoration: 'none',
-        marginRight: 20,
-        letterSpacing: '-0.02em',
-      }}>
+    <nav className="flex h-12 shrink-0 items-center gap-1 border-b border-border bg-background px-4">
+      <Link
+        href="/dashboard"
+        className="mr-5 flex items-center gap-2 text-sm font-bold tracking-tight text-primary no-underline"
+      >
+        <Plane className="h-4 w-4" />
         PlaneLogistics
       </Link>
       {NAV_ITEMS.map(item => {
@@ -42,16 +32,12 @@ export default function NavBar() {
           <Link
             key={item.href}
             href={item.href}
-            style={{
-              padding: '6px 12px',
-              borderRadius: 6,
-              fontSize: 13,
-              fontWeight: active ? 600 : 400,
-              color: active ? '#f1f5f9' : '#94a3b8',
-              background: active ? '#1e293b' : 'transparent',
-              textDecoration: 'none',
-              transition: 'all 0.15s',
-            }}
+            className={cn(
+              'rounded-md px-3 py-1.5 text-sm no-underline transition-colors',
+              active
+                ? 'bg-card font-semibold text-foreground'
+                : 'text-muted-foreground hover:bg-card/50 hover:text-foreground'
+            )}
           >
             {item.label}
           </Link>
