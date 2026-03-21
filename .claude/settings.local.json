@@ -4,7 +4,24 @@
       "Bash(docker --version)",
       "Bash(docker compose:*)",
       "Bash(curl -s http://localhost:8000/flights/live)",
-      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f''''count={d[\"\"meta\"\"][\"\"count\"\"]}''''\\)\")"
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(f''''count={d[\"\"meta\"\"][\"\"count\"\"]}''''\\)\")",
+      "Bash(find /Users/Aiden/Desktop/PlaneLogistics -type f -not -path */.* -not -path */node_modules/* -not -path */__pycache__/* -not -path */.next/*)",
+      "Bash(npx tsc:*)",
+      "Bash(pip3 install:*)",
+      "Bash(python3 -c \"import ast; ast.parse\\(open\\(''main.py''\\).read\\(\\)\\); print\\(''main.py syntax OK''\\)\")",
+      "Bash(python3 -c \"import ast; ast.parse\\(open\\(''services/flight_aggregator.py''\\).read\\(\\)\\); print\\(''flight_aggregator.py syntax OK''\\)\")",
+      "Bash(find /Users/Aiden/Desktop/PlaneLogistics/backend/tests -type f -name *.py)",
+      "Bash(wc:*)",
+      "Bash(pip install:*)",
+      "Bash(pip index:*)",
+      "Bash(python3 -m pip install pytest pytest-asyncio pytest-cov respx)",
+      "Bash(python3:*)",
+      "Bash(npx next:*)",
+      "Bash(export PATH=\"/opt/homebrew/bin:/usr/local/bin:$PATH\")",
+      "Read(//usr/**)",
+      "Read(//opt/**)",
+      "Read(//Users/Aiden/**)",
+      "Read(//Users/Aiden/.nvm/versions/node/**)"
     ]
   }
 }

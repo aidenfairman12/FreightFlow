@@ -2,59 +2,80 @@
 OpenSky Network API client.
 
 OAuth2 client credentials flow — acquire a token then poll state vectors
-for Swiss airspace every `poll_interval_seconds`.
+for SWISS International Air Lines flights worldwide.
 
-Swiss bounding box: lamin=45.8, lamax=47.9, lomin=5.9, lomax=10.6
+Fetches global state vectors and filters to SWR callsign prefix (SWISS).
 OpenSky state vector field order: https://opensky-network.org/apidoc/rest.html
 """
+
+import logging
 
 import httpx
 from datetime import datetime
 
 from config import settings
 from models.state_vector import StateVector
+from services.opensky_auth import get_token
+from services.opensky_credits import can_call, record_call
+from services.swiss_filter import is_swiss_flight
 
-OPENSKY_TOKEN_URL = (
-    "https://auth.opensky-network.org/auth/realms/opensky-network"
-    "/protocol/openid-connect/token"
-)
+logger = logging.getLogger(__name__)
+
 OPENSKY_STATES_URL = "https://opensky-network.org/api/states/all"
 
-SWISS_BBOX = {
-    "lamin": 45.8,
-    "lamax": 47.9,
-    "lomin": 5.9,
-    "lomax": 10.6,
-}
 
-
-async def fetch_access_token(client: httpx.AsyncClient) -> str:
-    """Exchange client credentials for a Bearer token."""
-    response = await client.post(
-        OPENSKY_TOKEN_URL,
-        data={
-            "grant_type": "client_credentials",
-            "client_id": settings.opensky_client_id,
-            "client_secret": settings.opensky_client_secret,
-        },
-    )
-    response.raise_for_status()
-    return response.json()["access_token"]
+async def validate_credentials() -> bool:
+    """Test OpenSky credentials at startup. Returns True if valid."""
+    if not settings.opensky_client_id or not settings.opensky_client_secret:
+        logger.error(
+            "OPENSKY_CLIENT_ID and OPENSKY_CLIENT_SECRET are not set. "
+            "OpenSky polling will be disabled. "
+            "Set them in .env (see .env.example)."
+        )
+        return False
+    try:
+        token = await get_token()
+        logger.info("OpenSky credentials validated successfully")
+        return True
+    except httpx.HTTPStatusError as e:
+        if e.response.status_code == 401:
+            logger.error(
+                "OpenSky credentials are invalid (HTTP 401). "
+                "Check OPENSKY_CLIENT_ID and OPENSKY_CLIENT_SECRET in .env."
+            )
+        else:
+            logger.error("OpenSky token endpoint returned HTTP %d", e.response.status_code)
+        return False
+    except httpx.ConnectError:
+        logger.warning(
+            "Cannot reach OpenSky auth server — network may be unavailable. "
+            "OpenSky polling will start but may fail until connectivity is restored."
+        )
+        return True  # allow startup, polling will retry
+    except Exception:
+        logger.exception("Unexpected error validating OpenSky credentials")
+        return False
 
 
 async def fetch_swiss_states() -> list[StateVector]:
-    """Poll OpenSky for all aircraft currently in Swiss airspace."""
-    async with httpx.AsyncClient(timeout=15) as client:
-        token = await fetch_access_token(client)
+    """Poll OpenSky for all SWISS (SWR) flights worldwide."""
+    if not can_call():
+        logger.warning("Skipping state poll — daily credit limit reached")
+        return []
+    token = await get_token()
+    record_call()
+    async with httpx.AsyncClient(timeout=30) as client:
         response = await client.get(
             OPENSKY_STATES_URL,
-            params=SWISS_BBOX,
             headers={"Authorization": f"Bearer {token}"},
         )
         response.raise_for_status()
         data = response.json()
 
-    return [_parse_state_vector(sv) for sv in (data.get("states") or [])]
+    all_states = [_parse_state_vector(sv) for sv in (data.get("states") or [])]
+    swiss_flights = [sv for sv in all_states if is_swiss_flight(sv.callsign)]
+    logger.debug("Global states: %d, SWISS flights: %d", len(all_states), len(swiss_flights))
+    return swiss_flights
 
 
 def _parse_state_vector(sv: list) -> StateVector:
