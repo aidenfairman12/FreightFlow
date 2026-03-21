@@ -417,7 +417,7 @@ def get_cache_stats() -> dict:
 
 # ── Optional: AirLabs bulk fetch ─────────────────────────────────────────────
 
-AIRLABS_ROUTES_URL = "https://airlabs.co/api/v9/schedules"
+AIRLABS_ROUTES_URL = "https://airlabs.co/api/v9/routes"
 
 
 async def _fetch_airline_routes(client: httpx.AsyncClient, api_key: str,
@@ -434,6 +434,10 @@ async def _fetch_airline_routes(client: httpx.AsyncClient, api_key: str,
     if not routes:
         logger.warning("AirLabs returned no routes for %s", airline_icao)
         return 0
+
+    # Log sample route for debugging field names
+    logger.info("AirLabs %s: %d routes returned. Sample: %s",
+                airline_icao, len(routes), routes[0])
 
     count = 0
     for route in routes:
@@ -466,11 +470,16 @@ async def fetch_routes_from_airlabs() -> int:
     """Bulk-fetch all SWISS + Edelweiss routes from AirLabs.
 
     Requires AIRLABS_API_KEY to be set in .env.
+    Uses the /routes endpoint which returns the full route database
+    (unlike /schedules which only returns near-future flights).
     Returns count of routes learned. Safe to call multiple times (idempotent).
     """
     api_key = settings.airlabs_api_key
     if not api_key:
+        logger.warning("AirLabs: AIRLABS_API_KEY not set, skipping route fetch")
         return 0
+
+    logger.info("AirLabs: fetching routes for SWR + EDW...")
 
     try:
         async with httpx.AsyncClient(timeout=30) as client:
@@ -483,10 +492,13 @@ async def fetch_routes_from_airlabs() -> int:
             _save_cache()
             logger.info("AirLabs: learned %d SWR + %d EDW routes (%d total in cache)",
                         swr_count, edw_count, len(_learned))
+        else:
+            logger.warning("AirLabs: 0 routes learned — check API key and response format")
         return total
 
     except httpx.HTTPStatusError as e:
-        logger.warning("AirLabs API error: HTTP %d", e.response.status_code)
+        logger.warning("AirLabs API error: HTTP %d — check your AIRLABS_API_KEY",
+                        e.response.status_code)
         return 0
     except Exception:
         logger.exception("AirLabs route fetch failed")

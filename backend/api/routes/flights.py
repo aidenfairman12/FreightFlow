@@ -6,6 +6,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from db.session import get_db
 from services.redis_cache import get_cached_flights
+from services import route_cache
+from services.enrichment import get_aircraft_type, lookup_airline
+from services.fuel_model import estimate_for_sv
 
 router = APIRouter()
 
@@ -25,10 +28,20 @@ async def get_live_flights(db: AsyncSession = Depends(get_db)) -> dict[str, Any]
             fuel_flow_kg_s, co2_kg_s
         FROM state_vectors
         WHERE time > NOW() - INTERVAL '2 minutes'
-          AND callsign LIKE 'SWR%'
+          AND (callsign LIKE 'SWR%' OR callsign LIKE 'EDW%')
         ORDER BY icao24, time DESC
     """))
-    rows = [dict(r) for r in result.mappings()]
+    rows = []
+    for r in result.mappings():
+        row = dict(r)
+        # Enrich with route, aircraft type, and airline — same as _poll_opensky()
+        origin, destination = route_cache.get_route(row["icao24"], row.get("callsign"))
+        aircraft_type = get_aircraft_type(row["icao24"])
+        row["aircraft_type"] = aircraft_type
+        row["airline_name"] = lookup_airline(row.get("callsign"))
+        row["origin_airport"] = origin
+        row["destination_airport"] = destination
+        rows.append(row)
     return {"data": rows, "error": None, "meta": {"count": len(rows), "source": "database"}}
 
 
