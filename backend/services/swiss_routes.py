@@ -288,9 +288,15 @@ SEED_ROUTES: dict[int, tuple[str, str]] = {
     2451: ("LEMD", "LSGG"),     # MAD -> GVA
 }
 
-# Callsign patterns: "SWR" or "EDW" + digits + optional letter suffix
-_SWR_RE = re.compile(r"^SWR(\d+)[A-Z]?$", re.IGNORECASE)
-_EDW_RE = re.compile(r"^EDW(\d+)[A-Z]?$", re.IGNORECASE)
+# Callsign patterns: "SWR" or "EDW" + digits + optional letter suffix(es).
+# Single-letter suffixes (SWR8A, SWR180F) are common operational variants of
+# scheduled flights. Multi-letter suffixes (SWR3LZ) have been observed but their
+# meaning is not confirmed — they may be ferry/repositioning flights, charters,
+# or internal SWISS conventions. No authoritative public source defines suffix
+# semantics, so we parse the flight number and attempt route lookup regardless.
+# If no route is found, the flight simply shows "Unknown" origin/destination.
+_SWR_RE = re.compile(r"^SWR(\d+)[A-Z]*$", re.IGNORECASE)
+_EDW_RE = re.compile(r"^EDW(\d+)[A-Z]*$", re.IGNORECASE)
 
 
 def _is_swiss_or_edw(callsign: str) -> bool:
