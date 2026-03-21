@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**PlaneLogistics** is a SWISS Airline Intelligence Platform. It tracks all SWISS International Air Lines (SWR) flights worldwide via OpenSky ADS-B data and layers on financial modeling, ML predictions, and scenario analysis — all from publicly available data. The ingestion pipeline fetches global state vectors and filters to SWR callsigns, so only SWISS flights are stored and displayed.
+**PlaneLogistics** is a SWISS Airline Intelligence Platform. It tracks all SWISS International Air Lines (SWR) and Edelweiss Air (EDW) flights worldwide via OpenSky ADS-B data and layers on financial modeling, ML predictions, and scenario analysis — all from publicly available data. The ingestion pipeline fetches global state vectors and filters to SWR + EDW callsigns, so only SWISS/Edelweiss flights are stored and displayed. Edelweiss is a SWISS subsidiary and is counted as part of the SWISS (LX) fleet in Lufthansa Group reporting.
 
 Phases 1-2 (live ADS-B + fuel modeling) and Phases 5-9 (SWISS BI platform) are complete. `files/swiss-airspace-poc.jsx` is the original PoC. `files/swiss-airspace-architecture.md` is the original architecture plan.
 
