@@ -42,9 +42,34 @@ export function useApiData<T>(
   useEffect(() => {
     doFetch(true)
 
-    if (options?.refreshInterval) {
-      const id = setInterval(() => doFetch(false), options.refreshInterval)
-      return () => clearInterval(id)
+    if (!options?.refreshInterval) return
+
+    const interval = options.refreshInterval
+
+    let id: ReturnType<typeof setInterval> | null = null
+
+    const start = () => {
+      if (!id) id = setInterval(() => doFetch(false), interval)
+    }
+    const stop = () => {
+      if (id) { clearInterval(id); id = null }
+    }
+
+    const onVisibility = () => {
+      if (document.hidden) {
+        stop()
+      } else {
+        doFetch(false)
+        start()
+      }
+    }
+
+    start()
+    document.addEventListener('visibilitychange', onVisibility)
+
+    return () => {
+      stop()
+      document.removeEventListener('visibilitychange', onVisibility)
     }
   }, [doFetch, options?.refreshInterval])
 

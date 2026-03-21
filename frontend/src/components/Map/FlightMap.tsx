@@ -18,6 +18,20 @@ const planeSvg = (size: number, fill: string) =>
 
 const ICON_PX = 20
 
+// Cache icon HTML strings to avoid regenerating SVG on every update
+// Key: `${roundedHeading}_${isSelected}`
+const iconHtmlCache = new Map<string, string>()
+function getIconHtml(heading: number | null, isSelected: boolean): string {
+  const rounded = Math.round((heading ?? 0) / 5) * 5
+  const key = `${rounded}_${isSelected ? 1 : 0}`
+  let html = iconHtmlCache.get(key)
+  if (!html) {
+    html = `<div style="transform:rotate(${rounded}deg);width:${ICON_PX}px;height:${ICON_PX}px;">${planeSvg(ICON_PX, isSelected ? '#000000' : '#dc0018')}</div>`
+    iconHtmlCache.set(key, html)
+  }
+  return html
+}
+
 export default function FlightMap({ onFlightSelect }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<import('leaflet').Map | null>(null)
@@ -53,13 +67,19 @@ export default function FlightMap({ onFlightSelect }: Props) {
 
       const planeIcon = (heading: number | null, isSelected: boolean) =>
         L.divIcon({
-          html: `<div style="transform:rotate(${heading ?? 0}deg);width:${ICON_PX}px;height:${ICON_PX}px;">${planeSvg(ICON_PX, isSelected ? '#000000' : '#dc0018')}</div>`,
+          html: getIconHtml(heading, isSelected),
           className: '',
           iconSize: [ICON_PX, ICON_PX],
           iconAnchor: [ICON_PX / 2, ICON_PX / 2],
         })
 
       const updateMarkers = (flights: StateVector[]) => {
+        // Skip DOM updates when tab is hidden
+        if (document.hidden) {
+          for (const f of flights) flightDataRef.current.set(f.icao24, f)
+          return
+        }
+
         const seen = new Set<string>()
 
         for (const flight of flights) {
@@ -118,6 +138,7 @@ export default function FlightMap({ onFlightSelect }: Props) {
 
       // Fallback: REST polling every 10s (works when WebSocket or Redis are unavailable)
       const pollRest = async () => {
+        if (document.hidden) return
         try {
           const res = await fetch(`${API}/flights/live`)
           const json = await res.json()
@@ -151,7 +172,7 @@ export default function FlightMap({ onFlightSelect }: Props) {
 
     const planeIcon = (heading: number | null, isSelected: boolean) =>
       L.divIcon({
-        html: `<div style="transform:rotate(${heading ?? 0}deg);width:${ICON_PX}px;height:${ICON_PX}px;">${planeSvg(ICON_PX, isSelected ? '#000000' : '#dc0018')}</div>`,
+        html: getIconHtml(heading, isSelected),
         className: '',
         iconSize: [ICON_PX, ICON_PX],
         iconAnchor: [ICON_PX / 2, ICON_PX / 2],

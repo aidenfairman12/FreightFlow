@@ -23,6 +23,7 @@ A SWISS International Air Lines intelligence platform that combines real-time AD
 | **Economics** | `/economics` | Economic indicator cards (fuel, carbon, FX), CASK breakdown pie chart, CASK vs RASK trend, stacked cost components |
 | **ML & Predictions** | `/predictions` | Feature importance bars, CASK forecast with confidence bands, fuel anomaly table, route profitability scores |
 | **Scenarios** | `/scenarios` | 8 preset what-if scenarios, custom parameter builder, delta charts, scenario history |
+| **Schedule** | `/schedule` | Learned flight schedule patterns, weekly heatmap, imputed flights with status tracking |
 
 ## Quick Start
 
@@ -32,14 +33,17 @@ cp .env.example .env
 # Edit .env: add OPENSKY_CLIENT_ID and OPENSKY_CLIENT_SECRET
 # Add EIA_API_KEY for jet fuel & crude oil prices (free at https://www.eia.gov/opendata/register.php)
 
-# 2. Start everything
-docker compose up
+# 2. Start everything (first time — builds production frontend)
+docker compose up --build
 
 # 3. Open
 open http://localhost:3000
+
+# Subsequent starts (no rebuild needed unless code changes)
+docker compose up
 ```
 
-The dashboard starts showing live flights within ~10 seconds. KPIs and economics populate over time as data accumulates (KPIs compute hourly, economic data fetches every 6 hours).
+The dashboard starts showing live flights within ~30 seconds. KPIs and economics populate over time as data accumulates (KPIs compute hourly, economic data fetches every 6 hours).
 
 ## Running Without Docker
 
@@ -89,7 +93,7 @@ PlaneLogistics/
 │   ├── api/routes/            REST endpoints
 │   └── models/                Pydantic data models
 ├── frontend/                  Next.js 14 (App Router, TypeScript)
-│   └── src/app/               Pages: dashboard, analytics, economics, predictions, scenarios
+│   └── src/app/               Pages: dashboard, analytics, economics, predictions, scenarios, schedule
 ├── db/init.sql                TimescaleDB schema (10 tables)
 ├── docker-compose.yml         Postgres + TimescaleDB, Redis, backend, frontend
 └── docs/ARCHITECTURE.md       Detailed system architecture
@@ -136,7 +140,7 @@ docker compose up postgres backend
 
 | Component | Full mode | Collect mode |
 |-----------|-----------|--------------|
-| OpenSky poll | Every 10s | Every 30s |
+| OpenSky poll | Every 30s | Every 60s |
 | Enrichment + Postgres write | Yes | Yes |
 | Route learning | Yes | Yes |
 | Flight aggregation | Every 5 min | Every 5 min |
