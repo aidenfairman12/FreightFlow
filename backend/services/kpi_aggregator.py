@@ -129,14 +129,15 @@ async def compute_kpis(
         aircraft_count = 0
         for row in ask_result.mappings():
             ac_type = row["aircraft_type"]
-            seats = get_seat_count(ac_type)
-            cruise_speed = get_cruise_speed_kmh(ac_type)
+            cs = row["callsign"]
+            seats = get_seat_count(ac_type, cs)
+            cruise_speed = get_cruise_speed_kmh(ac_type, cs)
             # Each aircraft's contribution: seats × (block_hours × speed)
             aircraft_block_hours = total_block_hours / unique_aircraft if unique_aircraft else 0
             distance_km = aircraft_block_hours * cruise_speed
             total_ask += seats * distance_km
             # Accumulate weighted load factor by category
-            weighted_load_factor += get_load_factor(ac_type)
+            weighted_load_factor += get_load_factor(ac_type, cs)
             aircraft_count += 1
 
         # 4. Fuel totals (using actual time deltas between samples)
