@@ -20,7 +20,7 @@ class AircraftSpec:
     cruise_speed_kmh: int   # typical cruise speed (km/h), from manufacturer data
 
 
-# SWISS mainline fleet + common Swiss airspace types
+# SWISS + Edelweiss fleet (116 aircraft per LH Group 2025 report) + common Swiss airspace types
 AIRCRAFT_SPECS: dict[str, AircraftSpec] = {
     # SWISS fleet
     "BCS1": AircraftSpec("BCS1", "Airbus A220-100", 125, 63_100, 5_460, "narrowbody", 830),
@@ -32,6 +32,7 @@ AIRCRAFT_SPECS: dict[str, AircraftSpec] = {
     "A319": AircraftSpec("A319", "Airbus A319", 144, 75_500, 6_850, "narrowbody", 828),
     "A333": AircraftSpec("A333", "Airbus A330-300", 236, 242_000, 11_750, "widebody", 871),
     "A343": AircraftSpec("A343", "Airbus A340-300", 223, 276_500, 13_700, "widebody", 871),
+    "A359": AircraftSpec("A359", "Airbus A350-900", 293, 280_000, 15_000, "widebody", 903),
     "B77W": AircraftSpec("B77W", "Boeing 777-300ER", 340, 351_500, 13_650, "widebody", 892),
     # Other common types in Swiss airspace
     "B738": AircraftSpec("B738", "Boeing 737-800", 189, 79_016, 5_436, "narrowbody", 842),

@@ -1,4 +1,4 @@
-"""Tests for services.swiss_filter — SWISS flight identification."""
+"""Tests for services.swiss_filter — SWISS + Edelweiss flight identification."""
 
 from services.swiss_filter import is_swiss_flight, swiss_callsign_sql_filter
 
@@ -13,6 +13,12 @@ class TestIsSwissFlight:
     def test_lowercase_returns_true(self):
         assert is_swiss_flight("swr22") is True
 
+    def test_edelweiss_included_by_default(self):
+        assert is_swiss_flight("EDW100") is True
+
+    def test_edelweiss_lowercase(self):
+        assert is_swiss_flight("edw55") is True
+
     def test_non_swiss_returns_false(self):
         assert is_swiss_flight("DLH123") is False
 
@@ -22,17 +28,9 @@ class TestIsSwissFlight:
     def test_empty_string_returns_false(self):
         assert is_swiss_flight("") is False
 
-    def test_edelweiss_excluded_by_default(self):
-        assert is_swiss_flight("EDW100") is False
-
-    def test_edelweiss_included_with_flag(self):
-        assert is_swiss_flight("EDW100", include_edelweiss=True) is True
-
 
 class TestSwissCallsignSqlFilter:
-    def test_without_edelweiss(self):
-        assert swiss_callsign_sql_filter() == "(callsign LIKE 'SWR%')"
-
-    def test_with_edelweiss(self):
-        result = swiss_callsign_sql_filter(include_edelweiss=True)
-        assert result == "(callsign LIKE 'SWR%' OR callsign LIKE 'EDW%')"
+    def test_includes_both_prefixes(self):
+        result = swiss_callsign_sql_filter()
+        assert "SWR%" in result
+        assert "EDW%" in result
