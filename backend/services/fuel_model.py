@@ -70,9 +70,11 @@ def estimate_for_sv(
     """Compute instantaneous cruise fuel burn from a StateVector's fields."""
     if velocity_ms is None or baro_altitude_m is None or velocity_ms < 50:
         return None  # on ground or no data
+    from services.aircraft_data import get_cruise_mass_kg
     ac_type = aircraft_type or "A320"  # generic narrowbody fallback
     if ac_type not in _model_cache:
         _model_cache[ac_type] = FuelModel(ac_type)
     tas_kt = velocity_ms * 1.94384       # m/s → knots
     alt_ft = baro_altitude_m * 3.28084  # m → feet
-    return _model_cache[ac_type].enroute_burn(mass_kg=65000, tas_kt=tas_kt, alt_ft=alt_ft)
+    mass_kg = get_cruise_mass_kg(ac_type)
+    return _model_cache[ac_type].enroute_burn(mass_kg=mass_kg, tas_kt=tas_kt, alt_ft=alt_ft)

@@ -11,14 +11,10 @@ import logging
 
 import httpx
 
-from config import settings
+from services.opensky_auth import get_token
 
 logger = logging.getLogger(__name__)
 
-OPENSKY_TOKEN_URL = (
-    "https://auth.opensky-network.org/auth/realms/opensky-network"
-    "/protocol/openid-connect/token"
-)
 OPENSKY_METADATA_URL = "https://opensky-network.org/api/metadata/aircraft/icao/{icao24}"
 
 # ICAO airline prefix -> human-readable name (expand as data comes in)
@@ -64,18 +60,8 @@ async def _fetch_aircraft_type(icao24: str) -> None:
     _type_fetching.add(icao24)
     try:
         async with _semaphore:
+            token = await get_token()
             async with httpx.AsyncClient(timeout=10) as client:
-                token_resp = await client.post(
-                    OPENSKY_TOKEN_URL,
-                    data={
-                        "grant_type": "client_credentials",
-                        "client_id": settings.opensky_client_id,
-                        "client_secret": settings.opensky_client_secret,
-                    },
-                )
-                token_resp.raise_for_status()
-                token = token_resp.json()["access_token"]
-
                 resp = await client.get(
                     OPENSKY_METADATA_URL.format(icao24=icao24),
                     headers={"Authorization": f"Bearer {token}"},
