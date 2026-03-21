@@ -417,62 +417,58 @@ def get_cache_stats() -> dict:
 
 # ── Optional: AirLabs bulk fetch ─────────────────────────────────────────────
 
-AIRLABS_ROUTES_URL = "https://airlabs.co/api/v9/routes"
+AIRLABS_BASE = "https://airlabs.co/api/v9"
 
 
-async def _fetch_airline_routes(client: httpx.AsyncClient, api_key: str,
-                                airline_icao: str, callsign_prefix: str) -> int:
-    """Fetch routes for one airline from AirLabs and add to learned cache."""
-    resp = await client.get(
-        AIRLABS_ROUTES_URL,
-        params={"api_key": api_key, "airline_icao": airline_icao},
+async def _paginate_airlabs(client: httpx.AsyncClient, endpoint: str,
+                            api_key: str, airline_icao: str) -> list[dict]:
+    """Fetch all pages from an AirLabs endpoint (free tier returns 50/page)."""
+    all_routes: list[dict] = []
+    offset = 0
+    while True:
+        resp = await client.get(
+            f"{AIRLABS_BASE}/{endpoint}",
+            params={"api_key": api_key, "airline_icao": airline_icao, "offset": offset},
+        )
+        resp.raise_for_status()
+        routes = resp.json().get("response", [])
+        if not routes:
+            break
+        all_routes.extend(routes)
+        offset += len(routes)
+        if len(routes) < 50:
+            break
+    return all_routes
+
+
+def _extract_route(route: dict, callsign_prefix: str) -> tuple[str, str, str] | None:
+    """Extract (callsign, dep_icao, arr_icao) from an AirLabs route/schedule entry."""
+    flight_num = route.get("flight_number")
+    if flight_num is None:
+        return None
+
+    dep_icao = route.get("dep_icao") or IATA_TO_ICAO.get(
+        route.get("dep_iata", ""), ""
     )
-    resp.raise_for_status()
-    data = resp.json()
+    arr_icao = route.get("arr_icao") or IATA_TO_ICAO.get(
+        route.get("arr_iata", ""), ""
+    )
 
-    routes = data.get("response", [])
-    if not routes:
-        logger.warning("AirLabs returned no routes for %s", airline_icao)
-        return 0
+    if not dep_icao or not arr_icao or dep_icao == arr_icao:
+        return None
 
-    # Log sample route for debugging field names
-    logger.info("AirLabs %s: %d routes returned. Sample: %s",
-                airline_icao, len(routes), routes[0])
-
-    count = 0
-    for route in routes:
-        flight_num = route.get("flight_number")
-        if flight_num is None:
-            continue
-
-        # AirLabs may return ICAO or IATA codes
-        dep_icao = route.get("dep_icao") or IATA_TO_ICAO.get(
-            route.get("dep_iata", ""), ""
-        )
-        arr_icao = route.get("arr_icao") or IATA_TO_ICAO.get(
-            route.get("arr_iata", ""), ""
-        )
-
-        if not dep_icao or not arr_icao:
-            continue
-        if dep_icao == arr_icao:
-            continue  # data artifact
-
-        cs = f"{callsign_prefix}{flight_num}"
-        if cs not in _learned:
-            _learned[cs] = [dep_icao, arr_icao]
-            count += 1
-
-    return count
+    return f"{callsign_prefix}{flight_num}", dep_icao, arr_icao
 
 
 async def fetch_routes_from_airlabs() -> int:
     """Bulk-fetch all SWISS + Edelweiss routes from AirLabs.
 
+    Queries both /routes (static route database) and /schedules (currently
+    active flights) to maximize coverage. The free tier returns 50 results
+    per page; we paginate to get all available data.
+
     Requires AIRLABS_API_KEY to be set in .env.
-    Uses the /routes endpoint which returns the full route database
-    (unlike /schedules which only returns near-future flights).
-    Returns count of routes learned. Safe to call multiple times (idempotent).
+    Returns count of newly learned routes.
     """
     api_key = settings.airlabs_api_key
     if not api_key:
@@ -482,19 +478,29 @@ async def fetch_routes_from_airlabs() -> int:
     logger.info("AirLabs: fetching routes for SWR + EDW...")
 
     try:
+        count = 0
         async with httpx.AsyncClient(timeout=30) as client:
-            # Fetch both SWISS (SWR) and Edelweiss (EDW/WK)
-            swr_count = await _fetch_airline_routes(client, api_key, "SWR", "SWR")
-            edw_count = await _fetch_airline_routes(client, api_key, "EDW", "EDW")
+            for airline_icao, prefix in [("SWR", "SWR"), ("EDW", "EDW")]:
+                # Fetch from both endpoints for maximum coverage
+                for endpoint in ["routes", "schedules"]:
+                    routes = await _paginate_airlabs(client, endpoint, api_key, airline_icao)
+                    endpoint_count = 0
+                    for route in routes:
+                        extracted = _extract_route(route, prefix)
+                        if extracted:
+                            cs, dep, arr = extracted
+                            if cs not in _learned:
+                                _learned[cs] = [dep, arr]
+                                endpoint_count += 1
+                    logger.info("AirLabs %s /%s: %d entries, %d new routes learned",
+                                airline_icao, endpoint, len(routes), endpoint_count)
+                    count += endpoint_count
 
-        total = swr_count + edw_count
-        if total > 0:
+        if count > 0:
             _save_cache()
-            logger.info("AirLabs: learned %d SWR + %d EDW routes (%d total in cache)",
-                        swr_count, edw_count, len(_learned))
-        else:
-            logger.warning("AirLabs: 0 routes learned — check API key and response format")
-        return total
+        logger.info("AirLabs: %d new routes learned (%d total in cache)",
+                     count, len(_learned))
+        return count
 
     except httpx.HTTPStatusError as e:
         logger.warning("AirLabs API error: HTTP %d — check your AIRLABS_API_KEY",
