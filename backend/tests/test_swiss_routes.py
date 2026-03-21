@@ -7,8 +7,9 @@ from services.swiss_routes import parse_flight_number, get_route, _learned, lear
 
 @pytest.fixture(autouse=True)
 def _clean_learned_cache():
-    """Save and restore the learned routes cache between tests."""
+    """Clear learned routes for test isolation, restore after."""
     saved = _learned.copy()
+    _learned.clear()
     yield
     _learned.clear()
     _learned.update(saved)
@@ -23,6 +24,9 @@ class TestParseFlightNumber:
 
     def test_lowercase(self):
         assert parse_flight_number("swr22") == 22
+
+    def test_edw_callsign(self):
+        assert parse_flight_number("EDW100") == 100
 
     def test_non_swr_returns_none(self):
         assert parse_flight_number("DLH100") is None
@@ -59,3 +63,28 @@ class TestGetRoute:
         origin, dest = get_route("DLH100")
         assert origin is None
         assert dest is None
+
+    def test_edw_learned_route(self):
+        _learned["EDW100"] = ["LSZH", "LGIR"]
+        origin, dest = get_route("EDW100")
+        assert origin == "LSZH"
+        assert dest == "LGIR"
+
+    def test_edw_hub_fallback(self):
+        origin, dest = get_route("EDW500")
+        assert origin == "LSZH"
+        assert dest is None
+
+
+class TestLearnRoute:
+    def test_rejects_same_origin_dest(self):
+        learn_route("SWR53", "LSZH", "LSZH")
+        assert "SWR53" not in _learned
+
+    def test_learns_valid_route(self):
+        learn_route("SWR999", "LSZH", "EGLL")
+        assert _learned["SWR999"] == ["LSZH", "EGLL"]
+
+    def test_learns_edw_route(self):
+        learn_route("EDW100", "LSZH", "LGIR")
+        assert _learned["EDW100"] == ["LSZH", "LGIR"]

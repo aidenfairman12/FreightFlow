@@ -288,19 +288,27 @@ SEED_ROUTES: dict[int, tuple[str, str]] = {
     2451: ("LEMD", "LSGG"),     # MAD -> GVA
 }
 
-# Callsign pattern: "SWR" + digits + optional letter suffix
-_CALLSIGN_RE = re.compile(r"^SWR(\d+)[A-Z]?$", re.IGNORECASE)
+# Callsign patterns: "SWR" or "EDW" + digits + optional letter suffix
+_SWR_RE = re.compile(r"^SWR(\d+)[A-Z]?$", re.IGNORECASE)
+_EDW_RE = re.compile(r"^EDW(\d+)[A-Z]?$", re.IGNORECASE)
+
+
+def _is_swiss_or_edw(callsign: str) -> bool:
+    """Check if callsign is SWISS (SWR) or Edelweiss (EDW)."""
+    prefix = callsign.strip()[:3].upper()
+    return prefix in ("SWR", "EDW")
 
 
 def parse_flight_number(callsign: str | None) -> int | None:
-    """Extract numeric LX flight number from an SWR callsign.
+    """Extract numeric flight number from an SWR or EDW callsign.
 
-    SWR8 -> 8, SWR180 -> 180, SWR180A -> 180, SWR2024 -> 2024.
-    Returns None if callsign is not a valid SWR format.
+    SWR8 -> 8, SWR180A -> 180, EDW100 -> 100.
+    Returns None if callsign is not a valid SWR/EDW format.
     """
     if not callsign:
         return None
-    m = _CALLSIGN_RE.match(callsign.strip())
+    cs = callsign.strip()
+    m = _SWR_RE.match(cs) or _EDW_RE.match(cs)
     if m:
         return int(m.group(1))
     return None
@@ -309,26 +317,29 @@ def parse_flight_number(callsign: str | None) -> int | None:
 def _normalize_callsign(callsign: str) -> str:
     """Normalize callsign for cache key: strip suffix, uppercase.
 
-    SWR8 -> SWR8, SWR180A -> SWR180, swr22 -> SWR22.
+    SWR8 -> SWR8, SWR180A -> SWR180, swr22 -> SWR22, EDW100 -> EDW100.
     """
     cs = callsign.strip().upper()
-    m = _CALLSIGN_RE.match(cs)
+    m = _SWR_RE.match(cs)
     if m:
         return f"SWR{m.group(1)}"
+    m = _EDW_RE.match(cs)
+    if m:
+        return f"EDW{m.group(1)}"
     return cs
 
 
 def get_route(callsign: str | None) -> tuple[str | None, str | None]:
-    """Look up route for a SWISS callsign.
+    """Look up route for a SWISS or Edelweiss callsign.
 
     Resolution order:
     1. Learned cache (persistent, from actual observed flights)
-    2. Static seed table (built-in, covers major routes)
+    2. Static seed table (built-in, covers major SWR routes)
     3. Hub fallback (LSZH for fn<2000, LSGG for fn>=2000)
 
     Returns (origin_ICAO, destination_ICAO). Either may be None if unknown.
     """
-    if not callsign or not callsign.strip().upper().startswith("SWR"):
+    if not callsign or not _is_swiss_or_edw(callsign):
         return None, None
 
     norm = _normalize_callsign(callsign)
@@ -366,10 +377,13 @@ def learn_route(callsign: str | None, origin: str | None,
     the external schedule API provides a mapping. Learned routes take
     priority over the static seed table.
     """
-    if not callsign or not callsign.strip().upper().startswith("SWR"):
+    if not callsign or not _is_swiss_or_edw(callsign):
         return
     if not origin and not destination:
         return  # nothing useful to learn
+    if origin and destination and origin == destination:
+        logger.debug("Rejecting same origin/dest %s for %s", origin, callsign)
+        return  # data artifact — no real flight has same origin and destination
 
     norm = _normalize_callsign(callsign)
     existing = _learned.get(norm)

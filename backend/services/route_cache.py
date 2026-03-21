@@ -39,26 +39,35 @@ def get_route(icao24: str, callsign: str | None = None) -> tuple[str | None, str
     """Return (origin, destination) using best available data.
 
     Priority:
-    1. ICAO24 cache (enriched from OpenSky flights API)
-    2. swiss_routes database (seed table + learned cache)
+    1. swiss_routes database (seed table + learned cache) — callsign-based, most reliable
+    2. ICAO24 cache (enriched from OpenSky flights API) — only if callsign matches
     3. (None, None)
+
+    The icao24 cache stores route data for a physical aircraft, but aircraft fly
+    multiple legs with different callsigns. We only trust the cache when the
+    callsign matches what was cached, to avoid serving stale route data from
+    a previous leg.
     """
-    # Check icao24-specific cache first (has validated API data)
-    entry = _cache.get(icao24)
-    if entry and (time.time() - entry["fetched_at"]) < entry["ttl"]:
-        origin, dest = entry["origin"], entry["destination"]
+    # Primary source: swiss_routes (callsign-based, instant, most reliable)
+    if callsign:
+        origin, dest = swiss_routes.get_route(callsign)
         if origin and dest:
             return origin, dest
 
-    # Primary source: swiss_routes (callsign-based, instant)
+    # Secondary: icao24 cache, but only if callsign matches
+    entry = _cache.get(icao24)
+    if entry and (time.time() - entry["fetched_at"]) < entry["ttl"]:
+        # Only trust cache if it was fetched for the same callsign
+        if callsign and entry.get("callsign") == callsign:
+            origin, dest = entry["origin"], entry["destination"]
+            if origin and dest and origin != dest:
+                return origin, dest
+
+    # Partial swiss_routes data (e.g., origin from hub fallback, no destination)
     if callsign:
         origin, dest = swiss_routes.get_route(callsign)
         if origin:
             return origin, dest
-
-    # Fall back to icao24 cache even if only partial data
-    if entry and (time.time() - entry["fetched_at"]) < entry["ttl"]:
-        return entry["origin"], entry["destination"]
 
     return None, None
 
@@ -86,7 +95,7 @@ async def _fetch_route(icao24: str, callsign: str | None = None) -> None:
             # Fall back to swiss_routes only
             origin, dest = swiss_routes.get_route(callsign)
             _cache[icao24] = {
-                "origin": origin, "destination": dest,
+                "origin": origin, "destination": dest, "callsign": callsign,
                 "fetched_at": time.time(), "ttl": RETRY_TTL,
             }
             return
@@ -108,50 +117,60 @@ async def _fetch_route(icao24: str, callsign: str | None = None) -> None:
                 latest = max(flights, key=lambda f: f.get("firstSeen", 0))
                 origin = latest.get("estDepartureAirport")
                 destination = latest.get("estArrivalAirport")
+                api_callsign = (latest.get("callsign") or "").strip()
 
-                # For in-flight aircraft, API may return null arrival.
-                # Fill from swiss_routes if we have it.
-                if callsign and (not origin or not destination):
-                    sr_origin, sr_dest = swiss_routes.get_route(callsign)
-                    origin = origin or sr_origin
-                    destination = destination or sr_dest
+                # Validate: reject same origin and destination (data artifact)
+                if origin and destination and origin == destination:
+                    logger.debug("Ignoring same origin/dest %s for %s", origin, icao24)
+                    origin, destination = None, None
 
+                # Only learn route if the API flight's callsign matches the
+                # current callsign. Otherwise, the API returned a previous leg
+                # flown by this aircraft under a different flight number.
+                callsign_matches = (
+                    callsign and api_callsign and
+                    api_callsign.upper().rstrip("ABCDEFGHIJKLMNOPQRSTUVWXYZ") ==
+                    callsign.strip().upper().rstrip("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+                )
+
+                if callsign_matches and origin and destination:
+                    swiss_routes.learn_route(callsign, origin, destination)
+
+                # Cache with callsign tag so get_route can verify freshness
                 _cache[icao24] = {
                     "origin": origin, "destination": destination,
+                    "callsign": callsign,
                     "fetched_at": time.time(), "ttl": CACHE_TTL,
                 }
 
-                # Feed back to learning system (only if we have good data)
-                if callsign and origin and destination:
-                    swiss_routes.learn_route(callsign, origin, destination)
-
-                logger.debug("Route for %s: %s -> %s", icao24, origin, destination)
+                logger.debug("Route for %s (%s): %s -> %s (API cs: %s)",
+                             icao24, callsign, origin, destination, api_callsign)
             else:
                 # No flight records from API — use swiss_routes
                 origin, dest = swiss_routes.get_route(callsign)
                 _cache[icao24] = {
-                    "origin": origin, "destination": dest,
+                    "origin": origin, "destination": dest, "callsign": callsign,
                     "fetched_at": time.time(), "ttl": CACHE_TTL,
                 }
         elif resp.status_code == 429:
             logger.warning("Route lookup rate-limited for %s", icao24)
             origin, dest = swiss_routes.get_route(callsign)
             _cache[icao24] = {
-                "origin": origin, "destination": dest,
+                "origin": origin, "destination": dest, "callsign": callsign,
                 "fetched_at": time.time(), "ttl": RETRY_TTL,
             }
         else:
             logger.warning("Route lookup for %s returned HTTP %d", icao24, resp.status_code)
             origin, dest = swiss_routes.get_route(callsign)
             _cache[icao24] = {
-                "origin": origin, "destination": dest,
+                "origin": origin, "destination": dest, "callsign": callsign,
                 "fetched_at": time.time(), "ttl": RETRY_TTL,
             }
     except Exception:
         logger.exception("Route lookup failed for %s", icao24)
         origin, dest = swiss_routes.get_route(callsign)
         _cache[icao24] = {
-            "origin": origin, "destination": dest,
+            "origin": origin, "destination": dest, "callsign": callsign,
             "fetched_at": time.time(), "ttl": RETRY_TTL,
         }
     finally:
