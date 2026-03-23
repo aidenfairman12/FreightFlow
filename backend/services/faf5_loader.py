@@ -4,21 +4,25 @@ The FAF5 dataset from BTS/FHWA comes as CSV files with freight flow data
 between ~132 FAF zones. The data includes origin, destination, commodity (SCTG2),
 transport mode, and year-based columns for tons, value, and ton-miles.
 
-Expected CSV columns (FAF5 regional flows):
-  dms_orig    - Domestic origin FAF zone ID
-  dms_dest    - Domestic destination FAF zone ID
-  sctg2       - 2-digit SCTG commodity code
-  dms_mode    - Domestic transport mode code (1-8)
-  trade_type  - 1=domestic, 2=import, 3=export
-  tons_YYYY   - Thousands of tons for year YYYY
-  value_YYYY  - Millions of USD for year YYYY
-  tmiles_YYYY - Millions of ton-miles for year YYYY
-  curval_YYYY - Current-year value (nominal dollars)
+Expected CSV columns (FAF5.7.x regional flows):
+  dms_orig          - Domestic origin FAF zone ID (3-digit, stored as int)
+  dms_dest          - Domestic destination FAF zone ID
+  sctg2             - 2-digit SCTG commodity code
+  dms_mode          - Domestic transport mode code (1-7)
+  trade_type        - 1=domestic, 2=import, 3=export
+  dist_band         - Distance band (1-8)
+  tons_YYYY         - Thousands of tons for year YYYY
+  value_YYYY        - Millions of USD in 2017 constant dollars
+  current_value_YYYY - Millions of USD in nominal (current-year) dollars
+  tmiles_YYYY       - Millions of ton-miles for year YYYY
+
+Historical years: 2017-2024. Projected years: 2030, 2035, 2040, 2045, 2050.
 
 Mode codes: 1=Truck, 2=Rail, 3=Water, 4=Air, 5=Multiple/mail,
             6=Pipeline, 7=Other, 8=No domestic mode
 """
 
+import io
 import logging
 import re
 from pathlib import Path
@@ -27,16 +31,16 @@ import pandas as pd
 from sqlalchemy import text
 
 from config import settings
-from db.session import AsyncSessionLocal
+from db.session import AsyncSessionLocal, engine
 from services.faf5_zones import MODE_CODES
 
 logger = logging.getLogger(__name__)
 
-# Historical years in FAF5 (actual data)
-HISTORICAL_YEARS = list(range(2012, 2023))  # 2012-2022
+# Historical years in FAF5 (actual data — FAF5.7.x uses 2017-2024)
+HISTORICAL_YEARS = list(range(2017, 2025))  # 2017-2024
 
 # Projected years in FAF5
-PROJECTED_YEARS = [2025, 2030, 2035, 2040, 2045, 2050, 2055]
+PROJECTED_YEARS = [2030, 2035, 2040, 2045, 2050]
 
 
 def _find_faf5_csv(data_dir: str) -> Path | None:
@@ -73,7 +77,7 @@ def _parse_faf5_csv(csv_path: Path) -> pd.DataFrame:
 
     # Find year columns for tons, value, and ton-miles
     tons_cols = sorted([c for c in df.columns if re.match(r"tons_\d{4}", c)])
-    value_cols = sorted([c for c in df.columns if re.match(r"(value|curval)_\d{4}", c)])
+    value_cols = sorted([c for c in df.columns if re.match(r"(value|curval|current_value)_\d{4}", c)])
     tmiles_cols = sorted([c for c in df.columns if re.match(r"tmiles_\d{4}", c)])
 
     if not tons_cols:
@@ -97,8 +101,13 @@ def _parse_faf5_csv(csv_path: Path) -> pd.DataFrame:
     rows = []
     for year in years:
         tons_c = f"tons_{year}"
-        # Find matching value column (could be value_YYYY or curval_YYYY)
-        value_c = f"value_{year}" if f"value_{year}" in df.columns else f"curval_{year}"
+        # Find matching value column (could be value_YYYY, current_value_YYYY, or curval_YYYY)
+        if f"value_{year}" in domestic.columns:
+            value_c = f"value_{year}"
+        elif f"current_value_{year}" in domestic.columns:
+            value_c = f"current_value_{year}"
+        else:
+            value_c = f"curval_{year}"
         tmiles_c = f"tmiles_{year}"
 
         if tons_c not in domestic.columns:
@@ -109,7 +118,7 @@ def _parse_faf5_csv(csv_path: Path) -> pd.DataFrame:
         year_df["tons_thousands"] = domestic[tons_c] if tons_c in domestic.columns else None
         year_df["value_millions"] = domestic[value_c] if value_c in domestic.columns else None
         year_df["ton_miles_millions"] = domestic[tmiles_c] if tmiles_c in domestic.columns else None
-        year_df["data_type"] = "historical" if year <= 2022 else "projected"
+        year_df["data_type"] = "historical" if year <= 2024 else "projected"
 
         year_df = year_df.rename(columns={
             orig_col: "origin_zone_id",
@@ -136,9 +145,21 @@ def _parse_faf5_csv(csv_path: Path) -> pd.DataFrame:
 async def load_faf5_data(data_dir: str | None = None) -> int:
     """Load FAF5 data from CSV into the freight_flows table.
 
-    Returns the number of rows inserted.
+    Uses PostgreSQL COPY for fast bulk loading via a staging table,
+    then upserts into freight_flows.
+
+    Returns the number of rows inserted/updated.
     """
     data_dir = data_dir or settings.faf5_data_dir
+
+    # Skip if data already loaded
+    async with AsyncSessionLocal() as session:
+        result = await session.execute(text("SELECT count(*) FROM freight_flows"))
+        existing = result.scalar()
+        if existing and existing > 0:
+            logger.info("freight_flows already has %d rows — skipping CSV reload", existing)
+            return 0
+
     csv_path = _find_faf5_csv(data_dir)
 
     if csv_path is None:
@@ -147,49 +168,89 @@ async def load_faf5_data(data_dir: str | None = None) -> int:
         return 0
 
     df = _parse_faf5_csv(csv_path)
+    total = len(df)
+    logger.info("Bulk-loading %d records into freight_flows...", total)
 
-    # Batch insert into database
-    batch_size = 1000
-    inserted = 0
+    # Prepare DataFrame columns for COPY (tab-separated, no index)
+    copy_df = df[["origin_zone_id", "dest_zone_id", "sctg2", "mode_code",
+                  "mode_name", "year", "data_type", "tons_thousands",
+                  "value_millions", "ton_miles_millions"]].copy()
+    copy_df["origin_zone_id"] = copy_df["origin_zone_id"].astype(int)
+    copy_df["dest_zone_id"] = copy_df["dest_zone_id"].astype(int)
+    copy_df["mode_code"] = copy_df["mode_code"].astype(int)
+    copy_df["year"] = copy_df["year"].astype(int)
 
-    async with AsyncSessionLocal() as session:
-        for start in range(0, len(df), batch_size):
-            batch = df.iloc[start:start + batch_size]
-            for _, row in batch.iterrows():
-                try:
-                    await session.execute(text("""
-                        INSERT INTO freight_flows
-                            (origin_zone_id, dest_zone_id, sctg2, mode_code, mode_name,
-                             year, data_type, tons_thousands, value_millions, ton_miles_millions)
-                        VALUES
-                            (:orig, :dest, :sctg2, :mode, :mode_name,
-                             :year, :dtype, :tons, :value, :tmiles)
-                        ON CONFLICT (origin_zone_id, dest_zone_id, sctg2, mode_code, year)
-                        DO UPDATE SET
-                            tons_thousands = EXCLUDED.tons_thousands,
-                            value_millions = EXCLUDED.value_millions,
-                            ton_miles_millions = EXCLUDED.ton_miles_millions,
-                            mode_name = EXCLUDED.mode_name,
-                            data_type = EXCLUDED.data_type
-                    """), {
-                        "orig": int(row["origin_zone_id"]),
-                        "dest": int(row["dest_zone_id"]),
-                        "sctg2": str(row["sctg2"]),
-                        "mode": int(row["mode_code"]),
-                        "mode_name": row["mode_name"],
-                        "year": int(row["year"]),
-                        "dtype": row["data_type"],
-                        "tons": float(row["tons_thousands"]) if pd.notna(row["tons_thousands"]) else None,
-                        "value": float(row["value_millions"]) if pd.notna(row["value_millions"]) else None,
-                        "tmiles": float(row["ton_miles_millions"]) if pd.notna(row["ton_miles_millions"]) else None,
-                    })
-                    inserted += 1
-                except Exception as e:
-                    logger.warning("Skipping row: %s", e)
-            await session.commit()
+    # Write to in-memory TSV buffer for COPY
+    buf = io.StringIO()
+    copy_df.to_csv(buf, sep="\t", header=False, index=False, na_rep="\\N")
+    buf.seek(0)
+    tsv_data = buf.getvalue().encode("utf-8")
 
-            if start % 5000 == 0 and start > 0:
-                logger.info("Loaded %d / %d rows...", inserted, len(df))
+    # Use raw asyncpg connection for COPY
+    async with engine.connect() as conn:
+        raw = await conn.get_raw_connection()
+        asyncpg_conn = raw.dbapi_connection._connection
 
-    logger.info("FAF5 load complete: %d rows inserted", inserted)
+        # Wrap everything in an explicit transaction so the temp table persists
+        tr = asyncpg_conn.transaction()
+        await tr.start()
+
+        try:
+            # Create temp staging table (lives for the duration of the transaction)
+            await asyncpg_conn.execute("""
+                CREATE TEMP TABLE _faf5_stage (
+                    origin_zone_id   INTEGER,
+                    dest_zone_id     INTEGER,
+                    sctg2            TEXT,
+                    mode_code        INTEGER,
+                    mode_name        TEXT,
+                    year             INTEGER,
+                    data_type        TEXT,
+                    tons_thousands   DOUBLE PRECISION,
+                    value_millions   DOUBLE PRECISION,
+                    ton_miles_millions DOUBLE PRECISION
+                ) ON COMMIT DROP
+            """)
+
+            # COPY data into staging table
+            result = await asyncpg_conn.copy_to_table(
+                "_faf5_stage",
+                source=io.BytesIO(tsv_data),
+                format="csv",
+                delimiter="\t",
+                null="\\N",
+                columns=["origin_zone_id", "dest_zone_id", "sctg2", "mode_code",
+                          "mode_name", "year", "data_type", "tons_thousands",
+                          "value_millions", "ton_miles_millions"],
+            )
+            staged = int(result.split()[-1]) if result else total
+            logger.info("Staged %d rows, upserting into freight_flows...", staged)
+
+            # Upsert from staging into freight_flows
+            inserted = await asyncpg_conn.fetchval("""
+                WITH upserted AS (
+                    INSERT INTO freight_flows
+                        (origin_zone_id, dest_zone_id, sctg2, mode_code, mode_name,
+                         year, data_type, tons_thousands, value_millions, ton_miles_millions)
+                    SELECT origin_zone_id, dest_zone_id, sctg2, mode_code, mode_name,
+                           year, data_type, tons_thousands, value_millions, ton_miles_millions
+                    FROM _faf5_stage
+                    ON CONFLICT (origin_zone_id, dest_zone_id, sctg2, mode_code, year)
+                    DO UPDATE SET
+                        tons_thousands = EXCLUDED.tons_thousands,
+                        value_millions = EXCLUDED.value_millions,
+                        ton_miles_millions = EXCLUDED.ton_miles_millions,
+                        mode_name = EXCLUDED.mode_name,
+                        data_type = EXCLUDED.data_type
+                    RETURNING 1
+                )
+                SELECT count(*) FROM upserted
+            """)
+
+            await tr.commit()
+        except Exception:
+            await tr.rollback()
+            raise
+
+    logger.info("FAF5 load complete: %d rows inserted/updated", inserted)
     return inserted

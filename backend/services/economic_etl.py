@@ -63,7 +63,7 @@ async def validate_eia_key() -> bool:
         )
         return False
     try:
-        async with httpx.AsyncClient(timeout=10) as client:
+        async with httpx.AsyncClient(timeout=30) as client:
             resp = await client.get(
                 f"{EIA_API_BASE}/petroleum/pri/spt/data/",
                 params={"api_key": api_key, "length": 1},
@@ -71,11 +71,15 @@ async def validate_eia_key() -> bool:
             if resp.status_code == 403:
                 logger.error("EIA API key is invalid (HTTP 403). Check EIA_API_KEY in .env.")
                 return False
+            if resp.status_code >= 500:
+                logger.warning("EIA API returned %d — will retry on next ETL cycle", resp.status_code)
+                _eia_validated = True
+                return True
             resp.raise_for_status()
             _eia_validated = True
             logger.info("EIA API key validated successfully")
             return True
-    except httpx.ConnectError:
+    except (httpx.ConnectError, httpx.TimeoutException):
         logger.warning("Cannot reach EIA API — will retry on next ETL cycle")
         _eia_validated = True
         return True
@@ -91,7 +95,7 @@ async def fetch_eia_prices() -> None:
         return
 
     try:
-        async with httpx.AsyncClient(timeout=15) as client:
+        async with httpx.AsyncClient(timeout=45) as client:
             for factor_name, cfg in EIA_SERIES.items():
                 params = {
                     "api_key": api_key,
@@ -126,23 +130,28 @@ FRED_API_BASE = "https://api.stlouisfed.org/fred/series/observations"
 
 
 async def fetch_freight_tsi() -> None:
-    """Fetch Freight Transportation Services Index from FRED (free, no key needed)."""
+    """Fetch Freight Transportation Services Index from FRED (requires free API key)."""
+    api_key = settings.fred_api_key
+    if not api_key:
+        logger.warning(
+            "FRED_API_KEY not set — freight TSI will be unavailable. "
+            "Register for a free key at https://fred.stlouisfed.org/docs/api/api_key.html"
+        )
+        return
     try:
-        async with httpx.AsyncClient(timeout=15) as client:
-            # FRED provides a free observation endpoint (limited without key)
-            # TSI series: TSIFRGHT
+        async with httpx.AsyncClient(timeout=45) as client:
             resp = await client.get(
                 FRED_API_BASE,
                 params={
                     "series_id": "TSIFRGHT",
-                    "api_key": "DEMO_KEY",  # FRED allows DEMO_KEY for limited access
+                    "api_key": api_key,
                     "file_type": "json",
                     "sort_order": "desc",
                     "limit": 5,
                 },
             )
             if resp.status_code != 200:
-                logger.debug("FRED TSI fetch returned %d, skipping", resp.status_code)
+                logger.warning("FRED TSI fetch returned %d, skipping", resp.status_code)
                 return
 
             data = resp.json()

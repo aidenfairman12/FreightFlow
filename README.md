@@ -38,7 +38,7 @@ docker compose up --build
 open http://localhost:3000
 ```
 
-Corridors and reference data seed on startup. FAF5 freight flows load automatically from CSVs. KPIs compute on demand via the UI. Economic data fetches every 6 hours if `EIA_API_KEY` is set.
+Corridors and reference data seed on startup. FAF5 freight flows load automatically from CSVs. KPIs compute on demand via the UI. Economic data fetches on startup and every 6 hours if `EIA_API_KEY` is set.
 
 ## Running Without Docker
 
@@ -129,6 +129,7 @@ FreightFlow/
 | `FRONTEND_URL` | Yes | CORS origin for the frontend (default: `http://localhost:3000`) |
 | `NEXT_PUBLIC_API_URL` | Yes | Backend URL for the frontend (default: `http://localhost:8000`) |
 | `EIA_API_KEY` | Recommended | EIA API key for diesel & Brent crude prices ([register free](https://www.eia.gov/opendata/register.php)) |
+| `FRED_API_KEY` | Optional | FRED API key for freight TSI index ([register free](https://fred.stlouisfed.org/docs/api/api_key.html)) |
 | `FAF5_DATA_DIR` | Optional | Path to FAF5 CSVs relative to backend (default: `data/faf5`) |
 | `TARGET_COMMODITY` | Optional | SCTG2 commodity code focus (default: `35` = Electronics) |
 

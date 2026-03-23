@@ -26,3 +26,9 @@ backend/data/faf5/*.csv
 # OS
 .DS_Store
 Thumbs.db
+
+# Coverage
+backend/.coverage
+
+# TypeScript build info
+frontend/tsconfig.tsbuildinfo

@@ -7,6 +7,8 @@ class Settings(BaseSettings):
     frontend_url: str = "http://localhost:3000"
     # EIA API key for diesel/crude prices (free at eia.gov)
     eia_api_key: str = ""
+    # FRED API key for freight TSI (free at https://fred.stlouisfed.org/docs/api/api_key.html)
+    fred_api_key: str = ""
     # FAF5 data directory (relative to backend/)
     faf5_data_dir: str = "data/faf5"
     # Target commodity SCTG2 code (35 = Electronics)

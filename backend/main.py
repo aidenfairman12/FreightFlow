@@ -18,7 +18,8 @@ from api.websocket import websocket_router, broadcast
 from config import settings
 from services.corridor_definitions import seed_corridors, seed_zones, seed_commodities
 from services.faf5_loader import load_faf5_data
-from services.economic_etl import run_economic_etl
+from services.economic_etl import run_economic_etl, validate_eia_key
+from services.corridor_performance import compute_corridor_performance
 
 logger = logging.getLogger(__name__)
 
@@ -38,12 +39,25 @@ async def lifespan(app: FastAPI):
     await seed_commodities()
     await seed_corridors()
 
-    # Load FAF5 freight flow data (idempotent)
+    # Load FAF5 freight flow data (idempotent — skips if already loaded)
+    from sqlalchemy import text as _text
+    from db.session import AsyncSessionLocal
+
     count = await load_faf5_data()
     if count > 0:
         logger.info("Loaded %d FAF5 freight flow records", count)
-    else:
-        logger.warning("No FAF5 data loaded — place CSV in %s", settings.faf5_data_dir)
+
+    # Compute corridor performance if freight data exists but performance hasn't been computed
+    async with AsyncSessionLocal() as _sess:
+        _flow_count = (await _sess.execute(_text("SELECT count(*) FROM freight_flows"))).scalar()
+        _perf_count = (await _sess.execute(_text("SELECT count(*) FROM corridor_performance"))).scalar()
+    if _flow_count > 0 and _perf_count == 0:
+        logger.info("Computing corridor performance metrics...")
+        await compute_corridor_performance()
+
+    # Validate EIA key and run initial economic data fetch
+    await validate_eia_key()
+    await run_economic_etl()
 
     # Scheduled jobs
     scheduler = AsyncIOScheduler()

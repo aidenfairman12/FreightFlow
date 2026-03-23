@@ -28,7 +28,8 @@ async def list_corridors(
             cp.estimated_cost, cp.cost_per_ton
         FROM corridors c
         LEFT JOIN corridor_performance cp ON c.corridor_id = cp.corridor_id
-            AND cp.year = (SELECT MAX(year) FROM corridor_performance WHERE corridor_id = c.corridor_id)
+            AND cp.sctg2 = 'ALL'
+            AND cp.year = (SELECT MAX(year) FROM corridor_performance WHERE corridor_id = c.corridor_id AND sctg2 = 'ALL')
         ORDER BY c.name
     """))
     rows = [dict(r) for r in result.mappings()]

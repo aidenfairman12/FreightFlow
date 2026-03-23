@@ -4,6 +4,7 @@ Compares corridor freight metrics across years, scoring each corridor
 by cost efficiency (value transported per dollar of freight cost).
 """
 
+import json
 import logging
 
 from sqlalchemy import text
@@ -14,7 +15,7 @@ from services.freight_cost_model import estimate_corridor_cost
 logger = logging.getLogger(__name__)
 
 
-async def compute_corridor_performance(year: int = 2022) -> int:
+async def compute_corridor_performance(year: int = 2024) -> int:
     """Compute and store corridor performance metrics for a given year.
 
     Returns the number of corridors scored.
@@ -56,12 +57,12 @@ async def compute_corridor_performance(year: int = 2022) -> int:
             async with AsyncSessionLocal() as session:
                 await session.execute(text("""
                     INSERT INTO corridor_performance
-                        (corridor_id, year, total_tons, total_value_usd,
+                        (corridor_id, year, sctg2, total_tons, total_value_usd,
                          total_ton_miles, mode_breakdown, avg_value_per_ton,
                          estimated_cost, cost_per_ton)
                     VALUES
-                        (:cid, :year, :tons, :value, :tmiles,
-                         :modes::jsonb, :vperton, :cost, :cpton)
+                        (:cid, :year, 'ALL', :tons, :value, :tmiles,
+                         CAST(:modes AS jsonb), :vperton, :cost, :cpton)
                     ON CONFLICT (corridor_id, year, sctg2) DO UPDATE SET
                         total_tons = EXCLUDED.total_tons,
                         total_value_usd = EXCLUDED.total_value_usd,
@@ -77,7 +78,7 @@ async def compute_corridor_performance(year: int = 2022) -> int:
                     "tons": total_tons,
                     "value": total_value,
                     "tmiles": total_tmiles,
-                    "modes": str(mode_breakdown).replace("'", '"'),
+                    "modes": json.dumps(mode_breakdown),
                     "vperton": avg_value_per_ton,
                     "cost": total_cost,
                     "cpton": cost_per_ton,

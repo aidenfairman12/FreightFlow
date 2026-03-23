@@ -9,7 +9,7 @@ import logging
 from sqlalchemy import text
 
 from db.session import AsyncSessionLocal
-from services.faf5_zones import _BUILTIN_ZONES
+from services.faf5_zones import load_zone_centroids
 
 logger = logging.getLogger(__name__)
 
@@ -30,8 +30,8 @@ CORRIDORS = [
         "name": "Houston - New York",
         "description": "Gulf Coast to Northeast. Petrochemicals, refined products, and "
                        "manufactured goods flow from the Houston port complex to the NYC metro.",
-        "origin_zones": [482],  # Houston, TX
-        "dest_zones": [361],    # New York, NY
+        "origin_zones": [486],  # Houston, TX (FAF5.7.x zone ID)
+        "dest_zones": [363],    # New York, NY (FAF5.7.x: NY-NJ-CT-PA NY Part)
         "origin_lat": 29.76,
         "origin_lon": -95.37,
         "dest_lat": 40.71,
@@ -42,7 +42,7 @@ CORRIDORS = [
         "description": "Pacific Northwest to Sun Belt. Growing corridor carrying imports "
                        "from Puget Sound ports to the rapidly expanding Texas distribution network.",
         "origin_zones": [531],  # Seattle, WA
-        "dest_zones": [481],    # Dallas-Fort Worth, TX
+        "dest_zones": [484],    # Dallas-Fort Worth, TX (FAF5.7.x zone ID)
         "origin_lat": 47.61,
         "origin_lon": -122.33,
         "dest_lat": 32.78,
@@ -92,7 +92,7 @@ async def seed_zones() -> int:
 
     Returns the number of zones seeded.
     """
-    zones = _BUILTIN_ZONES
+    zones = load_zone_centroids()
     async with AsyncSessionLocal() as session:
         count = 0
         for zone_id, info in zones.items():

@@ -61,7 +61,7 @@ async def get_commodity_summary(
 
 @router.post("/corridor-performance/compute")
 async def trigger_corridor_performance(
-    year: int = Query(2022),
+    year: int = Query(2024),
 ) -> dict[str, Any]:
     """Manually trigger corridor performance computation."""
     count = await compute_corridor_performance(year)
