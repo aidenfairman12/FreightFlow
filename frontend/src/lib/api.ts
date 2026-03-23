@@ -1,9 +1,7 @@
 import type {
-  ApiResponse, StateVector, EnrichedFlight, OperationalKPI,
-  FleetAircraft, EconomicFactors, CASKBreakdown, UnitEconomics,
-  FeatureImportance, Prediction, FuelAnomaly, RouteProfitability,
-  ScenarioPreset, Scenario, RoutePerformance, FlightDeviation,
-  SchedulePattern, ImputedFlight, MLModel,
+  ApiResponse, FafZone, Corridor, CorridorCostData,
+  FreightKPI, FreightUnitEconomics, EconomicFactors, CostBreakdown,
+  ModeComparison, ScenarioPreset, Scenario, ScenarioResults,
 } from '@/types'
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8000'
@@ -15,57 +13,75 @@ async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
 }
 
 export const api = {
-  // ── Flights (Phase 1-2) ──────────────────────────────────────────────────
-  getLiveFlights: () =>
-    apiFetch<ApiResponse<StateVector[]>>('/flights/live'),
+  // ── Corridors ──────────────────────────────────────────────────────────
+  getCorridors: () =>
+    apiFetch<ApiResponse<Corridor[]>>('/corridors/'),
 
-  getFlightHistory: (limit = 100) =>
-    apiFetch<ApiResponse<EnrichedFlight[]>>(`/flights/history?limit=${limit}`),
-
-  // ── Analytics (Phase 2) ──────────────────────────────────────────────────
-  getFuelAnalytics: () =>
-    apiFetch<ApiResponse<unknown[]>>('/analytics/fuel'),
-
-  getNetworkAnalytics: () =>
-    apiFetch<ApiResponse<unknown[]>>('/analytics/network'),
-
-  getEmissions: () =>
-    apiFetch<ApiResponse<{ aircraft_count: number; total_co2_kg_s: number; total_fuel_kg_s: number }>>('/analytics/emissions'),
-
-  getRoutePerformance: (category?: string, limit = 50) =>
-    apiFetch<ApiResponse<RoutePerformance[]>>(
-      `/analytics/route-performance?${category ? `category=${category}&` : ''}limit=${limit}`,
+  getCorridorFlows: (corridorId: string, year = 2022, commodity?: string) =>
+    apiFetch<ApiResponse<Record<string, unknown>[]>>(
+      `/corridors/${corridorId}/flows?year=${year}${commodity ? `&commodity=${commodity}` : ''}`,
     ),
 
-  getFlightDeviations: (origin?: string, destination?: string, limit = 50) =>
-    apiFetch<ApiResponse<FlightDeviation[]>>(
-      `/analytics/flight-deviations?${new URLSearchParams({
-        ...(origin && { origin }),
-        ...(destination && { destination }),
-        limit: String(limit),
-      })}`,
+  getCorridorModes: (corridorId: string, year = 2022) =>
+    apiFetch<ApiResponse<CorridorCostData>>(`/corridors/${corridorId}/modes?year=${year}`),
+
+  getCorridorTrends: (corridorId: string) =>
+    apiFetch<ApiResponse<Record<string, unknown>[]>>(`/corridors/${corridorId}/trends`),
+
+  // ── Flows ──────────────────────────────────────────────────────────────
+  queryFlows: (params: { year?: number; commodity?: string; mode?: number; origin?: number; dest?: number; limit?: number } = {}) => {
+    const sp = new URLSearchParams()
+    if (params.year) sp.set('year', String(params.year))
+    if (params.commodity) sp.set('commodity', params.commodity)
+    if (params.mode) sp.set('mode', String(params.mode))
+    if (params.origin) sp.set('origin', String(params.origin))
+    if (params.dest) sp.set('dest', String(params.dest))
+    if (params.limit) sp.set('limit', String(params.limit))
+    return apiFetch<ApiResponse<Record<string, unknown>[]>>(`/flows/?${sp}`)
+  },
+
+  getTopCorridors: (year = 2022, commodity?: string, limit = 20) =>
+    apiFetch<ApiResponse<Record<string, unknown>[]>>(
+      `/flows/top-corridors?year=${year}${commodity ? `&commodity=${commodity}` : ''}&limit=${limit}`,
     ),
 
-  triggerRoutePerformanceCompute: () =>
-    apiFetch<ApiResponse<{ routes_scored: number }>>('/analytics/route-performance/compute', { method: 'POST' }),
+  getModeTrends: (commodity?: string) =>
+    apiFetch<ApiResponse<Record<string, unknown>[]>>(
+      `/flows/mode-trends${commodity ? `?commodity=${commodity}` : ''}`,
+    ),
 
-  // ── KPI (Phase 5) ───────────────────────────────────────────────────────
-  getCurrentKPIs: () =>
-    apiFetch<ApiResponse<OperationalKPI | null>>('/kpi/current'),
+  getZones: () =>
+    apiFetch<ApiResponse<FafZone[]>>('/flows/zones'),
 
-  getKPIHistory: (periodType = 'weekly', limit = 52) =>
-    apiFetch<ApiResponse<OperationalKPI[]>>(`/kpi/history?period_type=${periodType}&limit=${limit}`),
+  // ── Analytics ──────────────────────────────────────────────────────────
+  getCorridorPerformance: (sortBy = 'estimated_cost', limit = 50) =>
+    apiFetch<ApiResponse<Record<string, unknown>[]>>(
+      `/analytics/corridor-performance?sort_by=${sortBy}&limit=${limit}`,
+    ),
 
-  getFleetUtilization: (hours = 24) =>
-    apiFetch<ApiResponse<FleetAircraft[]>>(`/kpi/fleet?hours=${hours}`),
+  getModeComparison: (year = 2022) =>
+    apiFetch<ApiResponse<ModeComparison[]>>(`/analytics/mode-comparison?year=${year}`),
 
-  getRouteFrequency: () =>
-    apiFetch<ApiResponse<unknown[]>>('/kpi/routes'),
+  getCommoditySummary: (year = 2022, limit = 20) =>
+    apiFetch<ApiResponse<Record<string, unknown>[]>>(`/analytics/commodity-summary?year=${year}&limit=${limit}`),
 
-  triggerKPICompute: (periodType = 'weekly') =>
-    apiFetch<ApiResponse<OperationalKPI | null>>(`/kpi/compute?period_type=${periodType}`, { method: 'POST' }),
+  triggerCorridorPerformanceCompute: (year = 2022) =>
+    apiFetch<ApiResponse<{ corridors_scored: number }>>(`/analytics/corridor-performance/compute?year=${year}`, { method: 'POST' }),
 
-  // ── Economics (Phase 6-7) ────────────────────────────────────────────────
+  // ── KPI ────────────────────────────────────────────────────────────────
+  getCurrentKPIs: (scope = 'national') =>
+    apiFetch<ApiResponse<FreightKPI | null>>(`/kpi/current?scope=${scope}`),
+
+  getKPIHistory: (scope = 'national', limit = 20) =>
+    apiFetch<ApiResponse<FreightKPI[]>>(`/kpi/history?scope=${scope}&limit=${limit}`),
+
+  getModeShare: () =>
+    apiFetch<ApiResponse<Record<string, unknown>[]>>('/kpi/mode-share'),
+
+  triggerKPICompute: (year = 2022, scope = 'national') =>
+    apiFetch<ApiResponse<FreightKPI | null>>(`/kpi/compute?year=${year}&scope=${scope}`, { method: 'POST' }),
+
+  // ── Economics ──────────────────────────────────────────────────────────
   getLatestEconomicFactors: () =>
     apiFetch<ApiResponse<EconomicFactors>>('/economics/latest'),
 
@@ -73,34 +89,18 @@ export const api = {
     apiFetch<ApiResponse<unknown[]>>(`/economics/history/${factorName}?days=${days}`),
 
   getCurrentUnitEconomics: () =>
-    apiFetch<ApiResponse<UnitEconomics | null>>('/economics/unit-economics/current'),
+    apiFetch<ApiResponse<FreightUnitEconomics | null>>('/economics/unit-economics/current'),
 
-  getUnitEconomicsHistory: (limit = 52) =>
-    apiFetch<ApiResponse<UnitEconomics[]>>(`/economics/unit-economics/history?limit=${limit}`),
+  getUnitEconomicsHistory: (limit = 20) =>
+    apiFetch<ApiResponse<FreightUnitEconomics[]>>(`/economics/unit-economics/history?limit=${limit}`),
 
-  getCASKBreakdown: () =>
-    apiFetch<ApiResponse<CASKBreakdown | null>>('/economics/cask-breakdown'),
+  getCostBreakdown: () =>
+    apiFetch<ApiResponse<CostBreakdown | null>>('/economics/cost-breakdown'),
 
   refreshEconomicData: () =>
     apiFetch<ApiResponse<EconomicFactors>>('/economics/refresh', { method: 'POST' }),
 
-  // ── Predictions (Phase 8) ────────────────────────────────────────────────
-  getFeatureImportance: (modelName = 'cask_feature_importance') =>
-    apiFetch<ApiResponse<FeatureImportance[]>>(`/predictions/feature-importance?model_name=${modelName}`),
-
-  getForecasts: (target = 'total_cask', limit = 10) =>
-    apiFetch<ApiResponse<Prediction[]>>(`/predictions/forecasts?target=${target}&limit=${limit}`),
-
-  getFuelAnomalies: (hours = 24) =>
-    apiFetch<ApiResponse<FuelAnomaly[]>>(`/predictions/anomalies?hours=${hours}`),
-
-  getRouteProfitability: () =>
-    apiFetch<ApiResponse<RouteProfitability[]>>('/predictions/route-profitability'),
-
-  triggerMLTraining: () =>
-    apiFetch<ApiResponse<unknown>>('/predictions/train', { method: 'POST' }),
-
-  // ── Scenarios (Phase 9) ──────────────────────────────────────────────────
+  // ── Scenarios ──────────────────────────────────────────────────────────
   getScenarioPresets: () =>
     apiFetch<ApiResponse<ScenarioPreset[]>>('/scenarios/presets/list'),
 
@@ -111,7 +111,7 @@ export const api = {
     apiFetch<ApiResponse<Scenario>>(`/scenarios/${id}`),
 
   createScenario: (body: { name: string; description?: string; parameters: Record<string, number> }) =>
-    apiFetch<ApiResponse<unknown>>('/scenarios/', {
+    apiFetch<ApiResponse<ScenarioResults>>('/scenarios/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
@@ -119,23 +119,4 @@ export const api = {
 
   deleteScenario: (id: string) =>
     apiFetch<ApiResponse<unknown>>(`/scenarios/${id}`, { method: 'DELETE' }),
-
-  // ── Schedule ─────────────────────────────────────────────────────────────
-  getSchedulePatterns: () =>
-    apiFetch<ApiResponse<SchedulePattern[]>>('/schedule/patterns'),
-
-  getImputedFlights: (status?: string, limit = 100) =>
-    apiFetch<ApiResponse<ImputedFlight[]>>(
-      `/schedule/imputed?${new URLSearchParams({
-        ...(status && { status }),
-        limit: String(limit),
-      })}`,
-    ),
-
-  triggerImputationCycle: () =>
-    apiFetch<ApiResponse<unknown>>('/schedule/run', { method: 'POST' }),
-
-  // ── ML Models ────────────────────────────────────────────────────────────
-  getMLModels: () =>
-    apiFetch<ApiResponse<MLModel[]>>('/predictions/models'),
 }

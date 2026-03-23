@@ -1,4 +1,4 @@
-"""Phase 6: Economic data endpoints."""
+"""Freight economic data endpoints."""
 
 from typing import Any
 
@@ -33,11 +33,10 @@ async def get_factor_time_series(
 async def get_current_unit_economics(
     db: AsyncSession = Depends(get_db),
 ) -> dict[str, Any]:
-    """Return latest CASK/RASK estimates."""
+    """Return latest freight cost per ton-mile estimates."""
     result = await db.execute(text("""
-        SELECT * FROM unit_economics
-        WHERE airline_code = 'SWR'
-        ORDER BY period_start DESC
+        SELECT * FROM freight_unit_economics
+        ORDER BY year DESC
         LIMIT 1
     """))
     row = result.mappings().first()
@@ -48,58 +47,56 @@ async def get_current_unit_economics(
 
 @router.get("/unit-economics/history")
 async def get_unit_economics_history(
-    limit: int = Query(52, ge=1, le=200),
+    limit: int = Query(20, ge=1, le=200),
     db: AsyncSession = Depends(get_db),
 ) -> dict[str, Any]:
-    """Return historical CASK/RASK for trend charts."""
+    """Return historical freight cost per ton-mile for trend charts."""
     result = await db.execute(text("""
-        SELECT * FROM unit_economics
-        WHERE airline_code = 'SWR'
-        ORDER BY period_start DESC
+        SELECT * FROM freight_unit_economics
+        ORDER BY year DESC
         LIMIT :limit
     """), {"limit": limit})
     rows = [dict(r) for r in result.mappings()]
     return {"data": rows, "error": None, "meta": {"count": len(rows)}}
 
 
-@router.get("/cask-breakdown")
-async def get_cask_breakdown(
+@router.get("/cost-breakdown")
+async def get_cost_breakdown(
     db: AsyncSession = Depends(get_db),
 ) -> dict[str, Any]:
-    """Return latest CASK broken down by component for pie/bar charts."""
+    """Return latest freight cost breakdown by component for pie/bar charts."""
     result = await db.execute(text("""
         SELECT
-            fuel_cost_per_ask,
-            carbon_cost_per_ask,
-            nav_charges_per_ask,
-            airport_cost_per_ask,
-            crew_cost_per_ask,
-            other_cost_per_ask,
-            total_cask,
-            period_start,
-            period_type
-        FROM unit_economics
-        WHERE airline_code = 'SWR'
-        ORDER BY period_start DESC
+            fuel_cost_per_tm,
+            labor_cost_per_tm,
+            equipment_cost_per_tm,
+            insurance_cost_per_tm,
+            tolls_fees_per_tm,
+            other_cost_per_tm,
+            total_cost_per_tm,
+            year,
+            scope
+        FROM freight_unit_economics
+        ORDER BY year DESC
         LIMIT 1
     """))
     row = result.mappings().first()
     if not row:
-        return {"data": None, "error": "No CASK data available", "meta": {}}
+        return {"data": None, "error": "No cost breakdown data available", "meta": {}}
 
     breakdown = {
-        "fuel": float(row["fuel_cost_per_ask"] or 0),
-        "carbon": float(row["carbon_cost_per_ask"] or 0),
-        "navigation": float(row["nav_charges_per_ask"] or 0),
-        "airport": float(row["airport_cost_per_ask"] or 0),
-        "crew": float(row["crew_cost_per_ask"] or 0),
-        "other": float(row["other_cost_per_ask"] or 0),
+        "fuel": float(row["fuel_cost_per_tm"] or 0),
+        "labor": float(row["labor_cost_per_tm"] or 0),
+        "equipment": float(row["equipment_cost_per_tm"] or 0),
+        "insurance": float(row["insurance_cost_per_tm"] or 0),
+        "tolls_fees": float(row["tolls_fees_per_tm"] or 0),
+        "other": float(row["other_cost_per_tm"] or 0),
     }
     return {
         "data": {
             "components": breakdown,
-            "total_cask": float(row["total_cask"] or 0),
-            "period": row["period_start"].isoformat() if row["period_start"] else None,
+            "total_cost_per_tm": float(row["total_cost_per_tm"] or 0),
+            "year": row["year"],
         },
         "error": None,
         "meta": {},

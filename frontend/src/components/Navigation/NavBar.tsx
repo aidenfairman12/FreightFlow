@@ -3,15 +3,13 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { Plane } from 'lucide-react'
+import { Truck } from 'lucide-react'
 
 const NAV_ITEMS = [
-  { href: '/dashboard', label: 'Live Map' },
-  { href: '/analytics', label: 'KPIs' },
+  { href: '/dashboard', label: 'Freight Map' },
+  { href: '/analytics', label: 'Freight KPIs' },
   { href: '/economics', label: 'Economics' },
-  { href: '/predictions', label: 'ML & Predictions' },
   { href: '/scenarios', label: 'Scenarios' },
-  { href: '/schedule', label: 'Schedule' },
 ]
 
 export default function NavBar() {
@@ -23,8 +21,8 @@ export default function NavBar() {
         href="/dashboard"
         className="mr-5 flex items-center gap-2 text-sm font-bold tracking-tight text-primary no-underline"
       >
-        <Plane className="h-4 w-4" />
-        PlaneLogistics
+        <Truck className="h-4 w-4" />
+        FreightFlow
       </Link>
       {NAV_ITEMS.map(item => {
         const active = pathname === item.href

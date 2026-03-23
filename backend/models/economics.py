@@ -13,9 +13,8 @@ class EconomicFactor(BaseModel):
 
 class EconomicSnapshot(BaseModel):
     """Latest values for all tracked economic factors."""
-    jet_fuel_usd_gal: float | None = None
+    diesel_usd_gal: float | None = None
     brent_crude_usd_bbl: float | None = None
-    eua_eur_ton: float | None = None
-    eur_chf: float | None = None
-    usd_chf: float | None = None
+    trucking_ppi: float | None = None
+    freight_tsi: float | None = None
     as_of: date | None = None

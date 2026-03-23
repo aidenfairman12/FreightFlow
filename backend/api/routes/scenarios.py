@@ -1,4 +1,4 @@
-"""Phase 9: Scenario engine endpoints."""
+"""Freight scenario engine endpoints."""
 
 import json
 from typing import Any
@@ -100,48 +100,43 @@ async def get_scenario_presets() -> dict[str, Any]:
     """Return predefined scenario templates."""
     presets = [
         {
-            "name": "Fuel Price Spike (+20%)",
-            "description": "What if jet fuel prices rise 20% from current levels?",
-            "parameters": {"fuel_price_change_pct": 20},
+            "name": "Diesel Price Spike (+30%)",
+            "description": "What if diesel prices rise 30%? Impacts truck costs most severely.",
+            "parameters": {"diesel_price_change_pct": 30},
         },
         {
-            "name": "Fuel Price Drop (-15%)",
-            "description": "What if jet fuel prices fall 15%?",
-            "parameters": {"fuel_price_change_pct": -15},
+            "name": "Port Congestion Crisis",
+            "description": "Major port congestion adds 5 days delay, shifting cargo to truck.",
+            "parameters": {"port_congestion_days": 5},
         },
         {
-            "name": "Carbon Price Surge (+50%)",
-            "description": "EU ETS price increases 50% (regulatory tightening).",
-            "parameters": {"carbon_price_change_pct": 50},
+            "name": "Rail Capacity Expansion (+20%)",
+            "description": "New rail infrastructure increases capacity 20%.",
+            "parameters": {"rail_capacity_change_pct": 20},
         },
         {
-            "name": "Capacity Expansion (+10%)",
-            "description": "SWISS adds 10% more ASK (new routes or frequencies).",
-            "parameters": {"capacity_change_pct": 10},
+            "name": "Truck Driver Shortage (-15%)",
+            "description": "Driver shortage reduces trucking capacity 15%, rates surge.",
+            "parameters": {"truck_driver_shortage_pct": 15},
         },
         {
-            "name": "Load Factor Improvement (+5%)",
-            "description": "Demand growth improves load factor by 5 percentage points.",
-            "parameters": {"load_factor_change_pct": 5},
+            "name": "Mode Shift to Rail (10%)",
+            "description": "Policy incentives shift 10% of truck volume to rail.",
+            "parameters": {"mode_shift_to_rail_pct": 10},
         },
         {
-            "name": "Stagflation Scenario",
-            "description": "Fuel +30%, carbon +20%, load factor -3% simultaneously.",
+            "name": "Carbon Tax ($0.02/ton-mile)",
+            "description": "New carbon tax applied per ton-mile, hitting trucks hardest.",
+            "parameters": {"carbon_tax_per_ton_mile": 0.02},
+        },
+        {
+            "name": "Supply Chain Disruption",
+            "description": "Diesel +20%, port +3 days delay, demand -5% simultaneously.",
             "parameters": {
-                "fuel_price_change_pct": 30,
-                "carbon_price_change_pct": 20,
-                "load_factor_change_pct": -3,
+                "diesel_price_change_pct": 20,
+                "port_congestion_days": 3,
+                "demand_change_pct": -5,
             },
-        },
-        {
-            "name": "New Route: ZRH-BKK (3x weekly)",
-            "description": "SWISS launches Zurich-Bangkok with 3 weekly frequencies.",
-            "parameters": {"new_weekly_departures": 3, "capacity_change_pct": 2},
-        },
-        {
-            "name": "CHF Strengthening (-5% EUR/CHF)",
-            "description": "Swiss franc appreciates 5% against EUR (revenue pressure).",
-            "parameters": {"fx_eur_chf_change_pct": -5},
         },
     ]
     return {"data": presets, "error": None, "meta": {"count": len(presets)}}

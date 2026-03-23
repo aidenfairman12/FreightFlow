@@ -1,90 +1,77 @@
 """Tests for Pydantic models — construction, defaults, serialization."""
 
-from datetime import datetime, date
+from datetime import date
 from uuid import uuid4
 
-from models.state_vector import StateVector
-from models.kpi import OperationalKPI, KPISummary
+from models.freight import FreightFlow, Corridor, FreightKPI, FreightUnitEconomics, FafZone
 from models.economics import EconomicFactor, EconomicSnapshot
-from models.scenario import ScenarioCreate, Scenario
-from models.prediction import Prediction, FeatureImportance, ModelInfo
+from models.scenario import ScenarioCreate, Scenario, ScenarioResult
 
 
-class TestStateVector:
-    def _make_sv(self, **overrides):
-        defaults = dict(
-            icao24="abc123", callsign=None, origin_country=None,
-            latitude=None, longitude=None, baro_altitude=None,
-            on_ground=False, velocity=None, heading=None,
-            vertical_rate=None, geo_altitude=None, squawk=None,
-            last_contact=datetime(2024, 1, 1),
+class TestFreightModels:
+    def test_freight_flow_construction(self):
+        ff = FreightFlow(
+            origin_zone_id=61,
+            dest_zone_id=171,
+            sctg2="35",
+            mode_code=1,
+            mode_name="Truck",
+            year=2022,
         )
-        defaults.update(overrides)
-        return StateVector(**defaults)
+        assert ff.sctg2 == "35"
+        assert ff.data_type == "historical"
+        assert ff.tons_thousands is None
 
-    def test_required_fields(self):
-        sv = self._make_sv(icao24="abc123", on_ground=False)
-        assert sv.icao24 == "abc123"
-        assert sv.on_ground is False
-
-    def test_enrichment_defaults_are_none(self):
-        sv = self._make_sv()
-        assert sv.aircraft_type is None
-        assert sv.fuel_flow_kg_s is None
-        assert sv.co2_kg_s is None
-
-    def test_model_dump_json(self):
-        sv = self._make_sv(last_contact=datetime(2024, 1, 1, 12, 0, 0))
-        d = sv.model_dump(mode="json")
-        assert d["icao24"] == "abc123"
-        assert isinstance(d["last_contact"], str)
-
-
-class TestOperationalKPI:
-    def test_construction(self):
-        kpi = OperationalKPI(
-            period_start=datetime(2024, 1, 1),
-            period_end=datetime(2024, 1, 7),
-            period_type="weekly",
+    def test_corridor_construction(self):
+        c = Corridor(
+            name="LA-Chicago",
+            origin_zones=[61],
+            dest_zones=[171],
         )
-        assert kpi.airline_code == "SWR"
-        assert kpi.period_type == "weekly"
+        assert c.corridor_id is None
+        assert c.origin_zones == [61]
 
-    def test_all_metrics_optional(self):
-        kpi = OperationalKPI(
-            period_start=datetime(2024, 1, 1),
-            period_end=datetime(2024, 1, 7),
-            period_type="weekly",
-        )
-        assert kpi.total_ask is None
-        assert kpi.total_departures is None
-        assert kpi.avg_turnaround_min is None
+    def test_freight_kpi_defaults(self):
+        kpi = FreightKPI(period_year=2022)
+        assert kpi.scope == "national"
+        assert kpi.total_tons is None
+        assert kpi.truck_share_pct is None
+
+    def test_freight_unit_economics_defaults(self):
+        ue = FreightUnitEconomics(year=2022)
+        assert ue.scope == "national"
+        assert ue.fuel_cost_per_tm is None
+        assert ue.total_cost_per_tm is None
+
+    def test_faf_zone(self):
+        z = FafZone(zone_id=61, zone_name="Los Angeles-Long Beach")
+        assert z.latitude is None
 
 
 class TestEconomics:
     def test_economic_factor_construction(self):
         ef = EconomicFactor(
             date=date(2024, 3, 1),
-            factor_name="jet_fuel",
-            value=2.85,
+            factor_name="diesel_usd_gal",
+            value=3.85,
         )
         assert ef.unit is None
         assert ef.source is None
 
     def test_economic_snapshot_defaults(self):
         snap = EconomicSnapshot()
-        assert snap.jet_fuel_usd_gal is None
-        assert snap.eur_chf is None
+        assert snap.diesel_usd_gal is None
+        assert snap.brent_crude_usd_bbl is None
         assert snap.as_of is None
 
 
 class TestScenario:
     def test_scenario_create(self):
         sc = ScenarioCreate(
-            name="Fuel spike",
-            parameters={"fuel_price_change_pct": 20},
+            name="Diesel spike",
+            parameters={"diesel_price_change_pct": 30},
         )
-        assert sc.name == "Fuel spike"
+        assert sc.name == "Diesel spike"
         assert sc.description is None
 
     def test_scenario_defaults(self):
@@ -92,14 +79,6 @@ class TestScenario:
         assert s.status == "pending"
         assert s.id is None
 
-
-class TestPrediction:
-    def test_prediction_construction(self):
-        p = Prediction(
-            model_name="fuel",
-            model_version="1.0",
-            target_variable="fuel_cost",
-            predicted_value=1234.5,
-        )
-        assert p.predicted_value == 1234.5
-        assert p.confidence_lower is None
+    def test_scenario_result(self):
+        sr = ScenarioResult(scenario_id=uuid4())
+        assert sr.baseline_cost_per_tm is None

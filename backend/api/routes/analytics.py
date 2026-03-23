@@ -1,3 +1,5 @@
+"""Freight analytics endpoints."""
+
 from typing import Any
 
 from fastapi import APIRouter, Depends, Query
@@ -5,102 +7,62 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from db.session import get_db
-from services.route_performance import (
-    compute_route_performance,
-    get_route_performance_summary,
-    get_flight_deviations,
+from services.corridor_performance import (
+    compute_corridor_performance,
+    get_corridor_performance_summary,
 )
+from services.freight_cost_model import compute_mode_cost_comparison
 
 router = APIRouter()
 
 
-@router.get("/fuel")
-async def get_fuel_analytics(db: AsyncSession = Depends(get_db)) -> dict[str, Any]:
-    """Top-20 SWISS fuel consumers in the last hour."""
-    result = await db.execute(text("""
-        SELECT
-            icao24,
-            callsign,
-            AVG(fuel_flow_kg_s) AS avg_fuel_kg_s,
-            AVG(co2_kg_s)       AS avg_co2_kg_s,
-            COUNT(*)            AS samples
-        FROM state_vectors
-        WHERE time > NOW() - INTERVAL '1 hour'
-          AND on_ground = false
-          AND fuel_flow_kg_s IS NOT NULL
-          AND callsign LIKE 'SWR%'
-        GROUP BY icao24, callsign
-        ORDER BY avg_fuel_kg_s DESC
-        LIMIT 20
-    """))
-    return {"data": list(result.mappings()), "error": None, "meta": {}}
-
-
-@router.get("/network")
-async def get_network_analytics() -> dict[str, Any]:
-    """Route frequency and hub connectivity metrics via NetworkX."""
-    # TODO Phase 3: build graph from route_analytics table
-    return {"data": [], "error": None, "meta": {}}
-
-
-@router.get("/route-performance")
-async def get_route_perf(
-    category: str | None = Query(None, pattern="^(overperforming|average|underperforming)$"),
-    sort_by: str = Query("performance_score"),
+@router.get("/corridor-performance")
+async def get_corridor_perf(
+    sort_by: str = Query("estimated_cost"),
     limit: int = Query(50, ge=1, le=200),
 ) -> dict[str, Any]:
-    """Route performance: baselines vs recent actuals with deviation scores."""
-    routes = await get_route_performance_summary(
-        category=category, sort_by=sort_by, limit=limit,
-    )
-    return {
-        "data": routes,
-        "error": None,
-        "meta": {"count": len(routes), "filter": category, "sort": sort_by},
-    }
+    """Corridor performance with efficiency scores."""
+    routes = await get_corridor_performance_summary(sort_by=sort_by, limit=limit)
+    return {"data": routes, "error": None, "meta": {"count": len(routes), "sort": sort_by}}
 
 
-@router.get("/flight-deviations")
-async def get_flight_devs(
-    origin: str | None = Query(None),
-    destination: str | None = Query(None),
-    limit: int = Query(50, ge=1, le=500),
+@router.get("/mode-comparison")
+async def get_mode_comparison(
+    year: int = Query(2022),
 ) -> dict[str, Any]:
-    """Individual flight deviations from route baselines."""
-    flights = await get_flight_deviations(
-        origin=origin, destination=destination, limit=limit,
-    )
-    return {
-        "data": flights,
-        "error": None,
-        "meta": {"count": len(flights), "origin": origin, "destination": destination},
-    }
+    """Cost per ton-mile comparison across transport modes."""
+    modes = await compute_mode_cost_comparison(year)
+    return {"data": modes, "error": None, "meta": {"year": year, "count": len(modes)}}
 
 
-@router.post("/route-performance/compute")
-async def trigger_route_performance() -> dict[str, Any]:
-    """Manually trigger route performance computation."""
-    count = await compute_route_performance()
-    return {
-        "data": {"routes_scored": count},
-        "error": None,
-        "meta": {"triggered": True},
-    }
-
-
-@router.get("/emissions")
-async def get_emissions(db: AsyncSession = Depends(get_db)) -> dict[str, Any]:
-    """SWISS fleet CO2 and fuel burn aggregates for the last 10 minutes."""
+@router.get("/commodity-summary")
+async def get_commodity_summary(
+    year: int = Query(2022),
+    limit: int = Query(20, ge=1, le=50),
+    db: AsyncSession = Depends(get_db),
+) -> dict[str, Any]:
+    """Top commodities by volume for a given year."""
     result = await db.execute(text("""
         SELECT
-            COUNT(DISTINCT icao24)           AS aircraft_count,
-            COALESCE(SUM(co2_kg_s), 0)       AS total_co2_kg_s,
-            COALESCE(SUM(fuel_flow_kg_s), 0) AS total_fuel_kg_s
-        FROM state_vectors
-        WHERE time > NOW() - INTERVAL '10 minutes'
-          AND on_ground = false
-          AND co2_kg_s IS NOT NULL
-          AND callsign LIKE 'SWR%'
-    """))
-    row = result.mappings().one()
-    return {"data": dict(row), "error": None, "meta": {}}
+            ff.sctg2, com.commodity_name,
+            SUM(ff.tons_thousands) AS total_tons_k,
+            SUM(ff.value_millions) AS total_value_m,
+            SUM(ff.ton_miles_millions) AS total_tmiles_m
+        FROM freight_flows ff
+        LEFT JOIN commodities com ON ff.sctg2 = com.sctg2
+        WHERE ff.year = :year
+        GROUP BY ff.sctg2, com.commodity_name
+        ORDER BY total_tons_k DESC NULLS LAST
+        LIMIT :limit
+    """), {"year": year, "limit": limit})
+    rows = [dict(r) for r in result.mappings()]
+    return {"data": rows, "error": None, "meta": {"year": year, "count": len(rows)}}
+
+
+@router.post("/corridor-performance/compute")
+async def trigger_corridor_performance(
+    year: int = Query(2022),
+) -> dict[str, Any]:
+    """Manually trigger corridor performance computation."""
+    count = await compute_corridor_performance(year)
+    return {"data": {"corridors_scored": count}, "error": None, "meta": {"triggered": True}}
