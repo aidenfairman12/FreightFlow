@@ -1,18 +1,13 @@
-"""
-Phase 6: External economic data ETL pipeline.
+"""External economic data ETL pipeline for freight cost drivers.
 
-Fetches publicly available cost and revenue drivers:
-- ECB exchange rates (EUR/CHF, USD/CHF) — free, no key
-- EIA jet fuel price — requires EIA_API_KEY
+Fetches publicly available data:
+- EIA on-highway diesel price — requires EIA_API_KEY
 - Brent crude price — via EIA
-- EU ETS carbon price — placeholder (manual or Ember API)
-
-Each fetcher stores results in the economic_factors table.
+- FRED Freight Transportation Services Index (TSI) — free, no key
 """
 
 import logging
-from datetime import date, timedelta
-from xml.etree import ElementTree
+from datetime import date
 
 import httpx
 from sqlalchemy import text
@@ -38,54 +33,22 @@ async def _upsert_factor(
         await session.commit()
 
 
-# ── ECB Exchange Rates ───────────────────────────────────────────────────────
-
-ECB_DAILY_URL = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml"
-ECB_NS = {"gesmes": "http://www.gesmes.org/xml/2002-08-01",
-           "ecb": "http://www.ecb.int/vocabulary/2002-08-01/euref"}
-
-
-async def fetch_ecb_exchange_rates() -> dict[str, float]:
-    """Fetch latest ECB reference rates. Returns {currency: rate_vs_EUR}."""
-    rates = {}
-    try:
-        async with httpx.AsyncClient(timeout=15) as client:
-            resp = await client.get(ECB_DAILY_URL)
-            resp.raise_for_status()
-
-        root = ElementTree.fromstring(resp.text)
-        cube = root.find(".//ecb:Cube/ecb:Cube", ECB_NS)
-        if cube is None:
-            logger.warning("ECB XML: could not find Cube element")
-            return rates
-
-        ref_date = date.fromisoformat(cube.attrib["time"])
-        for rate in cube.findall("ecb:Cube", ECB_NS):
-            currency = rate.attrib["currency"]
-            value = float(rate.attrib["rate"])
-            rates[currency] = value
-
-        # Store key rates
-        if "CHF" in rates:
-            await _upsert_factor(ref_date, "eur_chf", rates["CHF"], "CHF/EUR", "ECB")
-        if "USD" in rates and "CHF" in rates:
-            usd_chf = rates["CHF"] / rates["USD"]
-            await _upsert_factor(ref_date, "usd_chf", usd_chf, "CHF/USD", "ECB (derived)")
-
-        logger.info("ECB rates fetched for %s: CHF=%.4f", ref_date, rates.get("CHF", 0))
-    except Exception:
-        logger.exception("ECB exchange rate fetch failed")
-    return rates
-
-
-# ── EIA Jet Fuel & Crude Oil ─────────────────────────────────────────────────
+# ── EIA Diesel & Crude Oil ──────────────────────────────────────────────────
 
 EIA_API_BASE = "https://api.eia.gov/v2"
 _eia_validated = False
-# Series IDs: RJETC (jet fuel US Gulf Coast), RBRTE (Brent spot)
+
 EIA_SERIES = {
-    "jet_fuel_usd_gal": {"route": "/petroleum/pri/spt/data/", "series": "RJETC", "unit": "USD/gal"},
-    "brent_crude_usd_bbl": {"route": "/petroleum/pri/spt/data/", "series": "RBRTE", "unit": "USD/bbl"},
+    "diesel_usd_gal": {
+        "route": "/petroleum/pri/gnd/data/",
+        "series": "EMD_EPD2D_PTE_NUS_DPG",
+        "unit": "USD/gal",
+    },
+    "brent_crude_usd_bbl": {
+        "route": "/petroleum/pri/spt/data/",
+        "series": "RBRTE",
+        "unit": "USD/bbl",
+    },
 }
 
 
@@ -95,7 +58,7 @@ async def validate_eia_key() -> bool:
     api_key = settings.eia_api_key
     if not api_key:
         logger.warning(
-            "EIA_API_KEY not set — jet fuel and crude oil prices will be unavailable. "
+            "EIA_API_KEY not set — diesel and crude oil prices will be unavailable. "
             "Register for a free key at https://www.eia.gov/opendata/register.php"
         )
         return False
@@ -114,7 +77,7 @@ async def validate_eia_key() -> bool:
             return True
     except httpx.ConnectError:
         logger.warning("Cannot reach EIA API — will retry on next ETL cycle")
-        _eia_validated = True  # allow, will retry
+        _eia_validated = True
         return True
     except Exception:
         logger.exception("Unexpected error validating EIA API key")
@@ -122,7 +85,7 @@ async def validate_eia_key() -> bool:
 
 
 async def fetch_eia_prices() -> None:
-    """Fetch jet fuel and Brent crude prices from EIA API."""
+    """Fetch diesel and Brent crude prices from EIA API."""
     api_key = settings.eia_api_key
     if not api_key:
         return
@@ -132,7 +95,7 @@ async def fetch_eia_prices() -> None:
             for factor_name, cfg in EIA_SERIES.items():
                 params = {
                     "api_key": api_key,
-                    "frequency": "daily",
+                    "frequency": "weekly" if "gnd" in cfg["route"] else "daily",
                     "data[0]": "value",
                     "facets[series][]": cfg["series"],
                     "sort[0][column]": "period",
@@ -157,55 +120,53 @@ async def fetch_eia_prices() -> None:
         logger.exception("EIA price fetch failed")
 
 
-# ── EU ETS Carbon Price ──────────────────────────────────────────────────────
+# ── FRED Freight Transportation Services Index ────────────────────────────
 
-async def fetch_carbon_price() -> None:
-    """
-    Fetch EU ETS carbon (EUA) price.
+FRED_API_BASE = "https://api.stlouisfed.org/fred/series/observations"
 
-    Uses Ember Climate's public data API when available.
-    Falls back to a placeholder that can be manually updated.
-    """
+
+async def fetch_freight_tsi() -> None:
+    """Fetch Freight Transportation Services Index from FRED (free, no key needed)."""
     try:
         async with httpx.AsyncClient(timeout=15) as client:
-            # Ember's carbon price tracker (public, no key)
+            # FRED provides a free observation endpoint (limited without key)
+            # TSI series: TSIFRGHT
             resp = await client.get(
-                "https://ember-climate.org/api/carbon-price/",
-                headers={"Accept": "application/json"},
+                FRED_API_BASE,
+                params={
+                    "series_id": "TSIFRGHT",
+                    "api_key": "DEMO_KEY",  # FRED allows DEMO_KEY for limited access
+                    "file_type": "json",
+                    "sort_order": "desc",
+                    "limit": 5,
+                },
             )
-            if resp.status_code == 200:
-                data = resp.json()
-                # Extract latest EU ETS price
-                for entry in data if isinstance(data, list) else [data]:
-                    if entry.get("scheme") == "EU ETS":
-                        price = entry.get("price")
-                        price_date = entry.get("date")
-                        if price and price_date:
-                            await _upsert_factor(
-                                date.fromisoformat(price_date[:10]),
-                                "eua_eur_ton", float(price), "EUR/tCO2", "Ember",
-                            )
-                            logger.info("EU ETS carbon price: %.2f EUR/t", price)
-                            return
+            if resp.status_code != 200:
+                logger.debug("FRED TSI fetch returned %d, skipping", resp.status_code)
+                return
 
-        logger.debug("Carbon price: no data from Ember, using fallback estimate")
-        # Fallback: approximate based on recent EUA range (€60-80)
-        await _upsert_factor(
-            date.today(), "eua_eur_ton", 65.0,
-            "EUR/tCO2", "estimate",
-        )
+            data = resp.json()
+            for obs in data.get("observations", []):
+                obs_date = obs.get("date")
+                value = obs.get("value")
+                if obs_date and value and value != ".":
+                    await _upsert_factor(
+                        date.fromisoformat(obs_date), "freight_tsi",
+                        float(value), "index", "FRED (TSIFRGHT)",
+                    )
+            logger.info("FRED freight TSI: fetched %d observations",
+                        len(data.get("observations", [])))
     except Exception:
-        logger.exception("Carbon price fetch failed")
+        logger.exception("FRED freight TSI fetch failed")
 
 
 # ── Orchestrator ─────────────────────────────────────────────────────────────
 
 async def run_economic_etl() -> None:
-    """Run all economic data fetchers. Called on schedule (daily)."""
+    """Run all economic data fetchers."""
     logger.info("Running economic ETL pipeline")
-    await fetch_ecb_exchange_rates()
     await fetch_eia_prices()
-    await fetch_carbon_price()
+    await fetch_freight_tsi()
     logger.info("Economic ETL complete")
 
 

@@ -1,146 +1,148 @@
+-- FreightFlow: US Freight Logistics Intelligence Platform
+-- Database schema for FAF5 freight flow analysis
+
 CREATE EXTENSION IF NOT EXISTS timescaledb;
 
--- ── State vectors (live time-series) ──────────────────────────────────────────
-CREATE TABLE IF NOT EXISTS state_vectors (
-    time             TIMESTAMPTZ      NOT NULL,
-    icao24           TEXT             NOT NULL,
-    callsign         TEXT,
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- Reference Data
+-- ═══════════════════════════════════════════════════════════════════════════════
+
+-- FAF5 zone reference (132 domestic + international gateway zones)
+CREATE TABLE IF NOT EXISTS faf_zones (
+    zone_id          INTEGER          PRIMARY KEY,
+    zone_name        TEXT             NOT NULL,
+    state_fips       TEXT,
+    state_name       TEXT,
+    zone_type        TEXT,            -- 'metro', 'rest_of_state', 'port', etc.
     latitude         DOUBLE PRECISION,
-    longitude        DOUBLE PRECISION,
-    baro_altitude    DOUBLE PRECISION,
-    velocity         DOUBLE PRECISION,
-    heading          DOUBLE PRECISION,
-    vertical_rate    DOUBLE PRECISION,
-    on_ground        BOOLEAN,
-    fuel_flow_kg_s   DOUBLE PRECISION,
-    co2_kg_s         DOUBLE PRECISION
+    longitude        DOUBLE PRECISION
 );
 
-SELECT create_hypertable('state_vectors', 'time', if_not_exists => TRUE);
-
-CREATE INDEX IF NOT EXISTS idx_sv_icao24_time
-    ON state_vectors (icao24, time DESC);
-
--- ── Enriched historical flights ───────────────────────────────────────────────
-CREATE TABLE IF NOT EXISTS flights (
-    flight_id        UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
-    icao24           TEXT             NOT NULL,
-    callsign         TEXT,
-    aircraft_type    TEXT,
-    airline_code     TEXT,
-    airline_name     TEXT,
-    origin_icao      TEXT,
-    destination_icao TEXT,
-    first_seen       TIMESTAMPTZ,
-    last_seen        TIMESTAMPTZ,
-    distance_km      DOUBLE PRECISION,
-    total_fuel_kg    DOUBLE PRECISION,
-    total_co2_kg     DOUBLE PRECISION,
-    max_altitude     DOUBLE PRECISION,
-    avg_speed        DOUBLE PRECISION
+-- SCTG commodity codes
+CREATE TABLE IF NOT EXISTS commodities (
+    sctg2            TEXT             PRIMARY KEY,
+    commodity_name   TEXT             NOT NULL,
+    commodity_group  TEXT
 );
-
-CREATE INDEX IF NOT EXISTS idx_flights_icao24
-    ON flights (icao24);
-CREATE INDEX IF NOT EXISTS idx_flights_first_seen
-    ON flights (first_seen DESC);
-
--- ── Aircraft registry (ICAO24 → type mapping) ─────────────────────────────────
-CREATE TABLE IF NOT EXISTS aircraft_registry (
-    icao24           TEXT             PRIMARY KEY,
-    aircraft_type    TEXT,
-    airline_code     TEXT,
-    registration     TEXT,
-    last_updated     TIMESTAMPTZ      DEFAULT NOW()
-);
-
--- ── Route analytics ───────────────────────────────────────────────────────────
-CREATE TABLE IF NOT EXISTS route_analytics (
-    origin_icao      TEXT             NOT NULL,
-    destination_icao TEXT             NOT NULL,
-    flight_count     INTEGER          DEFAULT 0,
-    avg_fuel_kg      DOUBLE PRECISION,
-    avg_duration_min DOUBLE PRECISION,
-    avg_co2_kg       DOUBLE PRECISION,
-    avg_distance_km  DOUBLE PRECISION,
-    last_updated     TIMESTAMPTZ      DEFAULT NOW(),
-    PRIMARY KEY (origin_icao, destination_icao)
-);
-
--- ── Route performance (baselines vs actuals) ────────────────────────────────
-CREATE TABLE IF NOT EXISTS route_performance (
-    id                   UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
-    origin_icao          TEXT             NOT NULL,
-    destination_icao     TEXT             NOT NULL,
-    -- Baselines (all-time rolling averages)
-    baseline_duration_min DOUBLE PRECISION,
-    baseline_fuel_kg      DOUBLE PRECISION,
-    baseline_co2_kg       DOUBLE PRECISION,
-    baseline_distance_km  DOUBLE PRECISION,
-    -- Recent actuals (last 7 days)
-    recent_avg_duration_min DOUBLE PRECISION,
-    recent_avg_fuel_kg      DOUBLE PRECISION,
-    recent_avg_co2_kg       DOUBLE PRECISION,
-    recent_flight_count     INTEGER DEFAULT 0,
-    -- Deviations (positive = worse than baseline)
-    duration_deviation_pct  DOUBLE PRECISION,
-    fuel_deviation_pct      DOUBLE PRECISION,
-    co2_deviation_pct       DOUBLE PRECISION,
-    -- Variability
-    std_duration_min        DOUBLE PRECISION,
-    std_fuel_kg             DOUBLE PRECISION,
-    -- Scoring
-    total_flight_count      INTEGER DEFAULT 0,
-    performance_score       DOUBLE PRECISION,  -- -1 (underperforming) to +1 (overperforming)
-    category                TEXT,              -- 'overperforming' | 'average' | 'underperforming'
-    -- Fuel efficiency per km
-    fuel_per_km             DOUBLE PRECISION,
-    co2_per_km              DOUBLE PRECISION,
-    -- Metadata
-    updated_at              TIMESTAMPTZ DEFAULT NOW(),
-    UNIQUE (origin_icao, destination_icao)
-);
-
-CREATE INDEX IF NOT EXISTS idx_route_performance_score
-    ON route_performance (performance_score DESC);
 
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Phase 5: Operational KPIs
+-- Core Freight Data
 -- ═══════════════════════════════════════════════════════════════════════════════
 
-CREATE TABLE IF NOT EXISTS operational_kpis (
+-- FAF5 freight flows (one row per origin-destination-commodity-mode-year)
+CREATE TABLE IF NOT EXISTS freight_flows (
     id               UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
-    period_start     TIMESTAMPTZ      NOT NULL,
-    period_end       TIMESTAMPTZ      NOT NULL,
-    period_type      TEXT             NOT NULL,  -- 'weekly' or 'monthly'
-    airline_code     TEXT             NOT NULL DEFAULT 'SWR',
-    -- ASK / capacity
-    total_ask        DOUBLE PRECISION,          -- Available Seat Kilometers
-    -- Fleet utilization
-    avg_block_hours_per_day DOUBLE PRECISION,
-    total_block_hours       DOUBLE PRECISION,
-    unique_aircraft_count   INTEGER,
-    -- Route metrics
-    total_departures INTEGER,
-    unique_routes    INTEGER,
-    -- Turnaround
-    avg_turnaround_min  DOUBLE PRECISION,
-    -- Fuel efficiency
-    fuel_burn_per_ask   DOUBLE PRECISION,
-    co2_per_ask         DOUBLE PRECISION,
-    total_fuel_kg       DOUBLE PRECISION,
-    total_co2_kg        DOUBLE PRECISION,
-    -- Estimated load factor
-    estimated_load_factor DOUBLE PRECISION,
-    created_at       TIMESTAMPTZ      DEFAULT NOW(),
-    UNIQUE (period_start, period_type, airline_code)
+    origin_zone_id   INTEGER          NOT NULL REFERENCES faf_zones(zone_id),
+    dest_zone_id     INTEGER          NOT NULL REFERENCES faf_zones(zone_id),
+    sctg2            TEXT             NOT NULL REFERENCES commodities(sctg2),
+    mode_code        INTEGER          NOT NULL,
+    mode_name        TEXT             NOT NULL,
+    year             INTEGER          NOT NULL,
+    data_type        TEXT             NOT NULL DEFAULT 'historical',
+    tons_thousands   DOUBLE PRECISION,
+    value_millions   DOUBLE PRECISION,
+    ton_miles_millions DOUBLE PRECISION,
+    UNIQUE (origin_zone_id, dest_zone_id, sctg2, mode_code, year)
 );
 
-CREATE INDEX IF NOT EXISTS idx_kpis_period
-    ON operational_kpis (period_start DESC, period_type);
+CREATE INDEX IF NOT EXISTS idx_ff_origin_dest ON freight_flows (origin_zone_id, dest_zone_id);
+CREATE INDEX IF NOT EXISTS idx_ff_commodity ON freight_flows (sctg2);
+CREATE INDEX IF NOT EXISTS idx_ff_mode ON freight_flows (mode_code);
+CREATE INDEX IF NOT EXISTS idx_ff_year ON freight_flows (year);
+
+-- Curated corridor definitions (2-3 major freight corridors)
+CREATE TABLE IF NOT EXISTS corridors (
+    corridor_id      UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
+    name             TEXT             NOT NULL UNIQUE,
+    description      TEXT,
+    origin_zones     INTEGER[]        NOT NULL,
+    dest_zones       INTEGER[]        NOT NULL,
+    origin_lat       DOUBLE PRECISION,
+    origin_lon       DOUBLE PRECISION,
+    dest_lat         DOUBLE PRECISION,
+    dest_lon         DOUBLE PRECISION,
+    created_at       TIMESTAMPTZ      DEFAULT NOW()
+);
 
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Phase 6: Economic Factors (external data time series)
+-- Cost Model
+-- ═══════════════════════════════════════════════════════════════════════════════
+
+-- Freight rates per ton-mile by mode and year
+CREATE TABLE IF NOT EXISTS freight_rates (
+    id               UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
+    mode_code        INTEGER          NOT NULL,
+    mode_name        TEXT             NOT NULL,
+    year             INTEGER          NOT NULL,
+    cost_per_ton_mile_usd DOUBLE PRECISION NOT NULL,
+    source           TEXT,
+    notes            TEXT,
+    UNIQUE (mode_code, year)
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- Analytics & KPIs
+-- ═══════════════════════════════════════════════════════════════════════════════
+
+-- Corridor performance (aggregated metrics per corridor per year)
+CREATE TABLE IF NOT EXISTS corridor_performance (
+    id               UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
+    corridor_id      UUID             REFERENCES corridors(corridor_id),
+    year             INTEGER          NOT NULL,
+    sctg2            TEXT,
+    total_tons       DOUBLE PRECISION,
+    total_value_usd  DOUBLE PRECISION,
+    total_ton_miles  DOUBLE PRECISION,
+    mode_breakdown   JSONB,
+    avg_value_per_ton DOUBLE PRECISION,
+    estimated_cost   DOUBLE PRECISION,
+    cost_per_ton     DOUBLE PRECISION,
+    updated_at       TIMESTAMPTZ      DEFAULT NOW(),
+    UNIQUE (corridor_id, year, sctg2)
+);
+
+-- Freight KPIs (periodic aggregations)
+CREATE TABLE IF NOT EXISTS freight_kpis (
+    id               UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
+    period_year      INTEGER          NOT NULL,
+    scope            TEXT             NOT NULL DEFAULT 'national',
+    total_tons       DOUBLE PRECISION,
+    total_value_usd  DOUBLE PRECISION,
+    total_ton_miles  DOUBLE PRECISION,
+    truck_share_pct  DOUBLE PRECISION,
+    rail_share_pct   DOUBLE PRECISION,
+    air_share_pct    DOUBLE PRECISION,
+    water_share_pct  DOUBLE PRECISION,
+    multi_share_pct  DOUBLE PRECISION,
+    avg_cost_per_ton_mile DOUBLE PRECISION,
+    total_estimated_cost  DOUBLE PRECISION,
+    value_per_ton    DOUBLE PRECISION,
+    ton_miles_per_ton DOUBLE PRECISION,
+    created_at       TIMESTAMPTZ      DEFAULT NOW(),
+    UNIQUE (period_year, scope)
+);
+
+-- Freight unit economics (cost breakdown per ton-mile)
+CREATE TABLE IF NOT EXISTS freight_unit_economics (
+    id               UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
+    year             INTEGER          NOT NULL,
+    scope            TEXT             NOT NULL DEFAULT 'national',
+    fuel_cost_per_tm     DOUBLE PRECISION,
+    labor_cost_per_tm    DOUBLE PRECISION,
+    equipment_cost_per_tm DOUBLE PRECISION,
+    insurance_cost_per_tm DOUBLE PRECISION,
+    tolls_fees_per_tm    DOUBLE PRECISION,
+    other_cost_per_tm    DOUBLE PRECISION,
+    total_cost_per_tm    DOUBLE PRECISION,
+    revenue_per_tm       DOUBLE PRECISION,
+    margin_per_tm        DOUBLE PRECISION,
+    confidence_level     TEXT DEFAULT 'estimate',
+    created_at           TIMESTAMPTZ DEFAULT NOW(),
+    UNIQUE (year, scope)
+);
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- Economic Factors (external data time series)
 -- ═══════════════════════════════════════════════════════════════════════════════
 
 CREATE TABLE IF NOT EXISTS economic_factors (
@@ -156,119 +158,17 @@ CREATE INDEX IF NOT EXISTS idx_economic_factor_name
     ON economic_factors (factor_name, date DESC);
 
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Phase 7: Unit Economics (CASK / RASK estimates)
+-- Scenario Engine
 -- ═══════════════════════════════════════════════════════════════════════════════
-
-CREATE TABLE IF NOT EXISTS unit_economics (
-    id               UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
-    period_start     TIMESTAMPTZ      NOT NULL,
-    period_end       TIMESTAMPTZ      NOT NULL,
-    period_type      TEXT             NOT NULL,
-    airline_code     TEXT             NOT NULL DEFAULT 'SWR',
-    -- CASK components (CHF-cents per ASK)
-    fuel_cost_per_ask    DOUBLE PRECISION,
-    carbon_cost_per_ask  DOUBLE PRECISION,
-    nav_charges_per_ask  DOUBLE PRECISION,
-    airport_cost_per_ask DOUBLE PRECISION,
-    crew_cost_per_ask    DOUBLE PRECISION,
-    other_cost_per_ask   DOUBLE PRECISION,
-    total_cask           DOUBLE PRECISION,
-    -- RASK
-    estimated_rask       DOUBLE PRECISION,
-    -- Spread
-    rask_cask_spread     DOUBLE PRECISION,
-    -- Confidence
-    confidence_level     TEXT DEFAULT 'estimate', -- 'estimate', 'validated', 'projected'
-    created_at           TIMESTAMPTZ DEFAULT NOW(),
-    UNIQUE (period_start, period_type, airline_code)
-);
-
--- ═══════════════════════════════════════════════════════════════════════════════
--- Phase 8: ML Predictions & Feature Importance
--- ═══════════════════════════════════════════════════════════════════════════════
-
-CREATE TABLE IF NOT EXISTS ml_predictions (
-    id                   UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
-    model_name           TEXT             NOT NULL,
-    model_version        TEXT             NOT NULL,
-    prediction_date      TIMESTAMPTZ      NOT NULL DEFAULT NOW(),
-    target_period_start  TIMESTAMPTZ,
-    target_period_end    TIMESTAMPTZ,
-    target_variable      TEXT             NOT NULL,
-    predicted_value      DOUBLE PRECISION NOT NULL,
-    confidence_lower     DOUBLE PRECISION,
-    confidence_upper     DOUBLE PRECISION,
-    features_json        JSONB,
-    created_at           TIMESTAMPTZ      DEFAULT NOW()
-);
-
-CREATE INDEX IF NOT EXISTS idx_predictions_model
-    ON ml_predictions (model_name, prediction_date DESC);
-
-CREATE TABLE IF NOT EXISTS ml_feature_importance (
-    id                UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
-    model_name        TEXT             NOT NULL,
-    model_version     TEXT             NOT NULL,
-    feature_name      TEXT             NOT NULL,
-    importance_score  DOUBLE PRECISION NOT NULL,
-    created_at        TIMESTAMPTZ      DEFAULT NOW()
-);
-
--- ═══════════════════════════════════════════════════════════════════════════════
--- Phase 9: Scenario Engine
--- ═══════════════════════════════════════════════════════════════════════════════
-
--- ═══════════════════════════════════════════════════════════════════════════════
--- Flight Schedule Imputation
--- ═══════════════════════════════════════════════════════════════════════════════
-
--- Learned weekly schedule patterns (one row per callsign per day-of-week)
-CREATE TABLE IF NOT EXISTS flight_schedule_patterns (
-    id                   UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
-    callsign_norm        TEXT             NOT NULL,  -- e.g. "SWR8"
-    day_of_week          SMALLINT         NOT NULL,  -- 0=Monday, 6=Sunday (ISO)
-    typical_departure_utc TIME            NOT NULL,  -- median observed departure
-    origin_icao          TEXT,
-    destination_icao     TEXT,
-    observation_count    INTEGER          NOT NULL DEFAULT 1,
-    confidence           DOUBLE PRECISION NOT NULL DEFAULT 0.0, -- 0..1
-    last_observed        TIMESTAMPTZ,
-    created_at           TIMESTAMPTZ      DEFAULT NOW(),
-    updated_at           TIMESTAMPTZ      DEFAULT NOW(),
-    UNIQUE (callsign_norm, day_of_week)
-);
-
-CREATE INDEX IF NOT EXISTS idx_schedule_patterns_dow
-    ON flight_schedule_patterns (day_of_week);
-
--- Imputed flights during offline gaps (never mixed with real observations)
-CREATE TABLE IF NOT EXISTS imputed_flights (
-    id                   UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
-    callsign_norm        TEXT             NOT NULL,
-    expected_time        TIMESTAMPTZ      NOT NULL,  -- when we expected this flight
-    origin_icao          TEXT,
-    destination_icao     TEXT,
-    status               TEXT             NOT NULL DEFAULT 'expected',
-                                          -- 'expected' | 'confirmed' | 'missed'
-    matched_flight_id    UUID REFERENCES flights(flight_id),
-    pattern_confidence   DOUBLE PRECISION,
-    created_at           TIMESTAMPTZ      DEFAULT NOW(),
-    reconciled_at        TIMESTAMPTZ
-);
-
-CREATE INDEX IF NOT EXISTS idx_imputed_flights_time
-    ON imputed_flights (expected_time DESC);
-CREATE INDEX IF NOT EXISTS idx_imputed_flights_status
-    ON imputed_flights (status);
 
 CREATE TABLE IF NOT EXISTS scenarios (
     id               UUID             PRIMARY KEY DEFAULT gen_random_uuid(),
     name             TEXT             NOT NULL,
     description      TEXT,
-    parameters       JSONB            NOT NULL,  -- e.g. {"fuel_price_change_pct": 20}
-    results          JSONB,                      -- computed scenario output
+    parameters       JSONB            NOT NULL,
+    results          JSONB,
     base_period_start TIMESTAMPTZ,
     base_period_end   TIMESTAMPTZ,
-    status           TEXT             DEFAULT 'pending', -- 'pending','running','completed','failed'
+    status           TEXT             DEFAULT 'pending',
     created_at       TIMESTAMPTZ      DEFAULT NOW()
 );

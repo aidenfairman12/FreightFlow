@@ -9,8 +9,9 @@ class TestCurrentKPIs:
     @pytest.mark.asyncio
     async def test_found(self, client, mock_db):
         mock_db.execute.return_value = MockResult([
-            {"id": "abc", "airline_code": "SWR", "period_type": "weekly",
-             "total_ask": 1000000, "total_departures": 500},
+            {"id": "abc", "scope": "national", "period_year": 2022,
+             "total_tons": 500000, "total_value_usd": 1e9,
+             "truck_share_pct": 65.0, "rail_share_pct": 20.0},
         ])
         resp = await client.get("/kpi/current")
 
@@ -34,9 +35,9 @@ class TestKPIHistory:
     @pytest.mark.asyncio
     async def test_returns_list(self, client, mock_db):
         mock_db.execute.return_value = MockResult([
-            {"id": "1", "period_type": "weekly"},
-            {"id": "2", "period_type": "weekly"},
-            {"id": "3", "period_type": "weekly"},
+            {"id": "1", "scope": "national", "period_year": 2022},
+            {"id": "2", "scope": "national", "period_year": 2021},
+            {"id": "3", "scope": "national", "period_year": 2020},
         ])
         resp = await client.get("/kpi/history")
 
@@ -45,16 +46,15 @@ class TestKPIHistory:
         assert data["meta"]["count"] == 3
 
 
-class TestFleetUtilization:
+class TestModeShare:
     @pytest.mark.asyncio
-    async def test_returns_fleet(self, client, mock_db):
+    async def test_returns_mode_share(self, client, mock_db):
         mock_db.execute.return_value = MockResult([
-            {"icao24": "aaa", "callsign": "SWR8", "block_hours": 5.2, "observations": 100},
-            {"icao24": "bbb", "callsign": "SWR22", "block_hours": 3.1, "observations": 60},
+            {"period_year": 2022, "truck_share_pct": 65.0, "rail_share_pct": 20.0,
+             "air_share_pct": 0.5, "water_share_pct": 5.0, "multi_share_pct": 9.5},
         ])
-        resp = await client.get("/kpi/fleet")
+        resp = await client.get("/kpi/mode-share")
 
         assert resp.status_code == 200
         data = resp.json()
-        assert data["meta"]["count"] == 2
-        assert data["meta"]["hours"] == 24
+        assert data["meta"]["count"] == 1

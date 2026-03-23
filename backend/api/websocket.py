@@ -7,14 +7,13 @@ websocket_router = APIRouter()
 _connected_clients: list[WebSocket] = []
 
 
-@websocket_router.websocket("/ws/flights")
-async def flight_updates(websocket: WebSocket) -> None:
-    """Accepts a client and keeps the connection open for live pushes."""
+@websocket_router.websocket("/ws")
+async def ws_endpoint(websocket: WebSocket) -> None:
+    """General-purpose WebSocket for live updates."""
     await websocket.accept()
     _connected_clients.append(websocket)
     try:
         while True:
-            # Receive keeps the connection alive; clients may send ping frames
             await websocket.receive_text()
     except WebSocketDisconnect:
         _connected_clients.remove(websocket)
