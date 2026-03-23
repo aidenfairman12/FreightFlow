@@ -17,6 +17,9 @@ node_modules/
 .turbo/
 out/
 
+# FAF5 data (large CSV files — download from https://www.bts.gov/faf)
+backend/data/faf5/*.csv
+
 # Docker
 *.log
 

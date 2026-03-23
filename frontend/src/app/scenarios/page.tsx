@@ -8,16 +8,24 @@ import { Card, CardHeader, CardTitle, CardContent, DataTable, LoadingSpinner, Er
 import { chartTooltipStyle, chartAxisTick, chartColors } from '@/lib/chart-theme'
 import type { ScenarioResults, Scenario } from '@/types'
 
+const CUSTOM_FIELDS = [
+  { key: 'diesel_price_change_pct', label: 'Diesel Price Change (%)' },
+  { key: 'demand_change_pct', label: 'Demand Change (%)' },
+  { key: 'rail_capacity_change_pct', label: 'Rail Capacity Change (%)' },
+  { key: 'port_congestion_days', label: 'Port Congestion (days)' },
+  { key: 'truck_driver_shortage_pct', label: 'Driver Shortage (%)' },
+  { key: 'mode_shift_to_rail_pct', label: 'Mode Shift to Rail (%)' },
+  { key: 'carbon_tax_per_ton_mile', label: 'Carbon Tax ($/ton-mile)' },
+  { key: 'toll_increase_pct', label: 'Toll Increase (%)' },
+]
+
 export default function ScenariosPage() {
   const [activeResult, setActiveResult] = useState<ScenarioResults | null>(null)
   const [activeName, setActiveName] = useState('')
   const [running, setRunning] = useState(false)
-  const [customParams, setCustomParams] = useState<Record<string, string>>({
-    fuel_price_change_pct: '0',
-    carbon_price_change_pct: '0',
-    load_factor_change_pct: '0',
-    capacity_change_pct: '0',
-  })
+  const [customParams, setCustomParams] = useState<Record<string, string>>(
+    Object.fromEntries(CUSTOM_FIELDS.map(f => [f.key, '0'])),
+  )
 
   const presets = useApiData(() => api.getScenarioPresets())
   const history = useApiData(() => api.listScenarios(10))
@@ -28,7 +36,7 @@ export default function ScenariosPage() {
     setActiveResult(null)
     try {
       const res = await api.createScenario({ name, description, parameters })
-      if (res.data) setActiveResult(res.data as ScenarioResults)
+      if (res.data) setActiveResult(res.data)
       history.refresh()
     } catch { /* ignore */ }
     setRunning(false)
@@ -38,18 +46,18 @@ export default function ScenariosPage() {
     const params: Record<string, number> = {}
     for (const [k, v] of Object.entries(customParams)) {
       const num = parseFloat(v)
-      if (num !== 0) params[k] = num
+      if (num !== 0 && !isNaN(num)) params[k] = num
     }
     if (Object.keys(params).length === 0) return
     runScenario('Custom Scenario', 'User-defined scenario', params)
   }
 
   const deltaBar = activeResult ? [
-    { name: 'CASK', delta: activeResult.deltas.total_cask },
-    { name: 'RASK', delta: activeResult.deltas.estimated_rask },
-    { name: 'Spread', delta: activeResult.deltas.spread },
-    { name: 'Fuel/ASK', delta: activeResult.deltas.fuel_cost_per_ask },
-    { name: 'Carbon/ASK', delta: activeResult.deltas.carbon_cost_per_ask },
+    { name: 'Total Cost/TM', delta: activeResult.deltas.total_cost_per_tm },
+    { name: 'Fuel', delta: activeResult.deltas.fuel },
+    { name: 'Labor', delta: activeResult.deltas.labor },
+    { name: 'Tolls/Fees', delta: activeResult.deltas.tolls_fees },
+    { name: 'Margin/TM', delta: activeResult.deltas.margin_per_tm },
   ] : []
 
   const anyError = presets.error || history.error
@@ -57,7 +65,7 @@ export default function ScenariosPage() {
 
   return (
     <div className="h-full overflow-y-auto p-6">
-      <h1 className="mb-5 text-xl font-bold text-foreground">Scenario Engine</h1>
+      <h1 className="mb-5 text-xl font-bold text-foreground">Freight Scenario Engine</h1>
 
       {anyError && <ErrorBanner message={anyError} onRetry={() => { presets.refresh(); history.refresh() }} />}
 
@@ -90,16 +98,12 @@ export default function ScenariosPage() {
           <CardHeader><CardTitle>Custom Scenario</CardTitle></CardHeader>
           <CardContent>
             <div className="flex flex-col gap-3">
-              {[
-                { key: 'fuel_price_change_pct', label: 'Fuel Price Change (%)' },
-                { key: 'carbon_price_change_pct', label: 'Carbon Price Change (%)' },
-                { key: 'load_factor_change_pct', label: 'Load Factor Change (%)' },
-                { key: 'capacity_change_pct', label: 'Capacity Change (%)' },
-              ].map(field => (
+              {CUSTOM_FIELDS.map(field => (
                 <div key={field.key} className="flex items-center gap-2.5">
-                  <Label className="w-44 text-sm text-muted-foreground">{field.label}</Label>
+                  <Label className="w-48 text-sm text-muted-foreground">{field.label}</Label>
                   <Input
                     type="number"
+                    step="any"
                     value={customParams[field.key]}
                     onChange={e => setCustomParams(prev => ({ ...prev, [field.key]: e.target.value }))}
                     className="flex-1"
@@ -129,19 +133,19 @@ export default function ScenariosPage() {
               </div>
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  { label: 'Baseline CASK', value: activeResult.baseline.total_cask, unit: 'ct/ASK' },
-                  { label: 'Scenario CASK', value: activeResult.scenario.total_cask, unit: 'ct/ASK' },
-                  { label: 'CASK Delta', value: activeResult.deltas.total_cask, unit: 'ct/ASK',
-                    color: activeResult.deltas.total_cask > 0 ? chartColors.red : chartColors.green },
-                  { label: 'Baseline RASK', value: activeResult.baseline.estimated_rask, unit: 'ct/ASK' },
-                  { label: 'Scenario RASK', value: activeResult.scenario.estimated_rask, unit: 'ct/ASK' },
-                  { label: 'Spread Delta', value: activeResult.deltas.spread, unit: 'ct/ASK',
-                    color: activeResult.deltas.spread > 0 ? chartColors.green : chartColors.red },
+                  { label: 'Baseline Cost/TM', value: activeResult.baseline.total_cost_per_tm, unit: '$/tm' },
+                  { label: 'Scenario Cost/TM', value: activeResult.scenario.total_cost_per_tm, unit: '$/tm' },
+                  { label: 'Cost Delta', value: activeResult.deltas.total_cost_per_tm, unit: '$/tm',
+                    color: activeResult.deltas.total_cost_per_tm > 0 ? chartColors.red : chartColors.green },
+                  { label: 'Baseline Margin', value: activeResult.baseline.margin_per_tm, unit: '$/tm' },
+                  { label: 'Scenario Margin', value: activeResult.scenario.margin_per_tm, unit: '$/tm' },
+                  { label: 'Cost Change', value: activeResult.deltas.cost_change_pct, unit: '%',
+                    color: activeResult.deltas.cost_change_pct > 0 ? chartColors.red : chartColors.green },
                 ].map(item => (
                   <div key={item.label} className="rounded-md bg-background p-2">
                     <div className="mb-0.5 text-[10px] text-muted-foreground">{item.label}</div>
                     <div className="text-lg font-bold" style={{ color: item.color }}>
-                      {item.value >= 0 && item.color ? '+' : ''}{item.value.toFixed(2)}
+                      {item.color && item.value >= 0 ? '+' : ''}{item.value.toFixed(4)}
                     </div>
                     <div className="text-[10px] text-muted-foreground/60">{item.unit}</div>
                   </div>
@@ -154,11 +158,11 @@ export default function ScenariosPage() {
             <CardHeader><CardTitle>Impact by Component</CardTitle></CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={240}>
-                <BarChart data={deltaBar} layout="vertical" margin={{ left: 80 }}>
+                <BarChart data={deltaBar} layout="vertical" margin={{ left: 100 }}>
                   <XAxis type="number" tick={chartAxisTick} />
-                  <YAxis type="category" dataKey="name" tick={{ fontSize: 12, fill: 'var(--muted-foreground)' }} width={80} />
+                  <YAxis type="category" dataKey="name" tick={{ fontSize: 12, fill: 'var(--muted-foreground)' }} width={100} />
                   <Tooltip contentStyle={chartTooltipStyle}
-                    formatter={(v: number) => `${v >= 0 ? '+' : ''}${v.toFixed(4)} ct/ASK`} />
+                    formatter={(v: number) => `${v >= 0 ? '+' : ''}$${v.toFixed(4)}/tm`} />
                   <Bar dataKey="delta" radius={[0, 4, 4, 0]}>
                     {deltaBar.map((entry, i) => (
                       <Cell key={i} fill={entry.delta >= 0 ? chartColors.red : chartColors.green} />

@@ -1,21 +1,24 @@
 """API test infrastructure — TestClient with mocked DB session."""
 
 import pytest
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock
 
 from fastapi import FastAPI
 from httpx import AsyncClient, ASGITransport
 
-from api.routes import flights, analytics, kpi
+from api.routes import corridors, flows, analytics, kpi, economics, scenarios
 from db.session import get_db
 
 
 def _create_test_app() -> FastAPI:
     """Build a clean test app with just the routers — no lifespan/scheduler."""
     app = FastAPI()
-    app.include_router(flights.router, prefix="/flights")
+    app.include_router(corridors.router, prefix="/corridors")
+    app.include_router(flows.router, prefix="/flows")
     app.include_router(analytics.router, prefix="/analytics")
     app.include_router(kpi.router, prefix="/kpi")
+    app.include_router(economics.router, prefix="/economics")
+    app.include_router(scenarios.router, prefix="/scenarios")
     return app
 
 
@@ -52,12 +55,21 @@ class MockResult:
     def mappings(self):
         return MockMappingResult(self._rows)
 
+    def one(self):
+        if len(self._rows) != 1:
+            raise Exception(f"Expected 1 row, got {len(self._rows)}")
+        return tuple(self._rows[0].values())
+
+    def first(self):
+        return tuple(self._rows[0].values()) if self._rows else None
+
 
 @pytest.fixture
 def mock_db():
     """Create a mock AsyncSession with configurable query results."""
     session = AsyncMock()
     session.execute = AsyncMock(return_value=MockResult([]))
+    session.commit = AsyncMock()
     return session
 
 

@@ -1,18 +1,14 @@
-import type { StateVector } from '@/types'
+const WS_URL = process.env.NEXT_PUBLIC_WS_URL ?? 'ws://localhost:8000/ws'
 
-const WS_URL = process.env.NEXT_PUBLIC_WS_URL ?? 'ws://localhost:8000/ws/flights'
+type MessageHandler = (data: unknown) => void
 
-type FlightUpdateHandler = (flights: StateVector[]) => void
-
-export function createFlightSocket(onUpdate: FlightUpdateHandler): WebSocket {
+export function createSocket(onMessage: MessageHandler): WebSocket {
   const ws = new WebSocket(WS_URL)
 
   ws.onmessage = (event) => {
     try {
       const message = JSON.parse(event.data)
-      if (message.type === 'flight_update') {
-        onUpdate(message.data)
-      }
+      onMessage(message)
     } catch {
       console.error('Failed to parse WebSocket message', event.data)
     }

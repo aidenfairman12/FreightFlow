@@ -1,105 +1,85 @@
-# PlaneLogistics — System Architecture
+# FreightFlow — System Architecture
 
 ## High-Level Overview
 
 ```
-┌─────────────────────────────────────────────────────────────────────┐
-│                          Browser (Next.js)                          │
-│                                                                     │
-│  /dashboard   /analytics   /economics   /predictions   /scenarios   │
-│  Live Map     SWISS KPIs   CASK/RASK    ML Models      What-If     │
-└──────┬──────────┬────────────┬────────────┬──────────────┬──────────┘
-       │ WS       │ REST       │ REST       │ REST         │ REST
-       ▼          ▼            ▼            ▼              ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                       FastAPI Backend (:8000)                        │
-│                                                                     │
-│  /ws/flights   /flights/*   /analytics/*   /kpi/*   /economics/*    │
-│                /predictions/*   /scenarios/*                         │
-│                                                                     │
-│  ┌───────────────── APScheduler (lifespan) ──────────────────┐     │
-│  │  10s: OpenSky poll → enrich → Redis + Postgres + WS       │     │
-│  │  5m:  Flight aggregation (state_vectors → flights)         │     │
-│  │  1h:  SWISS KPI computation + unit economics               │     │
-│  │  6h:  Economic ETL (ECB, EIA, carbon prices)               │     │
-│  └────────────────────────────────────────────────────────────┘     │
-└──────────┬─────────────────┬─────────────────┬─────────────────────┘
-           │                 │                 │
-           ▼                 ▼                 ▼
-    ┌────────────┐   ┌────────────┐   ┌────────────────────┐
-    │   Redis    │   │ TimescaleDB│   │  External APIs     │
-    │  :6379     │   │  :5432     │   │  OpenSky, ECB,     │
-    │ live cache │   │ 10 tables  │   │  EIA, Ember        │
-    └────────────┘   └────────────┘   └────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                      Browser (Next.js)                       │
+│                                                              │
+│  /dashboard     /analytics     /economics     /scenarios     │
+│  Freight Map    Freight KPIs   Cost Intel     What-If        │
+└──────┬────────────┬──────────────┬──────────────┬───────────┘
+       │ REST       │ REST         │ REST         │ REST
+       ▼            ▼              ▼              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    FastAPI Backend (:8000)                    │
+│                                                              │
+│  /corridors/*  /flows/*  /analytics/*  /kpi/*                │
+│  /economics/*  /scenarios/*                                  │
+│                                                              │
+│  ┌─────────── APScheduler (lifespan) ───────────────┐       │
+│  │  Startup: seed zones + commodities + corridors    │       │
+│  │  Startup: load FAF5 CSV data                      │       │
+│  │  Every 6h: economic ETL (EIA diesel/crude, FRED)  │       │
+│  └───────────────────────────────────────────────────┘       │
+└──────────┬──────────────────┬──────────────────┬────────────┘
+           │                  │                  │
+           ▼                  ▼                  ▼
+    ┌────────────┐    ┌────────────┐    ┌─────────────────┐
+    │   Redis    │    │ PostgreSQL │    │  External APIs   │
+    │  :6379     │    │  :5432     │    │  EIA, FRED       │
+    │  (cache)   │    │ 10 tables  │    │                  │
+    └────────────┘    └────────────┘    └─────────────────┘
 ```
 
 ## Data Pipeline
 
-### 1. Ingestion (every 10 seconds)
+### 1. Startup — Reference Data Seeding
 
 ```
-OpenSky API  →  fetch_swiss_states()     Swiss bounding box ADS-B data
-             →  enrichment.py            Aircraft type, airline name lookup
-             →  route_cache.py           Origin/destination detection
-             →  fuel_model.py            OpenAP fuel burn + CO2 estimation
-             →  redis_cache.py           Store in Redis (TTL = 2×poll_interval)
-             →  persistence.py           Batch INSERT into state_vectors hypertable
-             →  websocket.py             Broadcast to all connected browsers
+corridor_definitions.py  →  seed_zones()        132 FAF zone centroids
+                         →  seed_commodities()   43 SCTG commodity codes
+                         →  seed_corridors()     3 curated corridors (LA→Chicago, Houston→NYC, Seattle→Dallas)
 ```
 
-### 2. Flight Aggregation (every 5 minutes)
+### 2. Startup — FAF5 Data Ingestion
 
 ```
-state_vectors  →  flight_aggregator.py   Detect aircraft that left airspace
-               →  flights table          Summarize: duration, fuel, CO2, distance
+backend/data/faf5/*.csv  →  faf5_loader.py      Parse CSVs, unpivot year columns
+                         →  freight_flows table  Batch INSERT with ON CONFLICT
 ```
 
-### 3. KPI Pipeline (every hour)
+### 3. Economic ETL (every 6 hours)
 
 ```
-state_vectors  →  swiss_filter.py        Filter to SWR callsign prefix
-               →  kpi_aggregator.py      Compute ASK, utilization, turnaround
-               →  operational_kpis       Store weekly/monthly aggregates
-               →  unit_economics.py      Combine KPIs + economic factors → CASK/RASK
-               →  unit_economics table   Store period estimates
-```
-
-### 4. Economic ETL (every 6 hours)
-
-```
-ECB XML feed   →  exchange rates (EUR/CHF, USD/CHF)
-EIA API        →  jet fuel price, Brent crude
-Ember API      →  EU ETS carbon price (EUA)
+EIA API        →  diesel price (on-highway), Brent crude
+FRED API       →  freight transportation services index
                →  economic_factors table (date-indexed time series)
 ```
 
-### 5. ML Pipeline (on-demand)
+### 4. On-Demand Computation
 
 ```
-operational_kpis + economic_factors + unit_economics
-    →  ml_pipeline.py
-        →  RandomForest feature importance
-        →  Linear time series forecast with confidence bands
-        →  GradientBoosting cost regression
-        →  Route profitability scoring
-        →  Z-score fuel anomaly detection
-    →  ml_predictions + ml_feature_importance tables
+/kpi/compute              →  freight_kpi_aggregator.py   →  freight_kpis table
+/analytics/compute        →  corridor_performance.py     →  corridor_performance table
+/scenarios/ (POST)        →  scenario_engine.py          →  scenarios table
+/corridors/{id}/modes     →  freight_cost_model.py       →  inline response
 ```
 
 ## Database Schema
 
 ```
-TimescaleDB
-├── state_vectors (hypertable)     Raw ADS-B telemetry, one row per aircraft per poll
-├── flights                        Completed flight summaries
-├── aircraft_registry              ICAO24 → aircraft type cache
-├── route_analytics                Aggregated route frequency + fuel averages
-├── operational_kpis               Weekly/monthly SWISS metrics (ASK, utilization, etc.)
-├── economic_factors               Time-series economic data (fuel, carbon, FX)
-├── unit_economics                 CASK/RASK estimates per period
-├── ml_predictions                 Model forecasts with confidence intervals
-├── ml_feature_importance          Feature importance scores per model
-└── scenarios                      What-if scenario definitions + results
+PostgreSQL
+├── faf_zones              132 FAF zone reference data (id, name, state, lat/lon)
+├── commodities            43 SCTG commodity codes + names
+├── freight_flows          Core FAF5 data (origin, dest, commodity, mode, year, tons, value, ton-miles)
+├── corridors              3 curated corridor definitions with zone arrays
+├── freight_rates          Cost per ton-mile by mode and year
+├── corridor_performance   Aggregated corridor metrics per year
+├── freight_kpis           Periodic aggregations (tons, mode share, cost, value)
+├── freight_unit_economics Cost breakdown per ton-mile (fuel/labor/equipment/insurance/tolls)
+├── economic_factors       Time-series economic data (diesel, crude, freight TSI)
+└── scenarios              What-if scenario definitions + results
 ```
 
 ## Backend Service Map
@@ -111,36 +91,28 @@ backend/
 ├── db/
 │   └── session.py                 Async SQLAlchemy engine
 ├── models/                        Pydantic data models
-│   ├── state_vector.py            Live flight state
-│   ├── flight.py                  Completed flight
-│   ├── kpi.py                     Operational KPI
-│   ├── economics.py               Economic factors
-│   ├── prediction.py              ML prediction
+│   ├── freight.py                 Freight flows, corridors, KPIs, unit economics
+│   ├── economics.py               Economic factors + snapshot
 │   └── scenario.py                Scenario definition + results
 ├── services/                      Business logic
-│   ├── opensky.py                 OpenSky OAuth2 + Swiss airspace poll
-│   ├── enrichment.py              Aircraft type + airline lookup
-│   ├── fuel_model.py              OpenAP fuel/CO2 estimation
-│   ├── redis_cache.py             Live flight cache
-│   ├── persistence.py             TimescaleDB batch inserts
-│   ├── route_cache.py             Origin/destination detection
-│   ├── aircraft_data.py           Static aircraft specs (30+ types)
-│   ├── swiss_filter.py            SWISS flight identification
-│   ├── flight_aggregator.py       state_vectors → flights
-│   ├── kpi_aggregator.py          Operational KPI computation
-│   ├── economic_etl.py            External data fetchers (ECB, EIA, carbon)
-│   ├── unit_economics.py          CASK/RASK estimation
-│   ├── ml_pipeline.py             ML model training + prediction
-│   └── scenario_engine.py         What-if analysis engine
+│   ├── faf5_loader.py             FAF5 CSV ETL (parse, unpivot, batch insert)
+│   ├── faf5_zones.py              Zone centroids, mode codes, commodity codes
+│   ├── corridor_definitions.py    Seed corridors + zones + commodities
+│   ├── freight_cost_model.py      Cost per ton-mile by mode, diesel sensitivity
+│   ├── freight_kpi_aggregator.py  Aggregate freight KPIs from flows
+│   ├── freight_unit_economics.py  Cost breakdown per ton-mile
+│   ├── corridor_performance.py    Corridor scoring and performance summary
+│   ├── economic_etl.py            EIA diesel/crude, FRED freight TSI
+│   └── scenario_engine.py         What-if analysis (8 parameters)
 └── api/
     ├── websocket.py               WebSocket connection registry + broadcast
     └── routes/
-        ├── flights.py             GET /flights/live, /flights/history
-        ├── analytics.py           GET /analytics/fuel, /emissions, /network
-        ├── kpi.py                 GET /kpi/current, /history, /fleet, /routes
-        ├── economics.py           GET /economics/latest, /cask-breakdown, etc.
-        ├── predictions.py         GET /predictions/feature-importance, /forecasts
-        └── scenarios.py           POST/GET/DELETE /scenarios/*
+        ├── corridors.py           GET /corridors/, /{id}/flows, /modes, /trends
+        ├── flows.py               GET /flows/, /top-corridors, /mode-trends, /zones
+        ├── analytics.py           GET /analytics/corridor-performance, /mode-comparison
+        ├── kpi.py                 GET /kpi/current, /history, /mode-share
+        ├── economics.py           GET /economics/latest, /history, /cost-breakdown
+        └── scenarios.py           POST/GET/DELETE /scenarios/*, /presets/list
 ```
 
 ## Frontend Page Map
@@ -150,13 +122,12 @@ frontend/src/
 ├── app/
 │   ├── layout.tsx                 Root layout with NavBar
 │   ├── page.tsx                   Redirect → /dashboard
-│   ├── dashboard/page.tsx         Live Leaflet map + flight sidebar
-│   ├── analytics/page.tsx         KPI cards, trend charts, fleet table
-│   ├── economics/page.tsx         Economic indicators, CASK pie, CASK vs RASK
-│   ├── predictions/page.tsx       Feature importance, forecasts, anomalies, routes
+│   ├── dashboard/page.tsx         Freight corridor map + sidebar
+│   ├── analytics/page.tsx         KPI cards, trends, commodity rankings
+│   ├── economics/page.tsx         Economic indicators, cost breakdown charts
 │   └── scenarios/page.tsx         Preset scenarios, custom builder, results
 ├── components/
-│   ├── Map/FlightMap.tsx          Leaflet map (SSR disabled, WebSocket-driven)
+│   ├── Map/FreightMap.tsx         US Leaflet map (corridor polylines, zone markers)
 │   └── Navigation/NavBar.tsx      Top navigation bar
 ├── lib/
 │   ├── api.ts                     Typed REST helpers for all endpoints
@@ -167,10 +138,9 @@ frontend/src/
 
 ## Key Design Decisions
 
-- **TimescaleDB hypertable** for state_vectors: efficient time-range queries on high-cardinality data
-- **Redis as hot cache**: live flight state with auto-expiry, decouples API reads from poll cycle
-- **Fire-and-forget tasks** for enrichment: aircraft type and route lookups don't block the main poll loop
-- **Semaphores (max 3)** on external API calls to avoid flooding OpenSky
-- **CASK estimation from fuel proportion**: if fuel = 28% of costs (IATA benchmark), we can estimate total CASK from fuel cost alone, then break down other components
-- **Walk-forward validation** for ML: time series data requires chronological splits, not random
-- **SWISS-first scope**: all KPI/economics/scenarios filter to SWR callsign; Edelweiss can be added later
+- **FAF5 as foundation**: Free, public, rich multi-modal data (2012-2022 + projections to 2055)
+- **Cost model from benchmarks**: ATRI/AAR/BTS published rates, not proprietary data
+- **Diesel price sensitivity**: Fuel cost share differs by mode (truck 38%, rail 18%), so diesel changes affect modes differently
+- **Corridor-based analysis**: 3 curated corridors focus the story instead of showing 132×132 zone pairs
+- **Scenario engine**: 8 parameters covering fuel, capacity, congestion, labor, demand, mode shift, carbon tax, tolls
+- **Static data + economic overlay**: FAF5 is historical, but diesel/crude price feeds add a dynamic economic layer
