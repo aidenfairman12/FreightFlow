@@ -1,11 +1,9 @@
 """Tests for Pydantic models — construction, defaults, serialization."""
 
 from datetime import date
-from uuid import uuid4
 
 from models.freight import FreightFlow, Corridor, FreightKPI, FreightUnitEconomics, FafZone
 from models.economics import EconomicFactor, EconomicSnapshot
-from models.scenario import ScenarioCreate, Scenario, ScenarioResult
 
 
 class TestFreightModels:
@@ -63,22 +61,3 @@ class TestEconomics:
         assert snap.diesel_usd_gal is None
         assert snap.brent_crude_usd_bbl is None
         assert snap.as_of is None
-
-
-class TestScenario:
-    def test_scenario_create(self):
-        sc = ScenarioCreate(
-            name="Diesel spike",
-            parameters={"diesel_price_change_pct": 30},
-        )
-        assert sc.name == "Diesel spike"
-        assert sc.description is None
-
-    def test_scenario_defaults(self):
-        s = Scenario(name="test", parameters={})
-        assert s.status == "pending"
-        assert s.id is None
-
-    def test_scenario_result(self):
-        sr = ScenarioResult(scenario_id=uuid4())
-        assert sr.baseline_cost_per_tm is None

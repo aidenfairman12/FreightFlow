@@ -1,0 +1,215 @@
+[
+  {
+    "sctg2": "32",
+    "name": "Steel",
+    "concentration_top3": 0.996,
+    "concentration_top5": 0.998,
+    "risk_tier": "critical",
+    "top_assembly_zone": "Chicago Metro",
+    "primary_precursor": "Iron Ore",
+    "total_precursor_tons_k": 52518.7,
+    "top_source_zones": [
+      {
+        "zone_id": 279,
+        "zone_name": "Minnesota",
+        "state": "MN",
+        "tons_k": 12616.5,
+        "pct": 0.993
+      }
+    ],
+    "num_source_zones": 14
+  },
+  {
+    "sctg2": "05",
+    "name": "Beef",
+    "concentration_top3": 0.876,
+    "concentration_top5": 0.99,
+    "risk_tier": "critical",
+    "top_assembly_zone": "Omaha NE-IA (NE Part)",
+    "primary_precursor": "Live Cattle",
+    "total_precursor_tons_k": 95873.3,
+    "top_source_zones": [
+      {
+        "zone_id": 190,
+        "zone_name": "Iowa",
+        "state": "IA",
+        "tons_k": 1732.3,
+        "pct": 0.413
+      },
+      {
+        "zone_id": 279,
+        "zone_name": "Minnesota",
+        "state": "MN",
+        "tons_k": 1212.6,
+        "pct": 0.289
+      },
+      {
+        "zone_id": 209,
+        "zone_name": "Kansas",
+        "state": "KS",
+        "tons_k": 733.5,
+        "pct": 0.175
+      },
+      {
+        "zone_id": 319,
+        "zone_name": "Nebraska",
+        "state": "NE",
+        "tons_k": 431.3,
+        "pct": 0.103
+      },
+      {
+        "zone_id": 299,
+        "zone_name": "Missouri",
+        "state": "MO",
+        "tons_k": 48.7,
+        "pct": 0.012
+      },
+      {
+        "zone_id": 271,
+        "zone_name": "Minneapolis-St. Paul MN-WI (MN Part)",
+        "state": "MN",
+        "tons_k": 24.1,
+        "pct": 0.006
+      }
+    ],
+    "num_source_zones": 9
+  },
+  {
+    "sctg2": "36",
+    "name": "Automobiles",
+    "concentration_top3": 0.574,
+    "concentration_top5": 0.699,
+    "risk_tier": "high",
+    "top_assembly_zone": "Detroit MI",
+    "primary_precursor": "Steel & Metal Products",
+    "total_precursor_tons_k": 107449.2,
+    "top_source_zones": [
+      {
+        "zone_id": 189,
+        "zone_name": "Indiana",
+        "state": "IN",
+        "tons_k": 633.3,
+        "pct": 0.304
+      },
+      {
+        "zone_id": 182,
+        "zone_name": "Indianapolis IN",
+        "state": "IN",
+        "tons_k": 336.3,
+        "pct": 0.161
+      },
+      {
+        "zone_id": 399,
+        "zone_name": "Ohio",
+        "state": "OH",
+        "tons_k": 226.5,
+        "pct": 0.109
+      },
+      {
+        "zone_id": 393,
+        "zone_name": "Columbus OH",
+        "state": "OH",
+        "tons_k": 147.7,
+        "pct": 0.071
+      },
+      {
+        "zone_id": 19,
+        "zone_name": "Alabama",
+        "state": "AL",
+        "tons_k": 112.6,
+        "pct": 0.054
+      },
+      {
+        "zone_id": 181,
+        "zone_name": "Chicago Metro",
+        "state": "IN",
+        "tons_k": 103.4,
+        "pct": 0.05
+      },
+      {
+        "zone_id": 269,
+        "zone_name": "Michigan",
+        "state": "MI",
+        "tons_k": 100.3,
+        "pct": 0.048
+      },
+      {
+        "zone_id": 179,
+        "zone_name": "Illinois",
+        "state": "IL",
+        "tons_k": 81.0,
+        "pct": 0.039
+      }
+    ],
+    "num_source_zones": 48
+  },
+  {
+    "sctg2": "21",
+    "name": "Pharmaceuticals",
+    "concentration_top3": 0.555,
+    "concentration_top5": 0.638,
+    "risk_tier": "high",
+    "top_assembly_zone": "New York NY-NJ-CT-PA (NJ Part)",
+    "primary_precursor": "Basic Chemicals",
+    "total_precursor_tons_k": 346069.5,
+    "top_source_zones": [
+      {
+        "zone_id": 221,
+        "zone_name": "Baton Rouge LA",
+        "state": "LA",
+        "tons_k": 1046.1,
+        "pct": 0.331
+      },
+      {
+        "zone_id": 421,
+        "zone_name": "Philadelphia PA-NJ-DE-MD (PA Part)",
+        "state": "PA",
+        "tons_k": 526.8,
+        "pct": 0.167
+      },
+      {
+        "zone_id": 486,
+        "zone_name": "Houston TX",
+        "state": "TX",
+        "tons_k": 182.5,
+        "pct": 0.058
+      },
+      {
+        "zone_id": 101,
+        "zone_name": "Philadelphia PA-NJ-DE-MD (DE Part)",
+        "state": "DE",
+        "tons_k": 148.7,
+        "pct": 0.047
+      },
+      {
+        "zone_id": 342,
+        "zone_name": "Philadelphia PA-NJ-DE-MD (NJ Part)",
+        "state": "NJ",
+        "tons_k": 112.9,
+        "pct": 0.036
+      },
+      {
+        "zone_id": 379,
+        "zone_name": "North Carolina",
+        "state": "NC",
+        "tons_k": 108.1,
+        "pct": 0.034
+      },
+      {
+        "zone_id": 489,
+        "zone_name": "Texas",
+        "state": "TX",
+        "tons_k": 95.2,
+        "pct": 0.03
+      },
+      {
+        "zone_id": 363,
+        "zone_name": "New York NY-NJ-CT-PA (NY Part)",
+        "state": "NY",
+        "tons_k": 83.2,
+        "pct": 0.026
+      }
+    ],
+    "num_source_zones": 59
+  }
+]

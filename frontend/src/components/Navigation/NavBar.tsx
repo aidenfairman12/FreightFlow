@@ -6,10 +6,9 @@ import { cn } from '@/lib/utils'
 import { Truck } from 'lucide-react'
 
 const NAV_ITEMS = [
-  { href: '/dashboard', label: 'Freight Map' },
-  { href: '/analytics', label: 'Freight KPIs' },
-  { href: '/economics', label: 'Economics' },
-  { href: '/scenarios', label: 'Scenarios' },
+  { href: '/', label: 'Risk Overview' },
+  { href: '/critical-nodes', label: 'Critical Nodes' },
+  { href: '/explorer', label: 'Explorer' },
 ]
 
 export default function NavBar() {
@@ -18,14 +17,16 @@ export default function NavBar() {
   return (
     <nav className="flex h-12 shrink-0 items-center gap-1 border-b border-border bg-background px-4">
       <Link
-        href="/dashboard"
+        href="/"
         className="mr-5 flex items-center gap-2 text-sm font-bold tracking-tight text-primary no-underline"
       >
         <Truck className="h-4 w-4" />
         FreightFlow
       </Link>
       {NAV_ITEMS.map(item => {
-        const active = pathname === item.href
+        const active = item.href === '/'
+          ? pathname === '/'
+          : pathname === item.href || pathname.startsWith(item.href + '/')
         return (
           <Link
             key={item.href}

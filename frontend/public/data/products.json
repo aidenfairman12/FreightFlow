@@ -1,0 +1,108 @@
+[
+  {
+    "sctg2": "36",
+    "name": "Automobiles",
+    "description": "Motor vehicles assembled from steel, electronics, and chemicals across Rust Belt plants",
+    "precursors": [
+      {
+        "sctg2": "33",
+        "name": "Steel & Metal Products",
+        "ratio": 0.45,
+        "role": "Structural components, body panels"
+      },
+      {
+        "sctg2": "24",
+        "name": "Plastics & Rubber",
+        "ratio": 0.18,
+        "role": "Interior components, seals, tires"
+      },
+      {
+        "sctg2": "35",
+        "name": "Electronics",
+        "ratio": 0.12,
+        "role": "Infotainment, sensors, wiring harnesses"
+      },
+      {
+        "sctg2": "20",
+        "name": "Basic Chemicals",
+        "ratio": 0.08,
+        "role": "Coatings, fluids, lubricants"
+      },
+      {
+        "sctg2": "31",
+        "name": "Glass & Minerals",
+        "ratio": 0.05,
+        "role": "Windshields, ceramics, seals"
+      }
+    ]
+  },
+  {
+    "sctg2": "05",
+    "name": "Beef",
+    "description": "Cattle processed at meatpacking facilities concentrated in the Great Plains and Midwest",
+    "precursors": [
+      {
+        "sctg2": "01",
+        "name": "Live Cattle",
+        "ratio": 1.25,
+        "role": "Primary feedstock entering packing plants"
+      },
+      {
+        "sctg2": "04",
+        "name": "Animal Feed",
+        "ratio": 0.3,
+        "role": "Feedlot nutrition before processing"
+      },
+      {
+        "sctg2": "02",
+        "name": "Cereal Grains",
+        "ratio": 0.15,
+        "role": "Grain finishing at feedlots"
+      }
+    ]
+  },
+  {
+    "sctg2": "21",
+    "name": "Pharmaceuticals",
+    "description": "Drug manufacturing concentrated in Northeast corridors, dependent on Gulf Coast chemical inputs",
+    "precursors": [
+      {
+        "sctg2": "20",
+        "name": "Basic Chemicals",
+        "ratio": 0.4,
+        "role": "Active pharmaceutical ingredients"
+      },
+      {
+        "sctg2": "23",
+        "name": "Chemical Products",
+        "ratio": 0.3,
+        "role": "Excipients and formulation agents"
+      },
+      {
+        "sctg2": "24",
+        "name": "Plastics & Rubber",
+        "ratio": 0.1,
+        "role": "Packaging, vials, blister packs"
+      }
+    ]
+  },
+  {
+    "sctg2": "32",
+    "name": "Steel",
+    "description": "Raw steel production in Great Lakes mills fed by Minnesota iron ore and Appalachian coking coal",
+    "precursors": [
+      {
+        "sctg2": "14",
+        "name": "Iron Ore",
+        "ratio": 1.5,
+        "role": "Primary feedstock for blast furnaces"
+      },
+      {
+        "sctg2": "15",
+        "name": "Coking Coal",
+        "ratio": 0.7,
+        "role": "Reduces iron ore to metallic iron"
+      }
+    ]
+  }
+]

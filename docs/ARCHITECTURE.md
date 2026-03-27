@@ -6,16 +6,15 @@
 ┌─────────────────────────────────────────────────────────────┐
 │                      Browser (Next.js)                       │
 │                                                              │
-│  /dashboard     /analytics     /economics     /scenarios     │
-│  Freight Map    Freight KPIs   Cost Intel     What-If        │
-└──────┬────────────┬──────────────┬──────────────┬───────────┘
-       │ REST       │ REST         │ REST         │ REST
-       ▼            ▼              ▼              ▼
+│     /                 /explorer                              │
+│     Landing Page      Supply Chain Explorer                  │
+└─────────────────────────┬────────────────────────────────────┘
+                          │ REST
+                          ▼
 ┌─────────────────────────────────────────────────────────────┐
 │                    FastAPI Backend (:8000)                    │
 │                                                              │
-│  /corridors/*  /flows/*  /analytics/*  /kpi/*                │
-│  /economics/*  /scenarios/*                                  │
+│  /supply-chain/*  /flows/*  /economics/*  /tracking/*        │
 │                                                              │
 │  ┌─────────── APScheduler (lifespan) ───────────────┐       │
 │  │  Startup: seed zones + commodities + corridors    │       │
@@ -28,7 +27,7 @@
     ┌────────────┐    ┌────────────┐    ┌─────────────────┐
     │   Redis    │    │ PostgreSQL │    │  External APIs   │
     │  :6379     │    │  :5432     │    │  EIA, FRED       │
-    │  (cache)   │    │ 10 tables  │    │                  │
+    │  (cache)   │    │            │    │                  │
     └────────────┘    └────────────┘    └─────────────────┘
 ```
 
@@ -39,7 +38,7 @@
 ```
 corridor_definitions.py  →  seed_zones()        132 FAF zone centroids
                          →  seed_commodities()   43 SCTG commodity codes
-                         →  seed_corridors()     3 curated corridors (LA→Chicago, Houston→NYC, Seattle→Dallas)
+                         →  seed_corridors()     3 curated corridors
 ```
 
 ### 2. Startup — FAF5 Data Ingestion
@@ -60,10 +59,8 @@ FRED API       →  freight transportation services index
 ### 4. On-Demand Computation
 
 ```
-/kpi/compute              →  freight_kpi_aggregator.py   →  freight_kpis table
-/analytics/compute        →  corridor_performance.py     →  corridor_performance table
-/scenarios/ (POST)        →  scenario_engine.py          →  scenarios table
-/corridors/{id}/modes     →  freight_cost_model.py       →  inline response
+/supply-chain/analyze     →  commodity_dependencies.py + freight_cost_model.py
+                          →  Query freight_flows per precursor → aggregate → cost estimate
 ```
 
 ## Database Schema
@@ -75,11 +72,8 @@ PostgreSQL
 ├── freight_flows          Core FAF5 data (origin, dest, commodity, mode, year, tons, value, ton-miles)
 ├── corridors              3 curated corridor definitions with zone arrays
 ├── freight_rates          Cost per ton-mile by mode and year
-├── corridor_performance   Aggregated corridor metrics per year
-├── freight_kpis           Periodic aggregations (tons, mode share, cost, value)
 ├── freight_unit_economics Cost breakdown per ton-mile (fuel/labor/equipment/insurance/tolls)
-├── economic_factors       Time-series economic data (diesel, crude, freight TSI)
-└── scenarios              What-if scenario definitions + results
+└── economic_factors       Time-series economic data (diesel, crude, freight TSI)
 ```
 
 ## Backend Service Map
@@ -92,27 +86,22 @@ backend/
 │   └── session.py                 Async SQLAlchemy engine
 ├── models/                        Pydantic data models
 │   ├── freight.py                 Freight flows, corridors, KPIs, unit economics
-│   ├── economics.py               Economic factors + snapshot
-│   └── scenario.py                Scenario definition + results
+│   └── economics.py               Economic factors + snapshot
 ├── services/                      Business logic
+│   ├── commodity_dependencies.py  Finished goods → precursor material mappings
 │   ├── faf5_loader.py             FAF5 CSV ETL (parse, unpivot, batch insert)
 │   ├── faf5_zones.py              Zone centroids, mode codes, commodity codes
 │   ├── corridor_definitions.py    Seed corridors + zones + commodities
 │   ├── freight_cost_model.py      Cost per ton-mile by mode, diesel sensitivity
-│   ├── freight_kpi_aggregator.py  Aggregate freight KPIs from flows
 │   ├── freight_unit_economics.py  Cost breakdown per ton-mile
-│   ├── corridor_performance.py    Corridor scoring and performance summary
-│   ├── economic_etl.py            EIA diesel/crude, FRED freight TSI
-│   └── scenario_engine.py         What-if analysis (8 parameters)
+│   └── economic_etl.py            EIA diesel/crude, FRED freight TSI
 └── api/
     ├── websocket.py               WebSocket connection registry + broadcast
     └── routes/
-        ├── corridors.py           GET /corridors/, /{id}/flows, /modes, /trends
+        ├── supply_chain.py        GET /finished-goods, /assembly-zones, /analyze
         ├── flows.py               GET /flows/, /top-corridors, /mode-trends, /zones
-        ├── analytics.py           GET /analytics/corridor-performance, /mode-comparison
-        ├── kpi.py                 GET /kpi/current, /history, /mode-share
         ├── economics.py           GET /economics/latest, /history, /cost-breakdown
-        └── scenarios.py           POST/GET/DELETE /scenarios/*, /presets/list
+        └── tracking.py            GET /tracking/commodities
 ```
 
 ## Frontend Page Map
@@ -120,18 +109,19 @@ backend/
 ```
 frontend/src/
 ├── app/
-│   ├── layout.tsx                 Root layout with NavBar
-│   ├── page.tsx                   Redirect → /dashboard
-│   ├── dashboard/page.tsx         Freight corridor map + sidebar
-│   ├── analytics/page.tsx         KPI cards, trends, commodity rankings
-│   ├── economics/page.tsx         Economic indicators, cost breakdown charts
-│   └── scenarios/page.tsx         Preset scenarios, custom builder, results
+│   ├── layout.tsx                 Root layout with LayoutShell
+│   ├── page.tsx                   Landing page (hero + single CTA)
+│   └── explorer/page.tsx          Supply Chain Explorer
 ├── components/
-│   ├── Map/FreightMap.tsx         US Leaflet map (corridor polylines, zone markers)
-│   └── Navigation/NavBar.tsx      Top navigation bar
+│   ├── Map/SupplyChainMap.tsx     Leaflet map (precursor flow fan-in, weighted lines)
+│   └── Navigation/
+│       ├── NavBar.tsx             Top navigation bar
+│       └── LayoutShell.tsx        Conditional NavBar (hidden on landing)
+├── hooks/
+│   └── useLeafletMap.ts           Shared Leaflet initialization hook
 ├── lib/
-│   ├── api.ts                     Typed REST helpers for all endpoints
-│   └── websocket.ts               WebSocket factory
+│   ├── api.ts                     Typed REST helpers
+│   └── chart-theme.ts            Recharts styling constants
 └── types/
     └── index.ts                   All TypeScript interfaces
 ```
@@ -139,8 +129,9 @@ frontend/src/
 ## Key Design Decisions
 
 - **FAF5 as foundation**: Free, public, rich multi-modal data (2012-2022 + projections to 2055)
+- **Supply chain story**: Instead of raw data tables, trace precursor materials to finished goods — shows domain knowledge
+- **Sankey-like map**: Flow line thickness = tonnage, color = precursor commodity — visually striking
 - **Cost model from benchmarks**: ATRI/AAR/BTS published rates, not proprietary data
-- **Diesel price sensitivity**: Fuel cost share differs by mode (truck 38%, rail 18%), so diesel changes affect modes differently
-- **Corridor-based analysis**: 3 curated corridors focus the story instead of showing 132×132 zone pairs
-- **Scenario engine**: 8 parameters covering fuel, capacity, congestion, labor, demand, mode shift, carbon tax, tolls
-- **Static data + economic overlay**: FAF5 is historical, but diesel/crude price feeds add a dynamic economic layer
+- **Diesel price sensitivity**: Fuel cost share differs by mode (truck 38%, rail 18%)
+- **6 curated finished goods**: Enough variety to demonstrate the concept without overwhelming
+- **Filtered assembly zones**: Only show zones with actual inbound data, not all 132

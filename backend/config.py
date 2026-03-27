@@ -11,8 +11,6 @@ class Settings(BaseSettings):
     fred_api_key: str = ""
     # FAF5 data directory (relative to backend/)
     faf5_data_dir: str = "data/faf5"
-    # Target commodity SCTG2 code (35 = Electronics)
-    target_commodity: str = "35"
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

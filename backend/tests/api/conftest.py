@@ -6,19 +6,17 @@ from unittest.mock import AsyncMock
 from fastapi import FastAPI
 from httpx import AsyncClient, ASGITransport
 
-from api.routes import corridors, flows, analytics, kpi, economics, scenarios
+from api.routes import flows, economics, tracking, supply_chain
 from db.session import get_db
 
 
 def _create_test_app() -> FastAPI:
     """Build a clean test app with just the routers — no lifespan/scheduler."""
     app = FastAPI()
-    app.include_router(corridors.router, prefix="/corridors")
+    app.include_router(supply_chain.router, prefix="/supply-chain")
     app.include_router(flows.router, prefix="/flows")
-    app.include_router(analytics.router, prefix="/analytics")
-    app.include_router(kpi.router, prefix="/kpi")
     app.include_router(economics.router, prefix="/economics")
-    app.include_router(scenarios.router, prefix="/scenarios")
+    app.include_router(tracking.router, prefix="/tracking")
     return app
 
 
@@ -54,6 +52,11 @@ class MockResult:
 
     def mappings(self):
         return MockMappingResult(self._rows)
+
+    def scalar(self):
+        if self._rows:
+            return list(self._rows[0].values())[0]
+        return None
 
     def one(self):
         if len(self._rows) != 1:

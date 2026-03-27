@@ -53,4 +53,6 @@ services:
 
 volumes:
   postgres_data:
+    name: freightflow_postgres_data
   redis_data:
+    name: freightflow_redis_data

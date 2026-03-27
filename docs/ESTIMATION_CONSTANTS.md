@@ -86,18 +86,37 @@ Every calculated metric in FreightFlow relies on assumptions and estimated value
 | Diesel baseline price | $3.85/gal | `freight_cost_model.py` | Approximate 2022 average US on-highway diesel (EIA). When diesel is at this price, base rates apply. |
 | Fuel share scaling | Linear per mode | `freight_cost_model.py` | Only the fuel portion of cost scales with diesel price. Truck (38% fuel) is most sensitive; rail (18%) is moderately sensitive. `adjusted = base_rate × ((1 - fuel_share) + fuel_share × diesel_ratio)` |
 
-## Scenario Engine Parameters
+## Commodity Dependency BOM Ratios (tons input per ton output)
 
-| Parameter | Unit | File | Rationale |
-|-----------|------|------|-----------|
-| diesel_price_change_pct | % | `scenario_engine.py` | Scales fuel component of all modes proportionally |
-| rail_capacity_change_pct | % | `scenario_engine.py` | Positive = lower rail rates (economies of scale), applied as inverse multiplier on rail cost |
-| port_congestion_days | days | `scenario_engine.py` | Each day adds ~2% to water/intermodal costs (delay penalties, demurrage) |
-| truck_driver_shortage_pct | % | `scenario_engine.py` | Reduces truck capacity → labor cost surge (1.5x multiplier on shortage %) |
-| demand_change_pct | % | `scenario_engine.py` | Scales total volume, affects fixed cost absorption |
-| mode_shift_to_rail_pct | % | `scenario_engine.py` | Shifts truck volume to rail, recomputes weighted average cost |
-| carbon_tax_per_ton_mile | $/tm | `scenario_engine.py` | Flat addition to all modes, weighted by emission intensity |
-| toll_increase_pct | % | `scenario_engine.py` | Scales tolls/fees component for truck and intermodal |
+These are approximate weight-based bill-of-materials ratios for the supply chain explorer.
+Sources: BLS Input-Output tables, USITC sector profiles, engineering estimates.
+
+| Finished Good | Precursor | Ratio | File | Rationale |
+|---------------|-----------|-------|------|-----------|
+| Motor Vehicles (36) | Articles of base metal (33) | 0.45 | `commodity_dependencies.py` | Body panels, frame, fasteners — steel is ~45% of vehicle weight |
+| Motor Vehicles (36) | Plastics and rubber (24) | 0.18 | `commodity_dependencies.py` | Tires, dashboards, bumpers, seals |
+| Motor Vehicles (36) | Electronics (35) | 0.12 | `commodity_dependencies.py` | Wiring harnesses, ECUs, sensors |
+| Motor Vehicles (36) | Basic chemicals (20) | 0.08 | `commodity_dependencies.py` | Paints, coatings, adhesives |
+| Motor Vehicles (36) | Non-metallic minerals (31) | 0.05 | `commodity_dependencies.py` | Glass windshields, mirrors |
+| Electronics (35) | Metallic ores (14) | 0.25 | `commodity_dependencies.py` | Copper, rare earths, silicon |
+| Electronics (35) | Basic chemicals (20) | 0.20 | `commodity_dependencies.py` | Solvents, etching chemicals, resins |
+| Electronics (35) | Plastics and rubber (24) | 0.30 | `commodity_dependencies.py` | Housings, connectors, insulation |
+| Electronics (35) | Precision instruments (38) | 0.15 | `commodity_dependencies.py` | Sensors, optical components |
+| Machinery (34) | Articles of base metal (33) | 0.40 | `commodity_dependencies.py` | Gears, shafts, housings, bearings |
+| Machinery (34) | Electronics (35) | 0.20 | `commodity_dependencies.py` | Control systems, motors, wiring |
+| Machinery (34) | Plastics and rubber (24) | 0.15 | `commodity_dependencies.py` | Seals, hoses, insulation |
+| Machinery (34) | Base metal primary forms (32) | 0.15 | `commodity_dependencies.py` | Steel ingots, aluminum billets |
+| Pharmaceuticals (21) | Basic chemicals (20) | 0.40 | `commodity_dependencies.py` | Active pharmaceutical ingredients |
+| Pharmaceuticals (21) | Chemical products (23) | 0.30 | `commodity_dependencies.py` | Excipients, coatings, intermediates |
+| Pharmaceuticals (21) | Plastics and rubber (24) | 0.10 | `commodity_dependencies.py` | Packaging, vials |
+| Furniture (39) | Wood products (26) | 0.35 | `commodity_dependencies.py` | Lumber, plywood, particle board |
+| Furniture (39) | Textiles and leather (30) | 0.25 | `commodity_dependencies.py` | Upholstery fabrics |
+| Furniture (39) | Articles of base metal (33) | 0.15 | `commodity_dependencies.py` | Springs, fasteners, frames |
+| Furniture (39) | Plastics and rubber (24) | 0.15 | `commodity_dependencies.py` | Foam, plastic components |
+| Prepared Foodstuffs (07) | Cereal grains (02) | 0.30 | `commodity_dependencies.py` | Wheat, corn, rice |
+| Prepared Foodstuffs (07) | Meat/poultry/fish (05) | 0.25 | `commodity_dependencies.py` | Protein inputs |
+| Prepared Foodstuffs (07) | Other agricultural (03) | 0.20 | `commodity_dependencies.py` | Sugar, oils, spices |
+| Prepared Foodstuffs (07) | Animal feed (04) | 0.10 | `commodity_dependencies.py` | Feed-grade byproducts |
 
 ## Corridor Definitions
 

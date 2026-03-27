@@ -4,9 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**FreightFlow** is a US multi-modal freight logistics intelligence platform. It analyzes FAF5 (Freight Analysis Framework v5) freight flow data across major US corridors with cost modeling, economic intelligence, and scenario analysis — all from publicly available BTS data.
+**FreightFlow** is a US freight supply chain intelligence platform. It lets users pick a finished product (e.g., Motor Vehicles), select an assembly location, and visualize how precursor raw materials (steel, plastics, electronics, chemicals) flow across America's freight network to reach that destination — with cost modeling, mode analysis, and Sankey-like weighted flow lines on an interactive map.
 
-The platform tracks freight flows across 3 major corridors (LA→Chicago, Houston→NYC, Seattle→Dallas), provides mode-by-mode cost breakdowns, and runs what-if scenarios (diesel price spikes, port congestion, mode shifts, carbon taxes) against a cost model grounded in ATRI/AAR/BTS benchmark rates.
+Built on FAF5 (Freight Analysis Framework v5) data from BTS/FHWA, with cost estimates grounded in ATRI/AAR/BTS benchmark rates.
 
 **Purpose:** Portfolio piece for job applications.
 
@@ -50,12 +50,10 @@ docker-compose.yml postgres, redis, backend, frontend
 ### Request / data flow
 
 ```
-Browser  →  REST /corridors/*    →  backend/api/routes/corridors.py → Postgres
+Browser  →  REST /supply-chain/* →  backend/api/routes/supply_chain.py → Postgres + cost model
 Browser  →  REST /flows/*        →  backend/api/routes/flows.py → Postgres
-Browser  →  REST /analytics/*    →  backend/api/routes/analytics.py → Postgres + cost model
-Browser  →  REST /kpi/*          →  backend/api/routes/kpi.py → Postgres
 Browser  →  REST /economics/*    →  backend/api/routes/economics.py → Postgres
-Browser  →  REST /scenarios/*    →  backend/api/routes/scenarios.py → Postgres + scenario engine
+Browser  →  REST /tracking/*     →  backend/api/routes/tracking.py → Postgres + cost model
 
 APScheduler (lifespan):
   Every 6hrs  →  services/economic_etl.py → Postgres (economic_factors)
@@ -71,28 +69,28 @@ Startup:
 |------|---------|
 | `backend/main.py` | FastAPI app, CORS, lifespan (seed data + scheduler) |
 | `backend/config.py` | Settings via `pydantic-settings`; reads `.env` |
+| `backend/services/commodity_dependencies.py` | Finished goods → precursor material mappings (6 products, BOM ratios) |
+| `backend/api/routes/supply_chain.py` | Supply chain analysis: finished goods list, assembly zones, precursor flow analysis |
 | `backend/services/faf5_loader.py` | FAF5 CSV ETL: parse, unpivot year columns, batch insert |
 | `backend/services/faf5_zones.py` | Zone centroids, mode codes, commodity codes |
 | `backend/services/corridor_definitions.py` | Seed 3 corridors + zones + commodities |
-| `backend/services/freight_cost_model.py` | Cost per ton-mile by mode, diesel sensitivity, corridor cost estimation |
-| `backend/services/freight_kpi_aggregator.py` | Aggregate freight KPIs: tons, mode share, cost, value |
+| `backend/services/freight_cost_model.py` | Cost per ton-mile by mode, diesel sensitivity, cost estimation |
 | `backend/services/freight_unit_economics.py` | Cost breakdown per ton-mile (fuel/labor/equipment/insurance/tolls) |
-| `backend/services/corridor_performance.py` | Corridor scoring and performance summary |
 | `backend/services/economic_etl.py` | External data: EIA diesel/crude, FRED freight TSI |
-| `backend/services/scenario_engine.py` | What-if analysis with 8 parameters |
 | `backend/api/websocket.py` | Connection registry + `broadcast()` helper |
+| `backend/api/routes/tracking.py` | Commodity list endpoint |
 | `backend/db/session.py` | Async SQLAlchemy engine + `get_db()` dependency |
 
 ### Key frontend files
 
 | File | Purpose |
 |------|---------|
-| `frontend/src/app/dashboard/page.tsx` | Freight flow map + corridor sidebar |
-| `frontend/src/app/analytics/page.tsx` | Freight KPIs, mode share, commodity rankings |
-| `frontend/src/app/economics/page.tsx` | Cost intelligence + cost breakdown charts |
-| `frontend/src/app/scenarios/page.tsx` | What-if scenario engine (presets + custom) |
-| `frontend/src/components/Map/FreightMap.tsx` | Leaflet map (US corridors, client-only) |
+| `frontend/src/app/page.tsx` | Landing page with hero and single CTA |
+| `frontend/src/app/explorer/page.tsx` | Supply Chain Explorer: selectors, map, precursor cards, cost charts |
+| `frontend/src/components/Map/SupplyChainMap.tsx` | Leaflet map with weighted precursor flow lines (fan-in visualization) |
 | `frontend/src/components/Navigation/NavBar.tsx` | Top navigation bar |
+| `frontend/src/components/Navigation/LayoutShell.tsx` | Conditional NavBar (hidden on landing) |
+| `frontend/src/hooks/useLeafletMap.ts` | Shared Leaflet map initialization hook |
 | `frontend/src/lib/api.ts` | Typed REST helpers for all endpoints |
 | `frontend/src/types/index.ts` | All TypeScript interfaces |
 
@@ -105,11 +103,8 @@ Startup:
 | `freight_flows` | Core FAF5 data: origin, dest, commodity, mode, year, tons, value, ton-miles |
 | `corridors` | 3 curated corridor definitions with zone arrays |
 | `freight_rates` | Cost per ton-mile by mode and year |
-| `corridor_performance` | Aggregated corridor metrics per year |
-| `freight_kpis` | Periodic aggregations (tons, mode share, cost/ton-mile, value/ton) |
 | `freight_unit_economics` | Cost breakdown per ton-mile (fuel, labor, equipment, insurance, tolls) |
 | `economic_factors` | Date-indexed time series (diesel price, crude, freight TSI) |
-| `scenarios` | What-if scenario definitions and results |
 
 ## API conventions
 

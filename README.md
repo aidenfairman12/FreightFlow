@@ -1,25 +1,32 @@
 # FreightFlow
 
-A US multi-modal freight logistics intelligence platform that analyzes FAF5 freight flow data across major corridors with cost modeling, economic intelligence, and scenario analysis — all from publicly available BTS data.
+A US freight supply chain intelligence platform built on FAF5 (Freight Analysis Framework v5) data from BTS/FHWA. Analyses supply chain concentration risk and lets users simulate the disruption impact of losing any source zone for four critical US supply chains: **Automobiles, Beef, Pharmaceuticals, and Steel**.
+
+Fully static — pre-computed from FAF5 2022 data and deployed to Vercel with no backend.
 
 ## What It Does
 
-**Freight Flow Map** — Visualizes 3 major US freight corridors (LA→Chicago, Houston→NYC, Seattle→Dallas) on a dark-themed Leaflet map with corridor polylines, zone markers, and a detail sidebar showing mode breakdowns and cost estimates.
+**Risk Overview** (`/`) — Ranks four critical US supply chains by concentration risk, showing how dependent each is on just a handful of geographic source zones. Backed by real FAF5 freight flow data for 2022.
 
-**Freight Analytics** — Computes freight KPIs from FAF5 data: total tonnage, ton-miles, mode share percentages, cost per ton-mile, and value per ton. Includes commodity breakdowns, mode cost comparisons, and corridor performance scoring.
-
-**Cost Intelligence** — Tracks diesel prices (EIA), Brent crude, trucking PPI, and freight TSI, then estimates cost per ton-mile broken down by component (fuel, labor, equipment, insurance, tolls/fees) with diesel price sensitivity.
-
-**Scenario Engine** — "What if diesel prices rise 30%?", "What if port congestion adds 5 days?", "What if rail capacity expands 20%?" — 7 preset scenarios plus a custom 8-parameter builder showing impact on freight costs by component.
+**Supply Chain Explorer** (`/explorer`) — Pick a product, pick an assembly zone, and see weighted precursor flow lines fan into that zone from source regions across the US. Click any source zone to simulate a disruption: instant tonnage-gap and cost-impact calculation, client-side, no server needed.
 
 ## Pages
 
 | Page | URL | What You'll See |
 |------|-----|-----------------|
-| **Freight Map** | `/dashboard` | US corridor map with polylines, zone markers, corridor detail sidebar with mode breakdown |
-| **Analytics** | `/analytics` | Freight KPI cards, volume/mode share trends, commodity rankings, corridor performance table |
-| **Economics** | `/economics` | Economic indicator cards, cost per ton-mile pie chart, cost vs revenue trend, stacked cost components |
-| **Scenarios** | `/scenarios` | 7 preset scenarios, custom 8-parameter builder, delta impact charts, scenario history |
+| **Risk Overview** | `/` | Concentration risk cards for all 4 supply chains, ranked by fragility |
+| **Supply Chain Explorer** | `/explorer` | Interactive flow map, precursor breakdown, disruption simulator |
+
+## Deploy to Vercel (free, no backend)
+
+```bash
+# 1. Push repo to GitHub
+# 2. Import project on vercel.com
+# 3. Set Root Directory → frontend
+# 4. Deploy — done. No environment variables needed.
+```
+
+The frontend is a fully static Next.js export. All data lives in `frontend/public/data/` as pre-computed JSON files.
 
 ## Quick Start
 
@@ -38,7 +45,7 @@ docker compose up --build
 open http://localhost:3000
 ```
 
-Corridors and reference data seed on startup. FAF5 freight flows load automatically from CSVs. KPIs compute on demand via the UI. Economic data fetches on startup and every 6 hours if `EIA_API_KEY` is set.
+Reference data seeds on startup. FAF5 freight flows load automatically from CSVs. Economic data fetches on startup and every 6 hours if `EIA_API_KEY` is set.
 
 ## Running Without Docker
 
@@ -70,12 +77,10 @@ All endpoints return `{ data, error, meta }`. Interactive docs at `http://localh
 
 | Prefix | Endpoints |
 |--------|-----------|
-| `/corridors` | `GET /`, `GET /{id}/flows`, `GET /{id}/modes`, `GET /{id}/trends` |
+| `/supply-chain` | `GET /finished-goods`, `GET /assembly-zones`, `GET /analyze` |
 | `/flows` | `GET /`, `GET /top-corridors`, `GET /mode-trends`, `GET /zones` |
-| `/analytics` | `GET /corridor-performance`, `GET /mode-comparison`, `GET /commodity-summary`, `POST /corridor-performance/compute` |
-| `/kpi` | `GET /current`, `GET /history`, `GET /mode-share`, `POST /compute` |
-| `/economics` | `GET /latest`, `GET /history/{factor}`, `GET /unit-economics/current`, `GET /unit-economics/history`, `GET /cost-breakdown`, `POST /refresh` |
-| `/scenarios` | `POST /`, `GET /`, `GET /{id}`, `DELETE /{id}`, `GET /presets/list` |
+| `/economics` | `GET /latest`, `GET /history/{factor}`, `GET /cost-breakdown`, `POST /refresh` |
+| `/tracking` | `GET /commodities` |
 
 ## Project Structure
 
@@ -85,36 +90,35 @@ FreightFlow/
 │   ├── main.py                    App entry point, lifespan, route registration
 │   ├── config.py                  Pydantic settings from .env
 │   ├── services/                  Core business logic
+│   │   ├── commodity_dependencies.py  Finished goods → precursor mappings (6 products)
 │   │   ├── faf5_loader.py         FAF5 CSV ETL (parse, unpivot, batch insert)
 │   │   ├── faf5_zones.py          Zone centroids, mode codes, commodity codes
 │   │   ├── corridor_definitions.py  Seed corridors + zones + commodities
 │   │   ├── freight_cost_model.py  Cost per ton-mile by mode, diesel sensitivity
-│   │   ├── freight_kpi_aggregator.py  Volume/mode/cost KPIs
 │   │   ├── freight_unit_economics.py  Cost breakdown per ton-mile
-│   │   ├── corridor_performance.py  Corridor scoring
-│   │   ├── economic_etl.py        External data (EIA diesel/crude, FRED TSI)
-│   │   └── scenario_engine.py     What-if analysis (8 parameters)
+│   │   └── economic_etl.py        External data (EIA diesel/crude, FRED TSI)
 │   ├── api/routes/                REST endpoints
 │   ├── models/                    Pydantic data models
 │   └── tests/                     pytest test suite
 ├── frontend/                      Next.js 14 (App Router, TypeScript)
 │   └── src/
-│       ├── app/                   Pages: dashboard, analytics, economics, scenarios
-│       ├── components/Map/        FreightMap (Leaflet, US corridors)
+│       ├── app/                   Pages: landing, explorer
+│       ├── components/Map/        SupplyChainMap (Leaflet, weighted flow lines)
 │       ├── lib/                   API client, chart theme, utilities
 │       └── types/                 TypeScript interfaces
-├── db/init.sql                    PostgreSQL schema (10 tables)
-├── docker-compose.yml             Postgres + TimescaleDB, Redis, backend, frontend
+├── db/init.sql                    PostgreSQL schema
+├── docker-compose.yml             Postgres, Redis, backend, frontend
 └── docs/
     ├── ARCHITECTURE.md            System architecture diagram
-    └── ESTIMATION_CONSTANTS.md    All hardcoded rates with sources
+    ├── ESTIMATION_CONSTANTS.md    All hardcoded rates with sources
+    └── ROADMAP.md                 Feature roadmap
 ```
 
 ## Tech Stack
 
-- **Backend:** FastAPI, SQLAlchemy (async), APScheduler, Pandas, NumPy
-- **Frontend:** Next.js 14, React 18, TypeScript, Leaflet, Recharts, shadcn/ui, Tailwind CSS
-- **Infrastructure:** PostgreSQL (TimescaleDB), Redis, Docker Compose
+- **Backend:** FastAPI, SQLAlchemy (async), APScheduler
+- **Frontend:** Next.js 14, React 18, TypeScript, Leaflet, Recharts, Tailwind CSS
+- **Infrastructure:** PostgreSQL, Redis, Docker Compose
 - **Data Sources:** FAF5/BTS (freight flows), EIA (diesel/crude prices), FRED (freight TSI)
 
 ## Environment Variables
@@ -131,8 +135,7 @@ FreightFlow/
 | `EIA_API_KEY` | Recommended | EIA API key for diesel & Brent crude prices ([register free](https://www.eia.gov/opendata/register.php)) |
 | `FRED_API_KEY` | Optional | FRED API key for freight TSI index ([register free](https://fred.stlouisfed.org/docs/api/api_key.html)) |
 | `FAF5_DATA_DIR` | Optional | Path to FAF5 CSVs relative to backend (default: `data/faf5`) |
-| `TARGET_COMMODITY` | Optional | SCTG2 commodity code focus (default: `35` = Electronics) |
 
 ## Data Source
 
-[FAF5 (Freight Analysis Framework v5)](https://www.bts.gov/faf) from the Bureau of Transportation Statistics — free, public freight flow data across ~132 US regions by commodity, transport mode, tonnage, and value (2012–2022 historical + projections to 2055).
+[FAF5 (Freight Analysis Framework v5)](https://www.bts.gov/faf) from the Bureau of Transportation Statistics — free, public freight flow data across ~132 US regions by commodity, transport mode, tonnage, and value (2012-2022 historical + projections to 2055).
