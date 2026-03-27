@@ -9,6 +9,7 @@ import type {
   Product,
   SupplyChainData,
   AssemblyZoneData,
+  PrecursorDetail,
   SourceZone,
   DisruptionResult,
 } from '@/types'
