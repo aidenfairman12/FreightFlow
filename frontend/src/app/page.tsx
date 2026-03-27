@@ -118,6 +118,7 @@ export default function RiskOverviewPage() {
   const [scores, setScores] = useState<RiskScore[]>([])
   const [loading, setLoading] = useState(true)
 
+  useEffect(() => { document.title = 'Risk Overview | FreightFlow' }, [])
   useEffect(() => {
     data.riskScores().then(s => { setScores(s); setLoading(false) })
   }, [])

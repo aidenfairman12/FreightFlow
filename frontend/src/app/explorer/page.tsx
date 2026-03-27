@@ -9,7 +9,6 @@ import type {
   Product,
   SupplyChainData,
   AssemblyZoneData,
-  PrecursorDetail,
   SourceZone,
   DisruptionResult,
 } from '@/types'
@@ -194,43 +193,6 @@ function DisruptionPanel({
   )
 }
 
-// ── Precursor chip (bottom bar) ───────────────────────────────────────────
-function PrecursorChip({
-  prec,
-  color,
-  active,
-  onClick,
-}: {
-  prec: PrecursorDetail
-  color: string
-  active: boolean
-  onClick: () => void
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`rounded-xl border p-4 text-left transition-all duration-150 ${
-        active
-          ? 'border-white/20 bg-white/8 shadow-lg'
-          : 'border-white/6 bg-white/3 hover:border-white/12 hover:bg-white/5'
-      }`}
-      style={{ minWidth: 180 }}
-    >
-      <div className="mb-2 flex items-center gap-2">
-        <div className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: color }} />
-        <span className="text-xs font-semibold text-white/90">{prec.name}</span>
-      </div>
-      <div className="text-[10px] leading-relaxed text-white/40">{prec.role}</div>
-      <div className="mt-2.5 grid grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
-        <div><span className="text-white/35">Tons </span><span className="font-mono text-white/70">{fmtTons(prec.total_tons_k)}</span></div>
-        <div><span className="text-white/35">Srcs </span><span className="font-mono text-white/70">{prec.num_sources}</span></div>
-        <div><span className="text-white/35">Mode </span><span className="text-white/70">{prec.primary_mode}</span></div>
-        <div><span className="text-white/35">Cost </span><span className="font-mono text-white/70">${fmt(prec.est_cost_usd)}</span></div>
-      </div>
-    </button>
-  )
-}
-
 // ── Main page ─────────────────────────────────────────────────────────────
 function ExplorerContent() {
   const searchParams   = useSearchParams()
@@ -244,6 +206,9 @@ function ExplorerContent() {
 
   // Multi-zone disruption state
   const [disruptedIds, setDisruptedIds] = useState<number[]>([])
+
+  // Page title
+  useEffect(() => { document.title = 'Explorer | FreightFlow' }, [])
 
   // Load product list once
   useEffect(() => {
@@ -486,20 +451,6 @@ function ExplorerContent() {
         )}
       </div>
 
-      {/* Bottom precursor chip bar */}
-      {activeZone && (
-        <div className="flex shrink-0 gap-2 overflow-x-auto border-t border-white/6 px-4 py-3">
-          {coloredPrecursors.map(p => (
-            <PrecursorChip
-              key={p.sctg2}
-              prec={p}
-              color={p.color}
-              active={highlighted === p.sctg2}
-              onClick={() => setHighlighted(highlighted === p.sctg2 ? null : p.sctg2)}
-            />
-          ))}
-        </div>
-      )}
     </div>
   )
 }

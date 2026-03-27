@@ -164,6 +164,7 @@ export default function CriticalNodesPage() {
   const [loading, setLoading]       = useState(true)
   const [selectedId, setSelectedId] = useState<number | null>(null)
 
+  useEffect(() => { document.title = 'Critical Nodes | FreightFlow' }, [])
   useEffect(() => {
     data.criticalNodes().then(n => { setNodes(n); setLoading(false) })
   }, [])
@@ -177,6 +178,19 @@ export default function CriticalNodesPage() {
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
+      {/* ── Top bar ──────────────────────────────────────────── */}
+      <div className="flex shrink-0 items-center gap-3 border-b border-white/6 px-5 py-3">
+        <AlertTriangle className="h-4 w-4 text-orange-400" />
+        <span className="text-xs font-semibold text-white/70">Critical Nodes</span>
+        <span className="text-white/15">·</span>
+        <span className="text-xs text-white/35">Cross-supply-chain systemic risk by source zone</span>
+        {!loading && criticalCount > 0 && (
+          <span className="ml-auto rounded-full border border-orange-400/30 bg-orange-400/10 px-2.5 py-0.5 text-[11px] font-semibold text-orange-300">
+            {criticalCount} high-risk zones
+          </span>
+        )}
+      </div>
+
       {/* ── Main layout ──────────────────────────────────────── */}
       <div className="flex flex-1 overflow-hidden">
         {/* Map */}

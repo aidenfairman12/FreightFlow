@@ -8,7 +8,17 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 export const metadata: Metadata = {
   title: 'FreightFlow',
-  description: 'US Freight Logistics Intelligence Platform',
+  description: 'Interactive US supply chain risk intelligence — visualise freight flows, concentration risk, and systemic vulnerabilities across critical industries. Built on FAF5 data.',
+  openGraph: {
+    title: 'FreightFlow',
+    description: 'Interactive US supply chain risk intelligence — visualise freight flows, concentration risk, and systemic vulnerabilities across critical industries.',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'FreightFlow',
+    description: 'Interactive US supply chain risk intelligence built on FAF5 freight data.',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
