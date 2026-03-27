@@ -1,4 +1,4 @@
-export { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from './card'
+export { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter } from './Card'
 export { DataTable } from './DataTable'
 export { LoadingSpinner } from './LoadingSpinner'
 export { ErrorBanner } from './ErrorBanner'
