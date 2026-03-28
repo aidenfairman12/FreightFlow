@@ -49,12 +49,12 @@
               "state": "MN",
               "latitude": 46.73,
               "longitude": -94.69,
-              "tons_k": 12416.49,
-              "value_m": 650.98,
-              "tmiles_m": 7670.07,
-              "pct_of_precursor": 0.9726,
+              "tons_k": 12566.14,
+              "value_m": 658.83,
+              "tmiles_m": 7762.51,
+              "pct_of_precursor": 0.9843,
               "primary_mode": "Intermodal",
-              "est_cost_usd": 536904961
+              "est_cost_usd": 543376019
             },
             {
               "zone_id": 269,
