@@ -1,1 +1,3949 @@
-{"sctg2":"05","name":"Beef","description":"Cattle processed at meatpacking facilities concentrated in the Great Plains and Midwest","year":2022,"assembly_zones":[{"zone_id":311,"zone_name":"Omaha NE-IA (NE Part)","state":"NE","latitude":41.26,"longitude":-95.94,"total_precursor_tons_k":14675.97,"total_est_cost_usd":490041859,"precursors":[{"sctg2":"01","name":"Live Cattle","role":"Primary feedstock entering packing plants","ratio":1.25,"total_tons_k":4302.07,"total_value_m":10496.91,"total_tmiles_m":954.2,"est_cost_usd":114504475,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":1.0},{"mode":"Intermodal","pct":0.0}],"num_sources":7,"sources":[{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"tons_k":1732.25,"value_m":2560.41,"tmiles_m":302.17,"pct_of_precursor":0.403,"primary_mode":"Truck","est_cost_usd":36260610},{"zone_id":279,"zone_name":"Minnesota","state":"MN","latitude":46.73,"longitude":-94.69,"tons_k":1212.65,"value_m":1499.39,"tmiles_m":408.84,"pct_of_precursor":0.282,"primary_mode":"Truck","est_cost_usd":49061169},{"zone_id":209,"zone_name":"Kansas","state":"KS","latitude":38.5,"longitude":-98.0,"tons_k":733.49,"value_m":4379.73,"tmiles_m":158.77,"pct_of_precursor":0.17,"primary_mode":"Truck","est_cost_usd":19051991},{"zone_id":319,"zone_name":"Nebraska","state":"NE","latitude":41.49,"longitude":-99.9,"tons_k":431.27,"value_m":1637.69,"tmiles_m":52.48,"pct_of_precursor":0.1,"primary_mode":"Truck","est_cost_usd":6297435},{"zone_id":311,"zone_name":"Omaha NE-IA (NE Part)","state":"NE","latitude":41.26,"longitude":-95.94,"tons_k":102.86,"value_m":245.8,"tmiles_m":2.63,"pct_of_precursor":0.024,"primary_mode":"Truck","est_cost_usd":316035},{"zone_id":299,"zone_name":"Missouri","state":"MO","latitude":38.57,"longitude":-92.6,"tons_k":48.74,"value_m":66.39,"tmiles_m":15.17,"pct_of_precursor":0.011,"primary_mode":"Truck","est_cost_usd":1820678},{"zone_id":271,"zone_name":"Minneapolis-St. Paul MN-WI (MN Part)","state":"MN","latitude":44.98,"longitude":-93.27,"tons_k":24.11,"value_m":59.57,"tmiles_m":9.53,"pct_of_precursor":0.006,"primary_mode":"Truck","est_cost_usd":1143282}]},{"sctg2":"04","name":"Animal Feed","role":"Feedlot nutrition before processing","ratio":0.3,"total_tons_k":3203.72,"total_value_m":1051.83,"total_tmiles_m":1155.7,"est_cost_usd":138683703,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.83},{"mode":"Intermodal","pct":0.103},{"mode":"Rail","pct":0.067}],"num_sources":12,"sources":[{"zone_id":319,"zone_name":"Nebraska","state":"NE","latitude":41.49,"longitude":-99.9,"tons_k":866.49,"value_m":88.62,"tmiles_m":91.76,"pct_of_precursor":0.27,"primary_mode":"Truck","est_cost_usd":11010992},{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"tons_k":676.12,"value_m":143.11,"tmiles_m":105.77,"pct_of_precursor":0.211,"primary_mode":"Truck","est_cost_usd":12692621},{"zone_id":311,"zone_name":"Omaha NE-IA (NE Part)","state":"NE","latitude":41.26,"longitude":-95.94,"tons_k":240.4,"value_m":269.43,"tmiles_m":5.37,"pct_of_precursor":0.075,"primary_mode":"Truck","est_cost_usd":644992},{"zone_id":279,"zone_name":"Minnesota","state":"MN","latitude":46.73,"longitude":-94.69,"tons_k":180.95,"value_m":20.38,"tmiles_m":67.39,"pct_of_precursor":0.056,"primary_mode":"Intermodal","est_cost_usd":4717228},{"zone_id":519,"zone_name":"Virginia","state":"VA","latitude":37.43,"longitude":-78.66,"tons_k":180.78,"value_m":15.07,"tmiles_m":223.99,"pct_of_precursor":0.056,"primary_mode":"Truck","est_cost_usd":26879231},{"zone_id":299,"zone_name":"Missouri","state":"MO","latitude":38.57,"longitude":-92.6,"tons_k":178.83,"value_m":251.47,"tmiles_m":57.54,"pct_of_precursor":0.056,"primary_mode":"Truck","est_cost_usd":6904800},{"zone_id":460,"zone_name":"South Dakota","state":"SD","latitude":43.97,"longitude":-99.9,"tons_k":120.82,"value_m":12.35,"tmiles_m":28.23,"pct_of_precursor":0.038,"primary_mode":"Intermodal","est_cost_usd":1976100},{"zone_id":209,"zone_name":"Kansas","state":"KS","latitude":38.5,"longitude":-98.0,"tons_k":104.04,"value_m":24.02,"tmiles_m":28.26,"pct_of_precursor":0.032,"primary_mode":"Truck","est_cost_usd":3391142},{"zone_id":489,"zone_name":"Texas","state":"TX","latitude":31.97,"longitude":-99.9,"tons_k":98.42,"value_m":17.08,"tmiles_m":67.26,"pct_of_precursor":0.031,"primary_mode":"Truck","est_cost_usd":8070631},{"zone_id":479,"zone_name":"Tennessee","state":"TN","latitude":35.52,"longitude":-86.58,"tons_k":95.43,"value_m":11.05,"tmiles_m":68.62,"pct_of_precursor":0.03,"primary_mode":"Truck","est_cost_usd":8234640},{"zone_id":559,"zone_name":"Wisconsin","state":"WI","latitude":44.27,"longitude":-89.62,"tons_k":71.31,"value_m":16.07,"tmiles_m":33.88,"pct_of_precursor":0.022,"primary_mode":"Truck","est_cost_usd":4065157},{"zone_id":69,"zone_name":"California","state":"CA","latitude":36.78,"longitude":-119.42,"tons_k":70.48,"value_m":56.38,"tmiles_m":120.36,"pct_of_precursor":0.022,"primary_mode":"Rail","est_cost_usd":4212622}]},{"sctg2":"02","name":"Cereal Grains","role":"Grain finishing at feedlots","ratio":0.15,"total_tons_k":7170.18,"total_value_m":887.83,"total_tmiles_m":1973.78,"est_cost_usd":236853681,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.715},{"mode":"Rail","pct":0.225},{"mode":"Intermodal","pct":0.061}],"num_sources":7,"sources":[{"zone_id":209,"zone_name":"Kansas","state":"KS","latitude":38.5,"longitude":-98.0,"tons_k":3465.79,"value_m":389.92,"tmiles_m":1060.84,"pct_of_precursor":0.483,"primary_mode":"Truck","est_cost_usd":127300578},{"zone_id":319,"zone_name":"Nebraska","state":"NE","latitude":41.49,"longitude":-99.9,"tons_k":1794.89,"value_m":218.57,"tmiles_m":289.91,"pct_of_precursor":0.25,"primary_mode":"Rail","est_cost_usd":10146955},{"zone_id":311,"zone_name":"Omaha NE-IA (NE Part)","state":"NE","latitude":41.26,"longitude":-95.94,"tons_k":638.49,"value_m":81.85,"tmiles_m":17.12,"pct_of_precursor":0.089,"primary_mode":"Truck","est_cost_usd":2054587},{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"tons_k":401.12,"value_m":52.57,"tmiles_m":84.73,"pct_of_precursor":0.056,"primary_mode":"Truck","est_cost_usd":10168077},{"zone_id":89,"zone_name":"Colorado","state":"CO","latitude":38.83,"longitude":-105.78,"tons_k":400.47,"value_m":49.86,"tmiles_m":251.95,"pct_of_precursor":0.056,"primary_mode":"Truck","est_cost_usd":30233887},{"zone_id":380,"zone_name":"North Dakota","state":"ND","latitude":47.55,"longitude":-100.34,"tons_k":360.45,"value_m":77.64,"tmiles_m":237.08,"pct_of_precursor":0.05,"primary_mode":"Intermodal","est_cost_usd":16595950},{"zone_id":460,"zone_name":"South Dakota","state":"SD","latitude":43.97,"longitude":-99.9,"tons_k":106.94,"value_m":17.01,"tmiles_m":31.73,"pct_of_precursor":0.015,"primary_mode":"Truck","est_cost_usd":3807786}]}]},{"zone_id":50,"zone_name":"Arkansas","state":"AR","latitude":34.75,"longitude":-92.29,"total_precursor_tons_k":25054.35,"total_est_cost_usd":553931478,"precursors":[{"sctg2":"01","name":"Live Cattle","role":"Primary feedstock entering packing plants","ratio":1.25,"total_tons_k":4497.65,"total_value_m":7108.69,"total_tmiles_m":727.72,"est_cost_usd":87325815,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":1.0},{"mode":"Intermodal","pct":0.0}],"num_sources":4,"sources":[{"zone_id":50,"zone_name":"Arkansas","state":"AR","latitude":34.75,"longitude":-92.29,"tons_k":3630.25,"value_m":5684.84,"tmiles_m":494.51,"pct_of_precursor":0.807,"primary_mode":"Truck","est_cost_usd":59340908},{"zone_id":280,"zone_name":"Mississippi","state":"MS","latitude":32.35,"longitude":-89.4,"tons_k":347.32,"value_m":532.89,"tmiles_m":93.04,"pct_of_precursor":0.077,"primary_mode":"Truck","est_cost_usd":11165359},{"zone_id":299,"zone_name":"Missouri","state":"MO","latitude":38.57,"longitude":-92.6,"tons_k":262.33,"value_m":357.37,"tmiles_m":61.05,"pct_of_precursor":0.058,"primary_mode":"Truck","est_cost_usd":7325660},{"zone_id":229,"zone_name":"Louisiana","state":"LA","latitude":31.17,"longitude":-91.87,"tons_k":193.46,"value_m":353.73,"tmiles_m":54.08,"pct_of_precursor":0.043,"primary_mode":"Truck","est_cost_usd":6489477}]},{"sctg2":"04","name":"Animal Feed","role":"Feedlot nutrition before processing","ratio":0.3,"total_tons_k":6860.82,"total_value_m":2499.58,"total_tmiles_m":1540.42,"est_cost_usd":184850549,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.906},{"mode":"Intermodal","pct":0.055},{"mode":"Rail","pct":0.039}],"num_sources":12,"sources":[{"zone_id":50,"zone_name":"Arkansas","state":"AR","latitude":34.75,"longitude":-92.29,"tons_k":4491.09,"value_m":1219.26,"tmiles_m":529.96,"pct_of_precursor":0.655,"primary_mode":"Truck","est_cost_usd":63595171},{"zone_id":409,"zone_name":"Oklahoma","state":"OK","latitude":35.01,"longitude":-97.09,"tons_k":563.84,"value_m":126.89,"tmiles_m":122.26,"pct_of_precursor":0.082,"primary_mode":"Truck","est_cost_usd":14671237},{"zone_id":189,"zone_name":"Indiana","state":"IN","latitude":40.27,"longitude":-86.13,"tons_k":252.52,"value_m":76.3,"tmiles_m":160.21,"pct_of_precursor":0.037,"primary_mode":"Intermodal","est_cost_usd":11214956},{"zone_id":299,"zone_name":"Missouri","state":"MO","latitude":38.57,"longitude":-92.6,"tons_k":248.47,"value_m":115.47,"tmiles_m":49.68,"pct_of_precursor":0.036,"primary_mode":"Truck","est_cost_usd":5961758},{"zone_id":279,"zone_name":"Minnesota","state":"MN","latitude":46.73,"longitude":-94.69,"tons_k":221.85,"value_m":53.21,"tmiles_m":195.64,"pct_of_precursor":0.032,"primary_mode":"Rail","est_cost_usd":6847284},{"zone_id":479,"zone_name":"Tennessee","state":"TN","latitude":35.52,"longitude":-86.58,"tons_k":183.58,"value_m":53.48,"tmiles_m":48.55,"pct_of_precursor":0.027,"primary_mode":"Truck","est_cost_usd":5825446},{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"tons_k":120.53,"value_m":177.77,"tmiles_m":64.37,"pct_of_precursor":0.018,"primary_mode":"Truck","est_cost_usd":7724820},{"zone_id":280,"zone_name":"Mississippi","state":"MS","latitude":32.35,"longitude":-89.4,"tons_k":100.6,"value_m":39.06,"tmiles_m":24.13,"pct_of_precursor":0.015,"primary_mode":"Truck","est_cost_usd":2895821},{"zone_id":401,"zone_name":"Oklahoma City OK","state":"OK","latitude":35.47,"longitude":-97.52,"tons_k":100.41,"value_m":184.81,"tmiles_m":28.89,"pct_of_precursor":0.015,"primary_mode":"Truck","est_cost_usd":3466895},{"zone_id":519,"zone_name":"Virginia","state":"VA","latitude":37.43,"longitude":-78.66,"tons_k":80.56,"value_m":17.27,"tmiles_m":68.28,"pct_of_precursor":0.012,"primary_mode":"Truck","est_cost_usd":8193813},{"zone_id":484,"zone_name":"Dallas-Fort Worth TX","state":"TX","latitude":32.78,"longitude":-96.8,"tons_k":53.01,"value_m":16.65,"tmiles_m":15.49,"pct_of_precursor":0.008,"primary_mode":"Truck","est_cost_usd":1858222},{"zone_id":139,"zone_name":"Georgia","state":"GA","latitude":32.17,"longitude":-82.9,"tons_k":49.31,"value_m":14.18,"tmiles_m":30.47,"pct_of_precursor":0.007,"primary_mode":"Rail","est_cost_usd":1066586}]},{"sctg2":"02","name":"Cereal Grains","role":"Grain finishing at feedlots","ratio":0.15,"total_tons_k":13695.88,"total_value_m":2374.2,"total_tmiles_m":2347.96,"est_cost_usd":281755114,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.998},{"mode":"Intermodal","pct":0.002},{"mode":"Rail","pct":0.0}],"num_sources":5,"sources":[{"zone_id":50,"zone_name":"Arkansas","state":"AR","latitude":34.75,"longitude":-92.29,"tons_k":12818.68,"value_m":2247.45,"tmiles_m":1976.43,"pct_of_precursor":0.936,"primary_mode":"Truck","est_cost_usd":237172127},{"zone_id":201,"zone_name":"Kansas City MO-KS (KS Part)","state":"KS","latitude":39.1,"longitude":-94.58,"tons_k":264.44,"value_m":32.25,"tmiles_m":108.94,"pct_of_precursor":0.019,"primary_mode":"Truck","est_cost_usd":13072641},{"zone_id":299,"zone_name":"Missouri","state":"MO","latitude":38.57,"longitude":-92.6,"tons_k":213.68,"value_m":30.6,"tmiles_m":68.51,"pct_of_precursor":0.016,"primary_mode":"Truck","est_cost_usd":8221700},{"zone_id":471,"zone_name":"Memphis TN-MS-AR (TN Part)","state":"TN","latitude":35.15,"longitude":-90.05,"tons_k":141.85,"value_m":15.66,"tmiles_m":26.9,"pct_of_precursor":0.01,"primary_mode":"Truck","est_cost_usd":3228150},{"zone_id":209,"zone_name":"Kansas","state":"KS","latitude":38.5,"longitude":-98.0,"tons_k":117.85,"value_m":15.68,"tmiles_m":65.0,"pct_of_precursor":0.009,"primary_mode":"Truck","est_cost_usd":7800283}]}]},{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"total_precursor_tons_k":189617.49,"total_est_cost_usd":3841511782,"precursors":[{"sctg2":"01","name":"Live Cattle","role":"Primary feedstock entering packing plants","ratio":1.25,"total_tons_k":10541.07,"total_value_m":15961.72,"total_tmiles_m":1574.73,"est_cost_usd":188967633,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":1.0},{"mode":"Intermodal","pct":0.0}],"num_sources":3,"sources":[{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"tons_k":9519.31,"value_m":14130.95,"tmiles_m":1282.08,"pct_of_precursor":0.903,"primary_mode":"Truck","est_cost_usd":153850040},{"zone_id":271,"zone_name":"Minneapolis-St. Paul MN-WI (MN Part)","state":"MN","latitude":44.98,"longitude":-93.27,"tons_k":574.31,"value_m":920.75,"tmiles_m":144.69,"pct_of_precursor":0.054,"primary_mode":"Truck","est_cost_usd":17362783},{"zone_id":299,"zone_name":"Missouri","state":"MO","latitude":38.57,"longitude":-92.6,"tons_k":324.56,"value_m":584.51,"tmiles_m":94.02,"pct_of_precursor":0.031,"primary_mode":"Truck","est_cost_usd":11282410}]},{"sctg2":"04","name":"Animal Feed","role":"Feedlot nutrition before processing","ratio":0.3,"total_tons_k":40832.6,"total_value_m":8678.89,"total_tmiles_m":6279.51,"est_cost_usd":753540715,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.98},{"mode":"Rail","pct":0.019},{"mode":"Intermodal","pct":0.001}],"num_sources":9,"sources":[{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"tons_k":35009.43,"value_m":6934.53,"tmiles_m":4418.59,"pct_of_precursor":0.857,"primary_mode":"Truck","est_cost_usd":530230879},{"zone_id":399,"zone_name":"Ohio","state":"OH","latitude":40.42,"longitude":-82.91,"tons_k":1085.53,"value_m":117.5,"tmiles_m":586.44,"pct_of_precursor":0.027,"primary_mode":"Truck","est_cost_usd":70373318},{"zone_id":279,"zone_name":"Minnesota","state":"MN","latitude":46.73,"longitude":-94.69,"tons_k":1002.8,"value_m":128.99,"tmiles_m":205.84,"pct_of_precursor":0.025,"primary_mode":"Truck","est_cost_usd":24701273},{"zone_id":319,"zone_name":"Nebraska","state":"NE","latitude":41.49,"longitude":-99.9,"tons_k":780.01,"value_m":160.16,"tmiles_m":169.66,"pct_of_precursor":0.019,"primary_mode":"Truck","est_cost_usd":20358663},{"zone_id":311,"zone_name":"Omaha NE-IA (NE Part)","state":"NE","latitude":41.26,"longitude":-95.94,"tons_k":460.91,"value_m":93.81,"tmiles_m":72.98,"pct_of_precursor":0.011,"primary_mode":"Rail","est_cost_usd":2554372},{"zone_id":559,"zone_name":"Wisconsin","state":"WI","latitude":44.27,"longitude":-89.62,"tons_k":458.12,"value_m":174.82,"tmiles_m":120.82,"pct_of_precursor":0.011,"primary_mode":"Truck","est_cost_usd":14498192},{"zone_id":181,"zone_name":"Chicago Metro","state":"IN","latitude":41.8781,"longitude":-87.6298,"tons_k":425.35,"value_m":78.17,"tmiles_m":118.11,"pct_of_precursor":0.01,"primary_mode":"Truck","est_cost_usd":14173368},{"zone_id":179,"zone_name":"Illinois","state":"IL","latitude":40.12,"longitude":-89.4,"tons_k":388.77,"value_m":120.16,"tmiles_m":84.14,"pct_of_precursor":0.01,"primary_mode":"Truck","est_cost_usd":10096542},{"zone_id":460,"zone_name":"South Dakota","state":"SD","latitude":43.97,"longitude":-99.9,"tons_k":262.31,"value_m":36.93,"tmiles_m":54.6,"pct_of_precursor":0.006,"primary_mode":"Truck","est_cost_usd":6551473}]},{"sctg2":"02","name":"Cereal Grains","role":"Grain finishing at feedlots","ratio":0.15,"total_tons_k":138243.82,"total_value_m":14921.71,"total_tmiles_m":24158.36,"est_cost_usd":2899003434,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.972},{"mode":"Rail","pct":0.028},{"mode":"Intermodal","pct":0.0}],"num_sources":5,"sources":[{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"tons_k":128905.69,"value_m":13772.3,"tmiles_m":20975.9,"pct_of_precursor":0.932,"primary_mode":"Truck","est_cost_usd":2517108439},{"zone_id":460,"zone_name":"South Dakota","state":"SD","latitude":43.97,"longitude":-99.9,"tons_k":2643.86,"value_m":306.55,"tmiles_m":997.27,"pct_of_precursor":0.019,"primary_mode":"Truck","est_cost_usd":119672791},{"zone_id":279,"zone_name":"Minnesota","state":"MN","latitude":46.73,"longitude":-94.69,"tons_k":2049.95,"value_m":256.28,"tmiles_m":649.94,"pct_of_precursor":0.015,"primary_mode":"Truck","est_cost_usd":77992880},{"zone_id":311,"zone_name":"Omaha NE-IA (NE Part)","state":"NE","latitude":41.26,"longitude":-95.94,"tons_k":2043.65,"value_m":195.02,"tmiles_m":410.54,"pct_of_precursor":0.015,"primary_mode":"Truck","est_cost_usd":49264955},{"zone_id":179,"zone_name":"Illinois","state":"IL","latitude":40.12,"longitude":-89.4,"tons_k":926.9,"value_m":97.46,"tmiles_m":329.79,"pct_of_precursor":0.007,"primary_mode":"Truck","est_cost_usd":39575204}]}]},{"zone_id":319,"zone_name":"Nebraska","state":"NE","latitude":41.49,"longitude":-99.9,"total_precursor_tons_k":118563.01,"total_est_cost_usd":2560289528,"precursors":[{"sctg2":"01","name":"Live Cattle","role":"Primary feedstock entering packing plants","ratio":1.25,"total_tons_k":3423.08,"total_value_m":12634.82,"total_tmiles_m":618.9,"est_cost_usd":74268309,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":1.0},{"mode":"Intermodal","pct":0.0}],"num_sources":9,"sources":[{"zone_id":319,"zone_name":"Nebraska","state":"NE","latitude":41.49,"longitude":-99.9,"tons_k":2678.92,"value_m":9505.01,"tmiles_m":384.26,"pct_of_precursor":0.783,"primary_mode":"Truck","est_cost_usd":46110983},{"zone_id":209,"zone_name":"Kansas","state":"KS","latitude":38.5,"longitude":-98.0,"tons_k":173.57,"value_m":973.77,"tmiles_m":43.47,"pct_of_precursor":0.051,"primary_mode":"Truck","est_cost_usd":5216799},{"zone_id":311,"zone_name":"Omaha NE-IA (NE Part)","state":"NE","latitude":41.26,"longitude":-95.94,"tons_k":162.75,"value_m":458.68,"tmiles_m":25.76,"pct_of_precursor":0.048,"primary_mode":"Truck","est_cost_usd":3091149},{"zone_id":81,"zone_name":"Denver CO","state":"CO","latitude":39.74,"longitude":-104.99,"tons_k":133.01,"value_m":777.29,"tmiles_m":40.4,"pct_of_precursor":0.039,"primary_mode":"Truck","est_cost_usd":4848565},{"zone_id":460,"zone_name":"South Dakota","state":"SD","latitude":43.97,"longitude":-99.9,"tons_k":73.46,"value_m":195.86,"tmiles_m":19.3,"pct_of_precursor":0.021,"primary_mode":"Truck","est_cost_usd":2316391},{"zone_id":89,"zone_name":"Colorado","state":"CO","latitude":38.83,"longitude":-105.78,"tons_k":66.8,"value_m":266.38,"tmiles_m":22.68,"pct_of_precursor":0.02,"primary_mode":"Truck","est_cost_usd":2721404},{"zone_id":219,"zone_name":"Kentucky","state":"KY","latitude":37.84,"longitude":-84.27,"tons_k":48.41,"value_m":144.12,"tmiles_m":39.59,"pct_of_precursor":0.014,"primary_mode":"Truck","est_cost_usd":4751077},{"zone_id":201,"zone_name":"Kansas City MO-KS (KS Part)","state":"KS","latitude":39.1,"longitude":-94.58,"tons_k":44.44,"value_m":163.79,"tmiles_m":12.73,"pct_of_precursor":0.013,"primary_mode":"Truck","est_cost_usd":1528129},{"zone_id":19,"zone_name":"Alabama","state":"AL","latitude":32.38,"longitude":-86.3,"tons_k":18.93,"value_m":49.84,"tmiles_m":19.5,"pct_of_precursor":0.006,"primary_mode":"Truck","est_cost_usd":2339803}]},{"sctg2":"04","name":"Animal Feed","role":"Feedlot nutrition before processing","ratio":0.3,"total_tons_k":26712.25,"total_value_m":3560.77,"total_tmiles_m":3653.16,"est_cost_usd":438379765,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.996},{"mode":"Rail","pct":0.003},{"mode":"Intermodal","pct":0.001}],"num_sources":3,"sources":[{"zone_id":319,"zone_name":"Nebraska","state":"NE","latitude":41.49,"longitude":-99.9,"tons_k":24830.69,"value_m":2526.93,"tmiles_m":3102.07,"pct_of_precursor":0.93,"primary_mode":"Truck","est_cost_usd":372248130},{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"tons_k":934.98,"value_m":309.73,"tmiles_m":223.96,"pct_of_precursor":0.035,"primary_mode":"Truck","est_cost_usd":26874723},{"zone_id":460,"zone_name":"South Dakota","state":"SD","latitude":43.97,"longitude":-99.9,"tons_k":174.17,"value_m":37.19,"tmiles_m":39.99,"pct_of_precursor":0.007,"primary_mode":"Truck","est_cost_usd":4798335}]},{"sctg2":"02","name":"Cereal Grains","role":"Grain finishing at feedlots","ratio":0.15,"total_tons_k":88427.68,"total_value_m":9410.31,"total_tmiles_m":17063.68,"est_cost_usd":2047641454,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.915},{"mode":"Rail","pct":0.08},{"mode":"Intermodal","pct":0.005}],"num_sources":4,"sources":[{"zone_id":319,"zone_name":"Nebraska","state":"NE","latitude":41.49,"longitude":-99.9,"tons_k":77933.43,"value_m":8306.84,"tmiles_m":14164.39,"pct_of_precursor":0.881,"primary_mode":"Truck","est_cost_usd":1699726809},{"zone_id":311,"zone_name":"Omaha NE-IA (NE Part)","state":"NE","latitude":41.26,"longitude":-95.94,"tons_k":4663.72,"value_m":519.41,"tmiles_m":873.89,"pct_of_precursor":0.053,"primary_mode":"Truck","est_cost_usd":104867232},{"zone_id":460,"zone_name":"South Dakota","state":"SD","latitude":43.97,"longitude":-99.9,"tons_k":3847.84,"value_m":362.53,"tmiles_m":1253.04,"pct_of_precursor":0.044,"primary_mode":"Truck","est_cost_usd":150364411},{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"tons_k":1050.18,"value_m":110.63,"tmiles_m":373.83,"pct_of_precursor":0.012,"primary_mode":"Truck","est_cost_usd":44859949}]}]},{"zone_id":489,"zone_name":"Texas","state":"TX","latitude":31.97,"longitude":-99.9,"total_precursor_tons_k":56234.15,"total_est_cost_usd":2755695561,"precursors":[{"sctg2":"01","name":"Live Cattle","role":"Primary feedstock entering packing plants","ratio":1.25,"total_tons_k":5604.69,"total_value_m":20088.26,"total_tmiles_m":1433.07,"est_cost_usd":171968581,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":1.0},{"mode":"Air","pct":0.0},{"mode":"Intermodal","pct":0.0}],"num_sources":12,"sources":[{"zone_id":489,"zone_name":"Texas","state":"TX","latitude":31.97,"longitude":-99.9,"tons_k":4041.96,"value_m":15605.54,"tmiles_m":850.18,"pct_of_precursor":0.721,"primary_mode":"Truck","est_cost_usd":102022013},{"zone_id":409,"zone_name":"Oklahoma","state":"OK","latitude":35.01,"longitude":-97.09,"tons_k":455.08,"value_m":955.4,"tmiles_m":136.95,"pct_of_precursor":0.081,"primary_mode":"Truck","est_cost_usd":16434597},{"zone_id":484,"zone_name":"Dallas-Fort Worth TX","state":"TX","latitude":32.78,"longitude":-96.8,"tons_k":221.26,"value_m":617.87,"tmiles_m":49.29,"pct_of_precursor":0.039,"primary_mode":"Truck","est_cost_usd":5914608},{"zone_id":350,"zone_name":"New Mexico","state":"NM","latitude":34.52,"longitude":-105.87,"tons_k":154.31,"value_m":357.97,"tmiles_m":56.16,"pct_of_precursor":0.028,"primary_mode":"Truck","est_cost_usd":6739015},{"zone_id":209,"zone_name":"Kansas","state":"KS","latitude":38.5,"longitude":-98.0,"tons_k":124.24,"value_m":732.43,"tmiles_m":63.57,"pct_of_precursor":0.022,"primary_mode":"Truck","est_cost_usd":7628138},{"zone_id":486,"zone_name":"Houston TX","state":"TX","latitude":29.76,"longitude":-95.37,"tons_k":105.54,"value_m":259.18,"tmiles_m":23.07,"pct_of_precursor":0.019,"primary_mode":"Truck","est_cost_usd":2768584},{"zone_id":19,"zone_name":"Alabama","state":"AL","latitude":32.38,"longitude":-86.3,"tons_k":77.55,"value_m":249.03,"tmiles_m":56.01,"pct_of_precursor":0.014,"primary_mode":"Truck","est_cost_usd":6721636},{"zone_id":488,"zone_name":"San Antonio TX","state":"TX","latitude":29.42,"longitude":-98.49,"tons_k":76.37,"value_m":256.96,"tmiles_m":15.26,"pct_of_precursor":0.014,"primary_mode":"Truck","est_cost_usd":1830699},{"zone_id":219,"zone_name":"Kentucky","state":"KY","latitude":37.84,"longitude":-84.27,"tons_k":60.99,"value_m":275.16,"tmiles_m":50.86,"pct_of_precursor":0.011,"primary_mode":"Truck","est_cost_usd":6102755},{"zone_id":50,"zone_name":"Arkansas","state":"AR","latitude":34.75,"longitude":-92.29,"tons_k":50.81,"value_m":78.85,"tmiles_m":19.97,"pct_of_precursor":0.009,"primary_mode":"Truck","est_cost_usd":2396276},{"zone_id":401,"zone_name":"Oklahoma City OK","state":"OK","latitude":35.47,"longitude":-97.52,"tons_k":36.94,"value_m":86.51,"tmiles_m":11.88,"pct_of_precursor":0.007,"primary_mode":"Truck","est_cost_usd":1425696},{"zone_id":481,"zone_name":"Austin TX","state":"TX","latitude":30.27,"longitude":-97.74,"tons_k":36.23,"value_m":143.02,"tmiles_m":6.77,"pct_of_precursor":0.006,"primary_mode":"Truck","est_cost_usd":812786}]},{"sctg2":"04","name":"Animal Feed","role":"Feedlot nutrition before processing","ratio":0.3,"total_tons_k":22449.0,"total_value_m":4752.26,"total_tmiles_m":8310.37,"est_cost_usd":997244725,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.791},{"mode":"Rail","pct":0.115},{"mode":"Intermodal","pct":0.093},{"mode":"Air","pct":0.0}],"num_sources":12,"sources":[{"zone_id":489,"zone_name":"Texas","state":"TX","latitude":31.97,"longitude":-99.9,"tons_k":14738.19,"value_m":2095.89,"tmiles_m":2438.11,"pct_of_precursor":0.657,"primary_mode":"Truck","est_cost_usd":292573297},{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"tons_k":2461.84,"value_m":211.93,"tmiles_m":2259.18,"pct_of_precursor":0.11,"primary_mode":"Rail","est_cost_usd":79071465},{"zone_id":189,"zone_name":"Indiana","state":"IN","latitude":40.27,"longitude":-86.13,"tons_k":1290.5,"value_m":92.37,"tmiles_m":1431.37,"pct_of_precursor":0.057,"primary_mode":"Intermodal","est_cost_usd":100196144},{"zone_id":484,"zone_name":"Dallas-Fort Worth TX","state":"TX","latitude":32.78,"longitude":-96.8,"tons_k":445.05,"value_m":100.93,"tmiles_m":89.08,"pct_of_precursor":0.02,"primary_mode":"Truck","est_cost_usd":10690100},{"zone_id":488,"zone_name":"San Antonio TX","state":"TX","latitude":29.42,"longitude":-98.49,"tons_k":414.83,"value_m":647.59,"tmiles_m":72.8,"pct_of_precursor":0.018,"primary_mode":"Truck","est_cost_usd":8735841},{"zone_id":380,"zone_name":"North Dakota","state":"ND","latitude":47.55,"longitude":-100.34,"tons_k":388.09,"value_m":38.61,"tmiles_m":598.66,"pct_of_precursor":0.017,"primary_mode":"Intermodal","est_cost_usd":41906215},{"zone_id":409,"zone_name":"Oklahoma","state":"OK","latitude":35.01,"longitude":-97.09,"tons_k":370.16,"value_m":30.15,"tmiles_m":96.93,"pct_of_precursor":0.016,"primary_mode":"Truck","est_cost_usd":11631192},{"zone_id":50,"zone_name":"Arkansas","state":"AR","latitude":34.75,"longitude":-92.29,"tons_k":264.99,"value_m":81.91,"tmiles_m":86.5,"pct_of_precursor":0.012,"primary_mode":"Truck","est_cost_usd":10379429},{"zone_id":279,"zone_name":"Minnesota","state":"MN","latitude":46.73,"longitude":-94.69,"tons_k":233.25,"value_m":76.29,"tmiles_m":255.06,"pct_of_precursor":0.01,"primary_mode":"Rail","est_cost_usd":8927100},{"zone_id":486,"zone_name":"Houston TX","state":"TX","latitude":29.76,"longitude":-95.37,"tons_k":198.41,"value_m":43.59,"tmiles_m":38.17,"pct_of_precursor":0.009,"primary_mode":"Truck","est_cost_usd":4580005},{"zone_id":401,"zone_name":"Oklahoma City OK","state":"OK","latitude":35.47,"longitude":-97.52,"tons_k":190.21,"value_m":226.0,"tmiles_m":57.66,"pct_of_precursor":0.008,"primary_mode":"Truck","est_cost_usd":6919477},{"zone_id":209,"zone_name":"Kansas","state":"KS","latitude":38.5,"longitude":-98.0,"tons_k":163.05,"value_m":172.0,"tmiles_m":53.52,"pct_of_precursor":0.007,"primary_mode":"Truck","est_cost_usd":6422268}]},{"sctg2":"02","name":"Cereal Grains","role":"Grain finishing at feedlots","ratio":0.15,"total_tons_k":28180.46,"total_value_m":3950.84,"total_tmiles_m":13220.69,"est_cost_usd":1586482255,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.721},{"mode":"Rail","pct":0.249},{"mode":"Intermodal","pct":0.03}],"num_sources":12,"sources":[{"zone_id":489,"zone_name":"Texas","state":"TX","latitude":31.97,"longitude":-99.9,"tons_k":20572.15,"value_m":2915.73,"tmiles_m":6966.65,"pct_of_precursor":0.73,"primary_mode":"Truck","est_cost_usd":835998548},{"zone_id":559,"zone_name":"Wisconsin","state":"WI","latitude":44.27,"longitude":-89.62,"tons_k":1345.32,"value_m":173.97,"tmiles_m":1755.58,"pct_of_precursor":0.048,"primary_mode":"Rail","est_cost_usd":61445337},{"zone_id":319,"zone_name":"Nebraska","state":"NE","latitude":41.49,"longitude":-99.9,"tons_k":947.94,"value_m":151.0,"tmiles_m":948.89,"pct_of_precursor":0.034,"primary_mode":"Intermodal","est_cost_usd":66422357},{"zone_id":279,"zone_name":"Minnesota","state":"MN","latitude":46.73,"longitude":-94.69,"tons_k":833.61,"value_m":108.67,"tmiles_m":1089.61,"pct_of_precursor":0.03,"primary_mode":"Rail","est_cost_usd":38136271},{"zone_id":179,"zone_name":"Illinois","state":"IL","latitude":40.12,"longitude":-89.4,"tons_k":810.83,"value_m":108.56,"tmiles_m":816.93,"pct_of_precursor":0.029,"primary_mode":"Rail","est_cost_usd":28592632},{"zone_id":486,"zone_name":"Houston TX","state":"TX","latitude":29.76,"longitude":-95.37,"tons_k":566.46,"value_m":74.38,"tmiles_m":184.85,"pct_of_precursor":0.02,"primary_mode":"Truck","est_cost_usd":22181436},{"zone_id":484,"zone_name":"Dallas-Fort Worth TX","state":"TX","latitude":32.78,"longitude":-96.8,"tons_k":468.61,"value_m":61.73,"tmiles_m":130.87,"pct_of_precursor":0.017,"primary_mode":"Truck","est_cost_usd":15704715},{"zone_id":409,"zone_name":"Oklahoma","state":"OK","latitude":35.01,"longitude":-97.09,"tons_k":439.71,"value_m":52.8,"tmiles_m":176.33,"pct_of_precursor":0.016,"primary_mode":"Truck","est_cost_usd":21159784},{"zone_id":209,"zone_name":"Kansas","state":"KS","latitude":38.5,"longitude":-98.0,"tons_k":376.5,"value_m":48.33,"tmiles_m":230.19,"pct_of_precursor":0.013,"primary_mode":"Truck","est_cost_usd":27622674},{"zone_id":483,"zone_name":"Corpus Christi TX","state":"TX","latitude":27.8,"longitude":-97.4,"tons_k":340.5,"value_m":44.8,"tmiles_m":125.65,"pct_of_precursor":0.012,"primary_mode":"Truck","est_cost_usd":15078520},{"zone_id":229,"zone_name":"Louisiana","state":"LA","latitude":31.17,"longitude":-91.87,"tons_k":292.88,"value_m":40.4,"tmiles_m":135.37,"pct_of_precursor":0.01,"primary_mode":"Truck","est_cost_usd":16244460},{"zone_id":481,"zone_name":"Austin TX","state":"TX","latitude":30.27,"longitude":-97.74,"tons_k":292.61,"value_m":39.44,"tmiles_m":77.04,"pct_of_precursor":0.01,"primary_mode":"Truck","est_cost_usd":9244460}]}]},{"zone_id":379,"zone_name":"North Carolina","state":"NC","latitude":35.55,"longitude":-79.39,"total_precursor_tons_k":30347.04,"total_est_cost_usd":1391347308,"precursors":[{"sctg2":"01","name":"Live Cattle","role":"Primary feedstock entering packing plants","ratio":1.25,"total_tons_k":4213.15,"total_value_m":5337.66,"total_tmiles_m":716.87,"est_cost_usd":86023846,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":1.0},{"mode":"Intermodal","pct":0.0},{"mode":"Air","pct":0.0}],"num_sources":10,"sources":[{"zone_id":379,"zone_name":"North Carolina","state":"NC","latitude":35.55,"longitude":-79.39,"tons_k":2758.94,"value_m":2877.44,"tmiles_m":379.11,"pct_of_precursor":0.655,"primary_mode":"Truck","est_cost_usd":45493155},{"zone_id":459,"zone_name":"South Carolina","state":"SC","latitude":34.0,"longitude":-81.03,"tons_k":619.91,"value_m":1030.25,"tmiles_m":119.03,"pct_of_precursor":0.147,"primary_mode":"Truck","est_cost_usd":14283721},{"zone_id":519,"zone_name":"Virginia","state":"VA","latitude":37.43,"longitude":-78.66,"tons_k":215.77,"value_m":382.68,"tmiles_m":49.82,"pct_of_precursor":0.051,"primary_mode":"Truck","est_cost_usd":5978554},{"zone_id":373,"zone_name":"Raleigh-Durham NC","state":"NC","latitude":35.78,"longitude":-78.64,"tons_k":182.25,"value_m":216.12,"tmiles_m":26.15,"pct_of_precursor":0.043,"primary_mode":"Truck","est_cost_usd":3138506},{"zone_id":371,"zone_name":"Charlotte NC-SC (NC Part)","state":"NC","latitude":35.23,"longitude":-80.84,"tons_k":121.93,"value_m":217.09,"tmiles_m":18.71,"pct_of_precursor":0.029,"primary_mode":"Truck","est_cost_usd":2245323},{"zone_id":372,"zone_name":"Greensboro-Winston-Salem NC","state":"NC","latitude":36.07,"longitude":-79.79,"tons_k":99.03,"value_m":206.16,"tmiles_m":15.81,"pct_of_precursor":0.024,"primary_mode":"Truck","est_cost_usd":1897057},{"zone_id":299,"zone_name":"Missouri","state":"MO","latitude":38.57,"longitude":-92.6,"tons_k":89.48,"value_m":142.42,"tmiles_m":63.97,"pct_of_precursor":0.021,"primary_mode":"Truck","est_cost_usd":7676187},{"zone_id":131,"zone_name":"Atlanta GA","state":"GA","latitude":33.75,"longitude":-84.39,"tons_k":34.05,"value_m":55.01,"tmiles_m":9.01,"pct_of_precursor":0.008,"primary_mode":"Truck","est_cost_usd":1080708},{"zone_id":473,"zone_name":"Knoxville TN","state":"TN","latitude":35.96,"longitude":-83.92,"tons_k":22.81,"value_m":41.74,"tmiles_m":4.82,"pct_of_precursor":0.005,"primary_mode":"Truck","est_cost_usd":578759},{"zone_id":219,"zone_name":"Kentucky","state":"KY","latitude":37.84,"longitude":-84.27,"tons_k":21.27,"value_m":47.68,"tmiles_m":7.74,"pct_of_precursor":0.005,"primary_mode":"Truck","est_cost_usd":928257}]},{"sctg2":"04","name":"Animal Feed","role":"Feedlot nutrition before processing","ratio":0.3,"total_tons_k":9216.39,"total_value_m":3628.79,"total_tmiles_m":2395.91,"est_cost_usd":287509420,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.849},{"mode":"Rail","pct":0.076},{"mode":"Intermodal","pct":0.075}],"num_sources":12,"sources":[{"zone_id":379,"zone_name":"North Carolina","state":"NC","latitude":35.55,"longitude":-79.39,"tons_k":4793.76,"value_m":2190.22,"tmiles_m":515.5,"pct_of_precursor":0.52,"primary_mode":"Truck","est_cost_usd":61860068},{"zone_id":371,"zone_name":"Charlotte NC-SC (NC Part)","state":"NC","latitude":35.23,"longitude":-80.84,"tons_k":1600.0,"value_m":277.35,"tmiles_m":240.98,"pct_of_precursor":0.174,"primary_mode":"Truck","est_cost_usd":28917240},{"zone_id":189,"zone_name":"Indiana","state":"IN","latitude":40.27,"longitude":-86.13,"tons_k":725.86,"value_m":209.07,"tmiles_m":550.57,"pct_of_precursor":0.079,"primary_mode":"Intermodal","est_cost_usd":38540013},{"zone_id":511,"zone_name":"Richmond VA","state":"VA","latitude":37.54,"longitude":-77.44,"tons_k":455.99,"value_m":88.46,"tmiles_m":87.47,"pct_of_precursor":0.049,"primary_mode":"Truck","est_cost_usd":10496762},{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"tons_k":403.68,"value_m":155.69,"tmiles_m":412.5,"pct_of_precursor":0.044,"primary_mode":"Rail","est_cost_usd":14437434},{"zone_id":211,"zone_name":"Cincinnati OH-KY-IN (KY Part)","state":"KY","latitude":39.1,"longitude":-84.51,"tons_k":325.76,"value_m":47.29,"tmiles_m":181.17,"pct_of_precursor":0.035,"primary_mode":"Rail","est_cost_usd":6340895},{"zone_id":399,"zone_name":"Ohio","state":"OH","latitude":40.42,"longitude":-82.91,"tons_k":102.39,"value_m":27.16,"tmiles_m":53.62,"pct_of_precursor":0.011,"primary_mode":"Truck","est_cost_usd":6434528},{"zone_id":372,"zone_name":"Greensboro-Winston-Salem NC","state":"NC","latitude":36.07,"longitude":-79.79,"tons_k":90.59,"value_m":44.8,"tmiles_m":13.7,"pct_of_precursor":0.01,"primary_mode":"Truck","est_cost_usd":1643404},{"zone_id":269,"zone_name":"Michigan","state":"MI","latitude":44.31,"longitude":-85.6,"tons_k":89.3,"value_m":7.02,"tmiles_m":73.93,"pct_of_precursor":0.01,"primary_mode":"Rail","est_cost_usd":2587671},{"zone_id":429,"zone_name":"Pennsylvania","state":"PA","latitude":41.2,"longitude":-77.19,"tons_k":70.11,"value_m":151.75,"tmiles_m":31.12,"pct_of_precursor":0.008,"primary_mode":"Truck","est_cost_usd":3733825},{"zone_id":373,"zone_name":"Raleigh-Durham NC","state":"NC","latitude":35.78,"longitude":-78.64,"tons_k":56.77,"value_m":6.17,"tmiles_m":6.81,"pct_of_precursor":0.006,"primary_mode":"Truck","est_cost_usd":816938},{"zone_id":473,"zone_name":"Knoxville TN","state":"TN","latitude":35.96,"longitude":-83.92,"tons_k":55.77,"value_m":2.21,"tmiles_m":11.23,"pct_of_precursor":0.006,"primary_mode":"Truck","est_cost_usd":1347109}]},{"sctg2":"02","name":"Cereal Grains","role":"Grain finishing at feedlots","ratio":0.15,"total_tons_k":16917.5,"total_value_m":2495.54,"total_tmiles_m":8481.78,"est_cost_usd":1017814042,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.534},{"mode":"Rail","pct":0.381},{"mode":"Intermodal","pct":0.085}],"num_sources":12,"sources":[{"zone_id":379,"zone_name":"North Carolina","state":"NC","latitude":35.55,"longitude":-79.39,"tons_k":8137.78,"value_m":1378.83,"tmiles_m":1470.54,"pct_of_precursor":0.481,"primary_mode":"Truck","est_cost_usd":176464318},{"zone_id":269,"zone_name":"Michigan","state":"MI","latitude":44.31,"longitude":-85.6,"tons_k":4442.11,"value_m":547.42,"tmiles_m":4399.59,"pct_of_precursor":0.263,"primary_mode":"Rail","est_cost_usd":153985507},{"zone_id":393,"zone_name":"Columbus OH","state":"OH","latitude":39.96,"longitude":-83.0,"tons_k":1642.0,"value_m":219.98,"tmiles_m":1126.1,"pct_of_precursor":0.097,"primary_mode":"Rail","est_cost_usd":39413543},{"zone_id":399,"zone_name":"Ohio","state":"OH","latitude":40.42,"longitude":-82.91,"tons_k":463.3,"value_m":62.65,"tmiles_m":352.34,"pct_of_precursor":0.027,"primary_mode":"Rail","est_cost_usd":12331864},{"zone_id":371,"zone_name":"Charlotte NC-SC (NC Part)","state":"NC","latitude":35.23,"longitude":-80.84,"tons_k":436.67,"value_m":55.5,"tmiles_m":82.41,"pct_of_precursor":0.026,"primary_mode":"Truck","est_cost_usd":9889676},{"zone_id":189,"zone_name":"Indiana","state":"IN","latitude":40.27,"longitude":-86.13,"tons_k":377.94,"value_m":49.83,"tmiles_m":308.77,"pct_of_precursor":0.022,"primary_mode":"Rail","est_cost_usd":10806919},{"zone_id":392,"zone_name":"Cleveland OH","state":"OH","latitude":41.5,"longitude":-81.69,"tons_k":336.29,"value_m":44.99,"tmiles_m":256.77,"pct_of_precursor":0.02,"primary_mode":"Rail","est_cost_usd":8987066},{"zone_id":519,"zone_name":"Virginia","state":"VA","latitude":37.43,"longitude":-78.66,"tons_k":241.64,"value_m":26.88,"tmiles_m":64.93,"pct_of_precursor":0.014,"primary_mode":"Truck","est_cost_usd":7792039},{"zone_id":183,"zone_name":"Fort Wayne IN","state":"IN","latitude":41.08,"longitude":-85.14,"tons_k":176.9,"value_m":23.03,"tmiles_m":147.21,"pct_of_precursor":0.01,"primary_mode":"Rail","est_cost_usd":5152380},{"zone_id":373,"zone_name":"Raleigh-Durham NC","state":"NC","latitude":35.78,"longitude":-78.64,"tons_k":160.41,"value_m":21.73,"tmiles_m":24.65,"pct_of_precursor":0.009,"primary_mode":"Truck","est_cost_usd":2958296},{"zone_id":459,"zone_name":"South Carolina","state":"SC","latitude":34.0,"longitude":-81.03,"tons_k":108.11,"value_m":15.74,"tmiles_m":23.96,"pct_of_precursor":0.006,"primary_mode":"Truck","est_cost_usd":2875766},{"zone_id":372,"zone_name":"Greensboro-Winston-Salem NC","state":"NC","latitude":36.07,"longitude":-79.79,"tons_k":96.01,"value_m":12.05,"tmiles_m":17.38,"pct_of_precursor":0.006,"primary_mode":"Truck","est_cost_usd":2085466}]}]},{"zone_id":131,"zone_name":"Atlanta GA","state":"GA","latitude":33.75,"longitude":-84.39,"total_precursor_tons_k":14643.13,"total_est_cost_usd":329390540,"precursors":[{"sctg2":"01","name":"Live Cattle","role":"Primary feedstock entering packing plants","ratio":1.25,"total_tons_k":1368.84,"total_value_m":2095.19,"total_tmiles_m":125.02,"est_cost_usd":15001871,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":1.0},{"mode":"Intermodal","pct":0.0},{"mode":"Air","pct":0.0}],"num_sources":6,"sources":[{"zone_id":131,"zone_name":"Atlanta GA","state":"GA","latitude":33.75,"longitude":-84.39,"tons_k":946.76,"value_m":1391.95,"tmiles_m":49.01,"pct_of_precursor":0.692,"primary_mode":"Truck","est_cost_usd":5881085},{"zone_id":452,"zone_name":"Greenville SC","state":"SC","latitude":34.85,"longitude":-82.39,"tons_k":172.44,"value_m":313.48,"tmiles_m":25.6,"pct_of_precursor":0.126,"primary_mode":"Truck","est_cost_usd":3072223},{"zone_id":139,"zone_name":"Georgia","state":"GA","latitude":32.17,"longitude":-82.9,"tons_k":133.24,"value_m":186.69,"tmiles_m":20.41,"pct_of_precursor":0.097,"primary_mode":"Truck","est_cost_usd":2449128},{"zone_id":19,"zone_name":"Alabama","state":"AL","latitude":32.38,"longitude":-86.3,"tons_k":71.76,"value_m":100.17,"tmiles_m":14.22,"pct_of_precursor":0.052,"primary_mode":"Truck","est_cost_usd":1706862},{"zone_id":473,"zone_name":"Knoxville TN","state":"TN","latitude":35.96,"longitude":-83.92,"tons_k":22.56,"value_m":41.29,"tmiles_m":4.95,"pct_of_precursor":0.016,"primary_mode":"Truck","est_cost_usd":593480},{"zone_id":11,"zone_name":"Birmingham AL","state":"AL","latitude":33.52,"longitude":-86.8,"tons_k":13.82,"value_m":18.28,"tmiles_m":2.37,"pct_of_precursor":0.01,"primary_mode":"Truck","est_cost_usd":284267}]},{"sctg2":"04","name":"Animal Feed","role":"Feedlot nutrition before processing","ratio":0.3,"total_tons_k":4061.21,"total_value_m":2244.35,"total_tmiles_m":989.04,"est_cost_usd":118685106,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.916},{"mode":"Intermodal","pct":0.054},{"mode":"Rail","pct":0.03}],"num_sources":12,"sources":[{"zone_id":131,"zone_name":"Atlanta GA","state":"GA","latitude":33.75,"longitude":-84.39,"tons_k":2078.31,"value_m":837.21,"tmiles_m":109.23,"pct_of_precursor":0.512,"primary_mode":"Truck","est_cost_usd":13107612},{"zone_id":139,"zone_name":"Georgia","state":"GA","latitude":32.17,"longitude":-82.9,"tons_k":657.51,"value_m":168.95,"tmiles_m":93.21,"pct_of_precursor":0.162,"primary_mode":"Truck","est_cost_usd":11185025},{"zone_id":189,"zone_name":"Indiana","state":"IN","latitude":40.27,"longitude":-86.13,"tons_k":187.83,"value_m":67.27,"tmiles_m":112.33,"pct_of_precursor":0.046,"primary_mode":"Intermodal","est_cost_usd":7863314},{"zone_id":129,"zone_name":"Florida","state":"FL","latitude":28.1,"longitude":-81.6,"tons_k":179.69,"value_m":25.11,"tmiles_m":70.52,"pct_of_precursor":0.044,"primary_mode":"Truck","est_cost_usd":8462416},{"zone_id":19,"zone_name":"Alabama","state":"AL","latitude":32.38,"longitude":-86.3,"tons_k":114.68,"value_m":133.1,"tmiles_m":20.98,"pct_of_precursor":0.028,"primary_mode":"Truck","est_cost_usd":2518085},{"zone_id":394,"zone_name":"Dayton OH","state":"OH","latitude":39.76,"longitude":-84.19,"tons_k":113.35,"value_m":30.36,"tmiles_m":64.08,"pct_of_precursor":0.028,"primary_mode":"Rail","est_cost_usd":2242891},{"zone_id":179,"zone_name":"Illinois","state":"IL","latitude":40.12,"longitude":-89.4,"tons_k":92.45,"value_m":12.05,"tmiles_m":51.66,"pct_of_precursor":0.023,"primary_mode":"Truck","est_cost_usd":6199007},{"zone_id":201,"zone_name":"Kansas City MO-KS (KS Part)","state":"KS","latitude":39.1,"longitude":-94.58,"tons_k":91.3,"value_m":126.89,"tmiles_m":76.31,"pct_of_precursor":0.022,"primary_mode":"Truck","est_cost_usd":9156754},{"zone_id":319,"zone_name":"Nebraska","state":"NE","latitude":41.49,"longitude":-99.9,"tons_k":68.3,"value_m":96.46,"tmiles_m":71.47,"pct_of_precursor":0.017,"primary_mode":"Truck","est_cost_usd":8576800},{"zone_id":182,"zone_name":"Indianapolis IN","state":"IN","latitude":39.77,"longitude":-86.16,"tons_k":68.01,"value_m":54.23,"tmiles_m":40.96,"pct_of_precursor":0.017,"primary_mode":"Truck","est_cost_usd":4915260},{"zone_id":559,"zone_name":"Wisconsin","state":"WI","latitude":44.27,"longitude":-89.62,"tons_k":52.22,"value_m":182.78,"tmiles_m":47.39,"pct_of_precursor":0.013,"primary_mode":"Truck","est_cost_usd":5687227},{"zone_id":472,"zone_name":"Nashville TN","state":"TN","latitude":36.16,"longitude":-86.78,"tons_k":40.5,"value_m":67.3,"tmiles_m":9.76,"pct_of_precursor":0.01,"primary_mode":"Truck","est_cost_usd":1170695}]},{"sctg2":"02","name":"Cereal Grains","role":"Grain finishing at feedlots","ratio":0.15,"total_tons_k":9213.08,"total_value_m":1309.06,"total_tmiles_m":5591.53,"est_cost_usd":195703563,"primary_mode":"Rail","mode_split":[{"mode":"Rail","pct":0.589},{"mode":"Intermodal","pct":0.251},{"mode":"Truck","pct":0.16}],"num_sources":10,"sources":[{"zone_id":189,"zone_name":"Indiana","state":"IN","latitude":40.27,"longitude":-86.13,"tons_k":5155.39,"value_m":607.44,"tmiles_m":3126.57,"pct_of_precursor":0.56,"primary_mode":"Rail","est_cost_usd":109429943},{"zone_id":179,"zone_name":"Illinois","state":"IL","latitude":40.12,"longitude":-89.4,"tons_k":2424.8,"value_m":321.32,"tmiles_m":1846.94,"pct_of_precursor":0.263,"primary_mode":"Intermodal","est_cost_usd":129285753},{"zone_id":139,"zone_name":"Georgia","state":"GA","latitude":32.17,"longitude":-82.9,"tons_k":1009.43,"value_m":166.58,"tmiles_m":168.31,"pct_of_precursor":0.11,"primary_mode":"Truck","est_cost_usd":20197472},{"zone_id":279,"zone_name":"Minnesota","state":"MN","latitude":46.73,"longitude":-94.69,"tons_k":96.14,"value_m":16.16,"tmiles_m":122.07,"pct_of_precursor":0.01,"primary_mode":"Truck","est_cost_usd":14648302},{"zone_id":19,"zone_name":"Alabama","state":"AL","latitude":32.38,"longitude":-86.3,"tons_k":84.46,"value_m":12.66,"tmiles_m":18.02,"pct_of_precursor":0.009,"primary_mode":"Truck","est_cost_usd":2162143},{"zone_id":379,"zone_name":"North Carolina","state":"NC","latitude":35.55,"longitude":-79.39,"tons_k":80.22,"value_m":26.75,"tmiles_m":31.64,"pct_of_precursor":0.009,"primary_mode":"Truck","est_cost_usd":3796831},{"zone_id":183,"zone_name":"Fort Wayne IN","state":"IN","latitude":41.08,"longitude":-85.14,"tons_k":58.31,"value_m":8.33,"tmiles_m":40.65,"pct_of_precursor":0.006,"primary_mode":"Rail","est_cost_usd":1422681},{"zone_id":393,"zone_name":"Columbus OH","state":"OH","latitude":39.96,"longitude":-83.0,"tons_k":57.97,"value_m":7.68,"tmiles_m":37.13,"pct_of_precursor":0.006,"primary_mode":"Intermodal","est_cost_usd":2599174},{"zone_id":472,"zone_name":"Nashville TN","state":"TN","latitude":36.16,"longitude":-86.78,"tons_k":50.0,"value_m":5.27,"tmiles_m":15.48,"pct_of_precursor":0.005,"primary_mode":"Rail","est_cost_usd":541805},{"zone_id":479,"zone_name":"Tennessee","state":"TN","latitude":35.52,"longitude":-86.58,"tons_k":47.33,"value_m":6.14,"tmiles_m":13.26,"pct_of_precursor":0.005,"primary_mode":"Truck","est_cost_usd":1591263}]}]},{"zone_id":61,"zone_name":"Los Angeles CA","state":"CA","latitude":33.94,"longitude":-118.24,"total_precursor_tons_k":8886.19,"total_est_cost_usd":357980960,"precursors":[{"sctg2":"01","name":"Live Cattle","role":"Primary feedstock entering packing plants","ratio":1.25,"total_tons_k":354.54,"total_value_m":996.03,"total_tmiles_m":82.05,"est_cost_usd":9845833,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.997},{"mode":"Intermodal","pct":0.002},{"mode":"Air","pct":0.001}],"num_sources":6,"sources":[{"zone_id":61,"zone_name":"Los Angeles CA","state":"CA","latitude":33.94,"longitude":-118.24,"tons_k":165.77,"value_m":316.01,"tmiles_m":6.81,"pct_of_precursor":0.468,"primary_mode":"Truck","est_cost_usd":816924},{"zone_id":41,"zone_name":"Phoenix AZ","state":"AZ","latitude":33.45,"longitude":-112.07,"tons_k":62.32,"value_m":270.89,"tmiles_m":24.28,"pct_of_precursor":0.176,"primary_mode":"Truck","est_cost_usd":2914049},{"zone_id":49,"zone_name":"Arizona","state":"AZ","latitude":34.57,"longitude":-111.86,"tons_k":55.37,"value_m":267.12,"tmiles_m":20.93,"pct_of_precursor":0.156,"primary_mode":"Truck","est_cost_usd":2511044},{"zone_id":69,"zone_name":"California","state":"CA","latitude":36.78,"longitude":-119.42,"tons_k":31.27,"value_m":78.05,"tmiles_m":6.91,"pct_of_precursor":0.088,"primary_mode":"Truck","est_cost_usd":828931},{"zone_id":63,"zone_name":"San Diego CA","state":"CA","latitude":32.72,"longitude":-117.16,"tons_k":26.67,"value_m":27.38,"tmiles_m":3.02,"pct_of_precursor":0.075,"primary_mode":"Truck","est_cost_usd":362736},{"zone_id":460,"zone_name":"South Dakota","state":"SD","latitude":43.97,"longitude":-99.9,"tons_k":11.29,"value_m":6.38,"tmiles_m":16.78,"pct_of_precursor":0.032,"primary_mode":"Truck","est_cost_usd":2013462}]},{"sctg2":"04","name":"Animal Feed","role":"Feedlot nutrition before processing","ratio":0.3,"total_tons_k":7186.59,"total_value_m":5984.51,"total_tmiles_m":2292.85,"est_cost_usd":275141792,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.953},{"mode":"Intermodal","pct":0.041},{"mode":"Rail","pct":0.006}],"num_sources":12,"sources":[{"zone_id":61,"zone_name":"Los Angeles CA","state":"CA","latitude":33.94,"longitude":-118.24,"tons_k":5040.29,"value_m":3482.93,"tmiles_m":218.1,"pct_of_precursor":0.701,"primary_mode":"Truck","est_cost_usd":26171712},{"zone_id":69,"zone_name":"California","state":"CA","latitude":36.78,"longitude":-119.42,"tons_k":539.57,"value_m":155.25,"tmiles_m":111.14,"pct_of_precursor":0.075,"primary_mode":"Truck","est_cost_usd":13336883},{"zone_id":49,"zone_name":"Arizona","state":"AZ","latitude":34.57,"longitude":-111.86,"tons_k":229.18,"value_m":300.83,"tmiles_m":66.05,"pct_of_precursor":0.032,"primary_mode":"Truck","est_cost_usd":7925920},{"zone_id":460,"zone_name":"South Dakota","state":"SD","latitude":43.97,"longitude":-99.9,"tons_k":184.5,"value_m":9.0,"tmiles_m":258.4,"pct_of_precursor":0.026,"primary_mode":"Truck","est_cost_usd":31008234},{"zone_id":299,"zone_name":"Missouri","state":"MO","latitude":38.57,"longitude":-92.6,"tons_k":158.73,"value_m":394.65,"tmiles_m":257.55,"pct_of_precursor":0.022,"primary_mode":"Truck","est_cost_usd":30905950},{"zone_id":89,"zone_name":"Colorado","state":"CO","latitude":38.83,"longitude":-105.78,"tons_k":158.68,"value_m":61.27,"tmiles_m":159.57,"pct_of_precursor":0.022,"primary_mode":"Truck","est_cost_usd":19148802},{"zone_id":189,"zone_name":"Indiana","state":"IN","latitude":40.27,"longitude":-86.13,"tons_k":127.48,"value_m":121.48,"tmiles_m":288.69,"pct_of_precursor":0.018,"primary_mode":"Intermodal","est_cost_usd":20208422},{"zone_id":209,"zone_name":"Kansas","state":"KS","latitude":38.5,"longitude":-98.0,"tons_k":113.8,"value_m":221.68,"tmiles_m":145.53,"pct_of_precursor":0.016,"primary_mode":"Truck","est_cost_usd":17463305},{"zone_id":64,"zone_name":"San Francisco CA","state":"CA","latitude":37.77,"longitude":-122.42,"tons_k":84.34,"value_m":67.28,"tmiles_m":32.38,"pct_of_precursor":0.012,"primary_mode":"Truck","est_cost_usd":3885684},{"zone_id":65,"zone_name":"Fresno CA","state":"CA","latitude":36.75,"longitude":-119.77,"tons_k":56.97,"value_m":47.96,"tmiles_m":14.03,"pct_of_precursor":0.008,"primary_mode":"Truck","est_cost_usd":1683069},{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"tons_k":52.28,"value_m":20.79,"tmiles_m":102.47,"pct_of_precursor":0.007,"primary_mode":"Intermodal","est_cost_usd":7172872},{"zone_id":491,"zone_name":"Salt Lake City UT","state":"UT","latitude":40.76,"longitude":-111.89,"tons_k":47.74,"value_m":196.62,"tmiles_m":32.61,"pct_of_precursor":0.007,"primary_mode":"Truck","est_cost_usd":3913449}]},{"sctg2":"02","name":"Cereal Grains","role":"Grain finishing at feedlots","ratio":0.15,"total_tons_k":1345.06,"total_value_m":741.27,"total_tmiles_m":608.28,"est_cost_usd":72993335,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.909},{"mode":"Intermodal","pct":0.069},{"mode":"Rail","pct":0.022}],"num_sources":11,"sources":[{"zone_id":61,"zone_name":"Los Angeles CA","state":"CA","latitude":33.94,"longitude":-118.24,"tons_k":732.26,"value_m":549.8,"tmiles_m":37.11,"pct_of_precursor":0.544,"primary_mode":"Truck","est_cost_usd":4453709},{"zone_id":69,"zone_name":"California","state":"CA","latitude":36.78,"longitude":-119.42,"tons_k":231.72,"value_m":72.45,"tmiles_m":72.38,"pct_of_precursor":0.172,"primary_mode":"Truck","est_cost_usd":8685456},{"zone_id":487,"zone_name":"Laredo TX","state":"TX","latitude":27.51,"longitude":-99.51,"tons_k":129.5,"value_m":15.16,"tmiles_m":179.79,"pct_of_precursor":0.096,"primary_mode":"Truck","est_cost_usd":21575128},{"zone_id":160,"zone_name":"Idaho","state":"ID","latitude":43.62,"longitude":-114.74,"tons_k":82.52,"value_m":14.5,"tmiles_m":95.21,"pct_of_precursor":0.061,"primary_mode":"Intermodal","est_cost_usd":6664597},{"zone_id":209,"zone_name":"Kansas","state":"KS","latitude":38.5,"longitude":-98.0,"tons_k":35.57,"value_m":2.75,"tmiles_m":58.68,"pct_of_precursor":0.026,"primary_mode":"Intermodal","est_cost_usd":4107814},{"zone_id":279,"zone_name":"Minnesota","state":"MN","latitude":46.73,"longitude":-94.69,"tons_k":30.69,"value_m":6.36,"tmiles_m":56.35,"pct_of_precursor":0.023,"primary_mode":"Truck","est_cost_usd":6762343},{"zone_id":41,"zone_name":"Phoenix AZ","state":"AZ","latitude":33.45,"longitude":-112.07,"tons_k":19.2,"value_m":5.03,"tmiles_m":7.27,"pct_of_precursor":0.014,"primary_mode":"Truck","est_cost_usd":872783},{"zone_id":300,"zone_name":"Montana","state":"MT","latitude":46.88,"longitude":-110.36,"tons_k":17.98,"value_m":8.38,"tmiles_m":23.12,"pct_of_precursor":0.013,"primary_mode":"Truck","est_cost_usd":2774113},{"zone_id":63,"zone_name":"San Diego CA","state":"CA","latitude":32.72,"longitude":-117.16,"tons_k":16.22,"value_m":4.15,"tmiles_m":1.76,"pct_of_precursor":0.012,"primary_mode":"Truck","est_cost_usd":210987},{"zone_id":362,"zone_name":"Buffalo NY","state":"NY","latitude":42.89,"longitude":-78.88,"tons_k":12.89,"value_m":27.2,"tmiles_m":33.04,"pct_of_precursor":0.01,"primary_mode":"Truck","est_cost_usd":3964887},{"zone_id":62,"zone_name":"Sacramento CA","state":"CA","latitude":38.58,"longitude":-121.49,"tons_k":10.7,"value_m":2.54,"tmiles_m":4.62,"pct_of_precursor":0.008,"primary_mode":"Truck","est_cost_usd":554637}]}]},{"zone_id":181,"zone_name":"Chicago Metro","state":"IN","latitude":41.8781,"longitude":-87.6298,"total_precursor_tons_k":32684.04,"total_est_cost_usd":1011186188,"precursors":[{"sctg2":"01","name":"Live Cattle","role":"Primary feedstock entering packing plants","ratio":1.25,"total_tons_k":221.84,"total_value_m":422.94,"total_tmiles_m":36.88,"est_cost_usd":4425428,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.999},{"mode":"Intermodal","pct":0.001},{"mode":"Air","pct":0.0}],"num_sources":11,"sources":[{"zone_id":181,"zone_name":"Chicago Metro","state":"IN","latitude":41.8781,"longitude":-87.6298,"tons_k":110.85,"value_m":130.9,"tmiles_m":7.13,"pct_of_precursor":0.5,"primary_mode":"Truck","est_cost_usd":855318},{"zone_id":551,"zone_name":"Milwaukee WI","state":"WI","latitude":43.04,"longitude":-87.91,"tons_k":41.81,"value_m":160.85,"tmiles_m":4.67,"pct_of_precursor":0.188,"primary_mode":"Truck","est_cost_usd":559848},{"zone_id":189,"zone_name":"Indiana","state":"IN","latitude":40.27,"longitude":-86.13,"tons_k":14.76,"value_m":20.67,"tmiles_m":3.14,"pct_of_precursor":0.067,"primary_mode":"Truck","est_cost_usd":377217},{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"tons_k":11.06,"value_m":3.68,"tmiles_m":3.19,"pct_of_precursor":0.05,"primary_mode":"Truck","est_cost_usd":382427},{"zone_id":219,"zone_name":"Kentucky","state":"KY","latitude":37.84,"longitude":-84.27,"tons_k":11.06,"value_m":35.28,"tmiles_m":4.64,"pct_of_precursor":0.05,"primary_mode":"Truck","est_cost_usd":557226},{"zone_id":279,"zone_name":"Minnesota","state":"MN","latitude":46.73,"longitude":-94.69,"tons_k":10.18,"value_m":4.37,"tmiles_m":4.91,"pct_of_precursor":0.046,"primary_mode":"Truck","est_cost_usd":589375},{"zone_id":460,"zone_name":"South Dakota","state":"SD","latitude":43.97,"longitude":-99.9,"tons_k":8.91,"value_m":15.49,"tmiles_m":5.32,"pct_of_precursor":0.04,"primary_mode":"Truck","est_cost_usd":638885},{"zone_id":172,"zone_name":"St. Louis MO-IL (IL Part)","state":"IL","latitude":38.63,"longitude":-90.2,"tons_k":4.37,"value_m":6.2,"tmiles_m":1.19,"pct_of_precursor":0.02,"primary_mode":"Truck","est_cost_usd":142415},{"zone_id":559,"zone_name":"Wisconsin","state":"WI","latitude":44.27,"longitude":-89.62,"tons_k":3.96,"value_m":11.21,"tmiles_m":0.73,"pct_of_precursor":0.018,"primary_mode":"Truck","est_cost_usd":87824},{"zone_id":182,"zone_name":"Indianapolis IN","state":"IN","latitude":39.77,"longitude":-86.16,"tons_k":2.09,"value_m":3.0,"tmiles_m":0.48,"pct_of_precursor":0.009,"primary_mode":"Truck","est_cost_usd":57222},{"zone_id":183,"zone_name":"Fort Wayne IN","state":"IN","latitude":41.08,"longitude":-85.14,"tons_k":1.77,"value_m":2.75,"tmiles_m":0.35,"pct_of_precursor":0.008,"primary_mode":"Truck","est_cost_usd":42206}]},{"sctg2":"04","name":"Animal Feed","role":"Feedlot nutrition before processing","ratio":0.3,"total_tons_k":8628.08,"total_value_m":4368.32,"total_tmiles_m":1631.82,"est_cost_usd":195818580,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.969},{"mode":"Intermodal","pct":0.019},{"mode":"Rail","pct":0.013}],"num_sources":11,"sources":[{"zone_id":179,"zone_name":"Illinois","state":"IL","latitude":40.12,"longitude":-89.4,"tons_k":4429.84,"value_m":1097.1,"tmiles_m":692.91,"pct_of_precursor":0.513,"primary_mode":"Truck","est_cost_usd":83149146},{"zone_id":181,"zone_name":"Chicago Metro","state":"IN","latitude":41.8781,"longitude":-87.6298,"tons_k":2174.32,"value_m":783.2,"tmiles_m":91.48,"pct_of_precursor":0.252,"primary_mode":"Truck","est_cost_usd":10977933},{"zone_id":189,"zone_name":"Indiana","state":"IN","latitude":40.27,"longitude":-86.13,"tons_k":712.86,"value_m":199.07,"tmiles_m":131.22,"pct_of_precursor":0.083,"primary_mode":"Truck","est_cost_usd":15746292},{"zone_id":190,"zone_name":"Iowa","state":"IA","latitude":41.88,"longitude":-93.1,"tons_k":261.51,"value_m":196.91,"tmiles_m":68.32,"pct_of_precursor":0.03,"primary_mode":"Truck","est_cost_usd":8198229},{"zone_id":209,"zone_name":"Kansas","state":"KS","latitude":38.5,"longitude":-98.0,"tons_k":174.51,"value_m":234.51,"tmiles_m":111.4,"pct_of_precursor":0.02,"primary_mode":"Truck","est_cost_usd":13368562},{"zone_id":559,"zone_name":"Wisconsin","state":"WI","latitude":44.27,"longitude":-89.62,"tons_k":114.61,"value_m":230.14,"tmiles_m":21.54,"pct_of_precursor":0.013,"primary_mode":"Truck","est_cost_usd":2585017},{"zone_id":299,"zone_name":"Missouri","state":"MO","latitude":38.57,"longitude":-92.6,"tons_k":112.47,"value_m":229.96,"tmiles_m":46.82,"pct_of_precursor":0.013,"primary_mode":"Truck","est_cost_usd":5618928},{"zone_id":491,"zone_name":"Salt Lake City UT","state":"UT","latitude":40.76,"longitude":-111.89,"tons_k":95.41,"value_m":709.07,"tmiles_m":132.43,"pct_of_precursor":0.011,"primary_mode":"Truck","est_cost_usd":15891340},{"zone_id":551,"zone_name":"Milwaukee WI","state":"WI","latitude":43.04,"longitude":-87.91,"tons_k":78.71,"value_m":126.97,"tmiles_m":8.77,"pct_of_precursor":0.009,"primary_mode":"Truck","est_cost_usd":1052147},{"zone_id":380,"zone_name":"North Dakota","state":"ND","latitude":47.55,"longitude":-100.34,"tons_k":60.8,"value_m":13.96,"tmiles_m":50.48,"pct_of_precursor":0.007,"primary_mode":"Intermodal","est_cost_usd":3533756},{"zone_id":394,"zone_name":"Dayton OH","state":"OH","latitude":39.76,"longitude":-84.19,"tons_k":54.01,"value_m":13.1,"tmiles_m":13.87,"pct_of_precursor":0.006,"primary_mode":"Truck","est_cost_usd":1664249}]},{"sctg2":"02","name":"Cereal Grains","role":"Grain finishing at feedlots","ratio":0.15,"total_tons_k":23834.12,"total_value_m":3302.63,"total_tmiles_m":6757.85,"est_cost_usd":810942180,"primary_mode":"Truck","mode_split":[{"mode":"Truck","pct":0.729},{"mode":"Rail","pct":0.221},{"mode":"Water","pct":0.046},{"mode":"Intermodal","pct":0.005}],"num_sources":9,"sources":[{"zone_id":179,"zone_name":"Illinois","state":"IL","latitude":40.12,"longitude":-89.4,"tons_k":12507.6,"value_m":1397.89,"tmiles_m":2375.53,"pct_of_precursor":0.525,"primary_mode":"Truck","est_cost_usd":285064093},{"zone_id":181,"zone_name":"Chicago Metro","state":"IN","latitude":41.8781,"longitude":-87.6298,"tons_k":2976.89,"value_m":523.16,"tmiles_m":146.7,"pct_of_precursor":0.125,"primary_mode":"Truck","est_cost_usd":17603615},{"zone_id":551,"zone_name":"Milwaukee WI","state":"WI","latitude":43.04,"longitude":-87.91,"tons_k":2339.21,"value_m":321.31,"tmiles_m":289.69,"pct_of_precursor":0.098,"primary_mode":"Truck","est_cost_usd":34762982},{"zone_id":460,"zone_name":"South Dakota","state":"SD","latitude":43.97,"longitude":-99.9,"tons_k":2290.75,"value_m":432.88,"tmiles_m":1671.69,"pct_of_precursor":0.096,"primary_mode":"Rail","est_cost_usd":58509217},{"zone_id":559,"zone_name":"Wisconsin","state":"WI","latitude":44.27,"longitude":-89.62,"tons_k":1218.89,"value_m":140.58,"tmiles_m":310.28,"pct_of_precursor":0.051,"primary_mode":"Rail","est_cost_usd":10859929},{"zone_id":219,"zone_name":"Kentucky","state":"KY","latitude":37.84,"longitude":-84.27,"tons_k":1101.75,"value_m":205.11,"tmiles_m":968.43,"pct_of_precursor":0.046,"primary_mode":"Water","est_cost_usd":14526403},{"zone_id":380,"zone_name":"North Dakota","state":"ND","latitude":47.55,"longitude":-100.34,"tons_k":731.13,"value_m":171.13,"tmiles_m":619.41,"pct_of_precursor":0.031,"primary_mode":"Rail","est_cost_usd":21679330},{"zone_id":189,"zone_name":"Indiana","state":"IN","latitude":40.27,"longitude":-86.13,"tons_k":392.3,"value_m":48.89,"tmiles_m":89.72,"pct_of_precursor":0.016,"primary_mode":"Truck","est_cost_usd":10766820},{"zone_id":487,"zone_name":"Laredo TX","state":"TX","latitude":27.51,"longitude":-99.51,"tons_k":158.45,"value_m":16.47,"tmiles_m":218.91,"pct_of_precursor":0.007,"primary_mode":"Truck","est_cost_usd":26269624}]}]}]}
+{
+  "sctg2": "05",
+  "name": "Beef",
+  "description": "Cattle processed at meatpacking facilities concentrated in the Great Plains and Midwest",
+  "year": 2022,
+  "assembly_zones": [
+    {
+      "zone_id": 311,
+      "zone_name": "Omaha NE-IA (NE Part)",
+      "state": "NE",
+      "latitude": 41.26,
+      "longitude": -95.94,
+      "total_precursor_tons_k": 14675.97,
+      "total_est_cost_usd": 490041859,
+      "precursors": [
+        {
+          "sctg2": "01",
+          "name": "Live Cattle",
+          "role": "Primary feedstock entering packing plants",
+          "ratio": 1.25,
+          "total_tons_k": 4302.07,
+          "total_value_m": 10496.91,
+          "total_tmiles_m": 954.2,
+          "est_cost_usd": 114504475,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 1.0
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.0
+            }
+          ],
+          "num_sources": 7,
+          "sources": [
+            {
+              "zone_id": 190,
+              "zone_name": "Iowa",
+              "state": "IA",
+              "latitude": 41.88,
+              "longitude": -93.1,
+              "tons_k": 1739.0,
+              "value_m": 2570.39,
+              "tmiles_m": 303.35,
+              "pct_of_precursor": 0.4042,
+              "primary_mode": "Truck",
+              "est_cost_usd": 36401917
+            },
+            {
+              "zone_id": 279,
+              "zone_name": "Minnesota",
+              "state": "MN",
+              "latitude": 46.73,
+              "longitude": -94.69,
+              "tons_k": 1217.38,
+              "value_m": 1505.23,
+              "tmiles_m": 410.43,
+              "pct_of_precursor": 0.283,
+              "primary_mode": "Truck",
+              "est_cost_usd": 49252359
+            },
+            {
+              "zone_id": 209,
+              "zone_name": "Kansas",
+              "state": "KS",
+              "latitude": 38.5,
+              "longitude": -98.0,
+              "tons_k": 736.35,
+              "value_m": 4396.8,
+              "tmiles_m": 159.39,
+              "pct_of_precursor": 0.1712,
+              "primary_mode": "Truck",
+              "est_cost_usd": 19126236
+            },
+            {
+              "zone_id": 319,
+              "zone_name": "Nebraska",
+              "state": "NE",
+              "latitude": 41.49,
+              "longitude": -99.9,
+              "tons_k": 432.95,
+              "value_m": 1644.07,
+              "tmiles_m": 52.68,
+              "pct_of_precursor": 0.1006,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6321976
+            },
+            {
+              "zone_id": 311,
+              "zone_name": "Omaha NE-IA (NE Part)",
+              "state": "NE",
+              "latitude": 41.26,
+              "longitude": -95.94,
+              "tons_k": 103.26,
+              "value_m": 246.76,
+              "tmiles_m": 2.64,
+              "pct_of_precursor": 0.024,
+              "primary_mode": "Truck",
+              "est_cost_usd": 317267
+            },
+            {
+              "zone_id": 299,
+              "zone_name": "Missouri",
+              "state": "MO",
+              "latitude": 38.57,
+              "longitude": -92.6,
+              "tons_k": 48.93,
+              "value_m": 66.65,
+              "tmiles_m": 15.23,
+              "pct_of_precursor": 0.0114,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1827773
+            },
+            {
+              "zone_id": 271,
+              "zone_name": "Minneapolis-St. Paul MN-WI (MN Part)",
+              "state": "MN",
+              "latitude": 44.98,
+              "longitude": -93.27,
+              "tons_k": 24.2,
+              "value_m": 59.8,
+              "tmiles_m": 9.57,
+              "pct_of_precursor": 0.0056,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1147737
+            }
+          ]
+        },
+        {
+          "sctg2": "04",
+          "name": "Animal Feed",
+          "role": "Feedlot nutrition before processing",
+          "ratio": 0.3,
+          "total_tons_k": 3203.72,
+          "total_value_m": 1051.83,
+          "total_tmiles_m": 1155.7,
+          "est_cost_usd": 138683703,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.83
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.103
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.067
+            }
+          ],
+          "num_sources": 12,
+          "sources": [
+            {
+              "zone_id": 319,
+              "zone_name": "Nebraska",
+              "state": "NE",
+              "latitude": 41.49,
+              "longitude": -99.9,
+              "tons_k": 962.53,
+              "value_m": 98.44,
+              "tmiles_m": 101.93,
+              "pct_of_precursor": 0.3005,
+              "primary_mode": "Truck",
+              "est_cost_usd": 12231373
+            },
+            {
+              "zone_id": 190,
+              "zone_name": "Iowa",
+              "state": "IA",
+              "latitude": 41.88,
+              "longitude": -93.1,
+              "tons_k": 751.06,
+              "value_m": 158.97,
+              "tmiles_m": 117.49,
+              "pct_of_precursor": 0.2344,
+              "primary_mode": "Truck",
+              "est_cost_usd": 14099382
+            },
+            {
+              "zone_id": 311,
+              "zone_name": "Omaha NE-IA (NE Part)",
+              "state": "NE",
+              "latitude": 41.26,
+              "longitude": -95.94,
+              "tons_k": 267.04,
+              "value_m": 299.29,
+              "tmiles_m": 5.97,
+              "pct_of_precursor": 0.0834,
+              "primary_mode": "Truck",
+              "est_cost_usd": 716478
+            },
+            {
+              "zone_id": 279,
+              "zone_name": "Minnesota",
+              "state": "MN",
+              "latitude": 46.73,
+              "longitude": -94.69,
+              "tons_k": 201.01,
+              "value_m": 22.64,
+              "tmiles_m": 74.86,
+              "pct_of_precursor": 0.0627,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 5240052
+            },
+            {
+              "zone_id": 519,
+              "zone_name": "Virginia",
+              "state": "VA",
+              "latitude": 37.43,
+              "longitude": -78.66,
+              "tons_k": 200.82,
+              "value_m": 16.74,
+              "tmiles_m": 248.82,
+              "pct_of_precursor": 0.0627,
+              "primary_mode": "Truck",
+              "est_cost_usd": 29858336
+            },
+            {
+              "zone_id": 299,
+              "zone_name": "Missouri",
+              "state": "MO",
+              "latitude": 38.57,
+              "longitude": -92.6,
+              "tons_k": 198.65,
+              "value_m": 279.34,
+              "tmiles_m": 63.92,
+              "pct_of_precursor": 0.062,
+              "primary_mode": "Truck",
+              "est_cost_usd": 7670079
+            },
+            {
+              "zone_id": 460,
+              "zone_name": "South Dakota",
+              "state": "SD",
+              "latitude": 43.97,
+              "longitude": -99.9,
+              "tons_k": 134.21,
+              "value_m": 13.72,
+              "tmiles_m": 31.36,
+              "pct_of_precursor": 0.0419,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 2195117
+            },
+            {
+              "zone_id": 209,
+              "zone_name": "Kansas",
+              "state": "KS",
+              "latitude": 38.5,
+              "longitude": -98.0,
+              "tons_k": 115.57,
+              "value_m": 26.68,
+              "tmiles_m": 31.39,
+              "pct_of_precursor": 0.0361,
+              "primary_mode": "Truck",
+              "est_cost_usd": 3766992
+            },
+            {
+              "zone_id": 489,
+              "zone_name": "Texas",
+              "state": "TX",
+              "latitude": 31.97,
+              "longitude": -99.9,
+              "tons_k": 109.33,
+              "value_m": 18.97,
+              "tmiles_m": 74.71,
+              "pct_of_precursor": 0.0341,
+              "primary_mode": "Truck",
+              "est_cost_usd": 8965123
+            },
+            {
+              "zone_id": 479,
+              "zone_name": "Tennessee",
+              "state": "TN",
+              "latitude": 35.52,
+              "longitude": -86.58,
+              "tons_k": 106.01,
+              "value_m": 12.27,
+              "tmiles_m": 76.23,
+              "pct_of_precursor": 0.0331,
+              "primary_mode": "Truck",
+              "est_cost_usd": 9147309
+            },
+            {
+              "zone_id": 559,
+              "zone_name": "Wisconsin",
+              "state": "WI",
+              "latitude": 44.27,
+              "longitude": -89.62,
+              "tons_k": 79.21,
+              "value_m": 17.85,
+              "tmiles_m": 37.64,
+              "pct_of_precursor": 0.0247,
+              "primary_mode": "Truck",
+              "est_cost_usd": 4515710
+            },
+            {
+              "zone_id": 69,
+              "zone_name": "California",
+              "state": "CA",
+              "latitude": 36.78,
+              "longitude": -119.42,
+              "tons_k": 78.29,
+              "value_m": 62.63,
+              "tmiles_m": 133.7,
+              "pct_of_precursor": 0.0244,
+              "primary_mode": "Rail",
+              "est_cost_usd": 4679519
+            }
+          ]
+        },
+        {
+          "sctg2": "02",
+          "name": "Cereal Grains",
+          "role": "Grain finishing at feedlots",
+          "ratio": 0.15,
+          "total_tons_k": 7170.18,
+          "total_value_m": 887.83,
+          "total_tmiles_m": 1973.78,
+          "est_cost_usd": 236853681,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.715
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.225
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.061
+            }
+          ],
+          "num_sources": 7,
+          "sources": [
+            {
+              "zone_id": 209,
+              "zone_name": "Kansas",
+              "state": "KS",
+              "latitude": 38.5,
+              "longitude": -98.0,
+              "tons_k": 3466.77,
+              "value_m": 390.03,
+              "tmiles_m": 1061.14,
+              "pct_of_precursor": 0.4834,
+              "primary_mode": "Truck",
+              "est_cost_usd": 127336629
+            },
+            {
+              "zone_id": 319,
+              "zone_name": "Nebraska",
+              "state": "NE",
+              "latitude": 41.49,
+              "longitude": -99.9,
+              "tons_k": 1795.4,
+              "value_m": 218.63,
+              "tmiles_m": 289.99,
+              "pct_of_precursor": 0.2504,
+              "primary_mode": "Rail",
+              "est_cost_usd": 10149829
+            },
+            {
+              "zone_id": 311,
+              "zone_name": "Omaha NE-IA (NE Part)",
+              "state": "NE",
+              "latitude": 41.26,
+              "longitude": -95.94,
+              "tons_k": 638.67,
+              "value_m": 81.87,
+              "tmiles_m": 17.12,
+              "pct_of_precursor": 0.0891,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2055169
+            },
+            {
+              "zone_id": 190,
+              "zone_name": "Iowa",
+              "state": "IA",
+              "latitude": 41.88,
+              "longitude": -93.1,
+              "tons_k": 401.23,
+              "value_m": 52.58,
+              "tmiles_m": 84.75,
+              "pct_of_precursor": 0.056,
+              "primary_mode": "Truck",
+              "est_cost_usd": 10170957
+            },
+            {
+              "zone_id": 89,
+              "zone_name": "Colorado",
+              "state": "CO",
+              "latitude": 38.83,
+              "longitude": -105.78,
+              "tons_k": 400.58,
+              "value_m": 49.87,
+              "tmiles_m": 252.02,
+              "pct_of_precursor": 0.0559,
+              "primary_mode": "Truck",
+              "est_cost_usd": 30242449
+            },
+            {
+              "zone_id": 380,
+              "zone_name": "North Dakota",
+              "state": "ND",
+              "latitude": 47.55,
+              "longitude": -100.34,
+              "tons_k": 360.55,
+              "value_m": 77.66,
+              "tmiles_m": 237.15,
+              "pct_of_precursor": 0.0503,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 16600650
+            },
+            {
+              "zone_id": 460,
+              "zone_name": "South Dakota",
+              "state": "SD",
+              "latitude": 43.97,
+              "longitude": -99.9,
+              "tons_k": 106.97,
+              "value_m": 17.01,
+              "tmiles_m": 31.74,
+              "pct_of_precursor": 0.0149,
+              "primary_mode": "Truck",
+              "est_cost_usd": 3808864
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "zone_id": 50,
+      "zone_name": "Arkansas",
+      "state": "AR",
+      "latitude": 34.75,
+      "longitude": -92.29,
+      "total_precursor_tons_k": 25054.35,
+      "total_est_cost_usd": 553931478,
+      "precursors": [
+        {
+          "sctg2": "01",
+          "name": "Live Cattle",
+          "role": "Primary feedstock entering packing plants",
+          "ratio": 1.25,
+          "total_tons_k": 4497.65,
+          "total_value_m": 7108.69,
+          "total_tmiles_m": 727.72,
+          "est_cost_usd": 87325815,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 1.0
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.0
+            }
+          ],
+          "num_sources": 4,
+          "sources": [
+            {
+              "zone_id": 50,
+              "zone_name": "Arkansas",
+              "state": "AR",
+              "latitude": 34.75,
+              "longitude": -92.29,
+              "tons_k": 3682.89,
+              "value_m": 5767.28,
+              "tmiles_m": 501.68,
+              "pct_of_precursor": 0.8189,
+              "primary_mode": "Truck",
+              "est_cost_usd": 60201435
+            },
+            {
+              "zone_id": 280,
+              "zone_name": "Mississippi",
+              "state": "MS",
+              "latitude": 32.35,
+              "longitude": -89.4,
+              "tons_k": 352.36,
+              "value_m": 540.62,
+              "tmiles_m": 94.39,
+              "pct_of_precursor": 0.0783,
+              "primary_mode": "Truck",
+              "est_cost_usd": 11327273
+            },
+            {
+              "zone_id": 299,
+              "zone_name": "Missouri",
+              "state": "MO",
+              "latitude": 38.57,
+              "longitude": -92.6,
+              "tons_k": 266.13,
+              "value_m": 362.55,
+              "tmiles_m": 61.94,
+              "pct_of_precursor": 0.0592,
+              "primary_mode": "Truck",
+              "est_cost_usd": 7431892
+            },
+            {
+              "zone_id": 229,
+              "zone_name": "Louisiana",
+              "state": "LA",
+              "latitude": 31.17,
+              "longitude": -91.87,
+              "tons_k": 196.27,
+              "value_m": 358.86,
+              "tmiles_m": 54.86,
+              "pct_of_precursor": 0.0436,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6583584
+            }
+          ]
+        },
+        {
+          "sctg2": "04",
+          "name": "Animal Feed",
+          "role": "Feedlot nutrition before processing",
+          "ratio": 0.3,
+          "total_tons_k": 6860.82,
+          "total_value_m": 2499.58,
+          "total_tmiles_m": 1540.42,
+          "est_cost_usd": 184850549,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.906
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.055
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.039
+            }
+          ],
+          "num_sources": 12,
+          "sources": [
+            {
+              "zone_id": 50,
+              "zone_name": "Arkansas",
+              "state": "AR",
+              "latitude": 34.75,
+              "longitude": -92.29,
+              "tons_k": 4765.49,
+              "value_m": 1293.76,
+              "tmiles_m": 562.34,
+              "pct_of_precursor": 0.6946,
+              "primary_mode": "Truck",
+              "est_cost_usd": 67480752
+            },
+            {
+              "zone_id": 409,
+              "zone_name": "Oklahoma",
+              "state": "OK",
+              "latitude": 35.01,
+              "longitude": -97.09,
+              "tons_k": 598.29,
+              "value_m": 134.64,
+              "tmiles_m": 129.73,
+              "pct_of_precursor": 0.0872,
+              "primary_mode": "Truck",
+              "est_cost_usd": 15567630
+            },
+            {
+              "zone_id": 189,
+              "zone_name": "Indiana",
+              "state": "IN",
+              "latitude": 40.27,
+              "longitude": -86.13,
+              "tons_k": 267.95,
+              "value_m": 80.96,
+              "tmiles_m": 170.0,
+              "pct_of_precursor": 0.0391,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 11900175
+            },
+            {
+              "zone_id": 299,
+              "zone_name": "Missouri",
+              "state": "MO",
+              "latitude": 38.57,
+              "longitude": -92.6,
+              "tons_k": 263.65,
+              "value_m": 122.53,
+              "tmiles_m": 52.72,
+              "pct_of_precursor": 0.0384,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6326014
+            },
+            {
+              "zone_id": 279,
+              "zone_name": "Minnesota",
+              "state": "MN",
+              "latitude": 46.73,
+              "longitude": -94.69,
+              "tons_k": 235.4,
+              "value_m": 56.46,
+              "tmiles_m": 207.59,
+              "pct_of_precursor": 0.0343,
+              "primary_mode": "Rail",
+              "est_cost_usd": 7265644
+            },
+            {
+              "zone_id": 479,
+              "zone_name": "Tennessee",
+              "state": "TN",
+              "latitude": 35.52,
+              "longitude": -86.58,
+              "tons_k": 194.8,
+              "value_m": 56.75,
+              "tmiles_m": 51.52,
+              "pct_of_precursor": 0.0284,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6181373
+            },
+            {
+              "zone_id": 190,
+              "zone_name": "Iowa",
+              "state": "IA",
+              "latitude": 41.88,
+              "longitude": -93.1,
+              "tons_k": 127.89,
+              "value_m": 188.63,
+              "tmiles_m": 68.3,
+              "pct_of_precursor": 0.0186,
+              "primary_mode": "Truck",
+              "est_cost_usd": 8196796
+            },
+            {
+              "zone_id": 280,
+              "zone_name": "Mississippi",
+              "state": "MS",
+              "latitude": 32.35,
+              "longitude": -89.4,
+              "tons_k": 106.75,
+              "value_m": 41.45,
+              "tmiles_m": 25.6,
+              "pct_of_precursor": 0.0156,
+              "primary_mode": "Truck",
+              "est_cost_usd": 3072752
+            },
+            {
+              "zone_id": 401,
+              "zone_name": "Oklahoma City OK",
+              "state": "OK",
+              "latitude": 35.47,
+              "longitude": -97.52,
+              "tons_k": 106.54,
+              "value_m": 196.1,
+              "tmiles_m": 30.66,
+              "pct_of_precursor": 0.0155,
+              "primary_mode": "Truck",
+              "est_cost_usd": 3678718
+            },
+            {
+              "zone_id": 519,
+              "zone_name": "Virginia",
+              "state": "VA",
+              "latitude": 37.43,
+              "longitude": -78.66,
+              "tons_k": 85.48,
+              "value_m": 18.33,
+              "tmiles_m": 72.45,
+              "pct_of_precursor": 0.0125,
+              "primary_mode": "Truck",
+              "est_cost_usd": 8694444
+            },
+            {
+              "zone_id": 484,
+              "zone_name": "Dallas-Fort Worth TX",
+              "state": "TX",
+              "latitude": 32.78,
+              "longitude": -96.8,
+              "tons_k": 56.25,
+              "value_m": 17.67,
+              "tmiles_m": 16.44,
+              "pct_of_precursor": 0.0082,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1971757
+            },
+            {
+              "zone_id": 139,
+              "zone_name": "Georgia",
+              "state": "GA",
+              "latitude": 32.17,
+              "longitude": -82.9,
+              "tons_k": 52.32,
+              "value_m": 15.05,
+              "tmiles_m": 32.33,
+              "pct_of_precursor": 0.0076,
+              "primary_mode": "Rail",
+              "est_cost_usd": 1131753
+            }
+          ]
+        },
+        {
+          "sctg2": "02",
+          "name": "Cereal Grains",
+          "role": "Grain finishing at feedlots",
+          "ratio": 0.15,
+          "total_tons_k": 13695.88,
+          "total_value_m": 2374.2,
+          "total_tmiles_m": 2347.96,
+          "est_cost_usd": 281755114,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.998
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.002
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.0
+            }
+          ],
+          "num_sources": 5,
+          "sources": [
+            {
+              "zone_id": 50,
+              "zone_name": "Arkansas",
+              "state": "AR",
+              "latitude": 34.75,
+              "longitude": -92.29,
+              "tons_k": 12950.47,
+              "value_m": 2270.56,
+              "tmiles_m": 1996.75,
+              "pct_of_precursor": 0.9455,
+              "primary_mode": "Truck",
+              "est_cost_usd": 239610592
+            },
+            {
+              "zone_id": 201,
+              "zone_name": "Kansas City MO-KS (KS Part)",
+              "state": "KS",
+              "latitude": 39.1,
+              "longitude": -94.58,
+              "tons_k": 267.16,
+              "value_m": 32.58,
+              "tmiles_m": 110.06,
+              "pct_of_precursor": 0.0195,
+              "primary_mode": "Truck",
+              "est_cost_usd": 13207046
+            },
+            {
+              "zone_id": 299,
+              "zone_name": "Missouri",
+              "state": "MO",
+              "latitude": 38.57,
+              "longitude": -92.6,
+              "tons_k": 215.88,
+              "value_m": 30.91,
+              "tmiles_m": 69.21,
+              "pct_of_precursor": 0.0158,
+              "primary_mode": "Truck",
+              "est_cost_usd": 8306231
+            },
+            {
+              "zone_id": 471,
+              "zone_name": "Memphis TN-MS-AR (TN Part)",
+              "state": "TN",
+              "latitude": 35.15,
+              "longitude": -90.05,
+              "tons_k": 143.31,
+              "value_m": 15.82,
+              "tmiles_m": 27.18,
+              "pct_of_precursor": 0.0105,
+              "primary_mode": "Truck",
+              "est_cost_usd": 3261340
+            },
+            {
+              "zone_id": 209,
+              "zone_name": "Kansas",
+              "state": "KS",
+              "latitude": 38.5,
+              "longitude": -98.0,
+              "tons_k": 119.06,
+              "value_m": 15.84,
+              "tmiles_m": 65.67,
+              "pct_of_precursor": 0.0087,
+              "primary_mode": "Truck",
+              "est_cost_usd": 7880481
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "zone_id": 190,
+      "zone_name": "Iowa",
+      "state": "IA",
+      "latitude": 41.88,
+      "longitude": -93.1,
+      "total_precursor_tons_k": 189617.49,
+      "total_est_cost_usd": 3841511782,
+      "precursors": [
+        {
+          "sctg2": "01",
+          "name": "Live Cattle",
+          "role": "Primary feedstock entering packing plants",
+          "ratio": 1.25,
+          "total_tons_k": 10541.07,
+          "total_value_m": 15961.72,
+          "total_tmiles_m": 1574.73,
+          "est_cost_usd": 188967633,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 1.0
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.0
+            }
+          ],
+          "num_sources": 3,
+          "sources": [
+            {
+              "zone_id": 190,
+              "zone_name": "Iowa",
+              "state": "IA",
+              "latitude": 41.88,
+              "longitude": -93.1,
+              "tons_k": 9631.6,
+              "value_m": 14297.63,
+              "tmiles_m": 1297.2,
+              "pct_of_precursor": 0.9137,
+              "primary_mode": "Truck",
+              "est_cost_usd": 155664813
+            },
+            {
+              "zone_id": 271,
+              "zone_name": "Minneapolis-St. Paul MN-WI (MN Part)",
+              "state": "MN",
+              "latitude": 44.98,
+              "longitude": -93.27,
+              "tons_k": 581.08,
+              "value_m": 931.61,
+              "tmiles_m": 146.4,
+              "pct_of_precursor": 0.0551,
+              "primary_mode": "Truck",
+              "est_cost_usd": 17567590
+            },
+            {
+              "zone_id": 299,
+              "zone_name": "Missouri",
+              "state": "MO",
+              "latitude": 38.57,
+              "longitude": -92.6,
+              "tons_k": 328.39,
+              "value_m": 591.4,
+              "tmiles_m": 95.13,
+              "pct_of_precursor": 0.0312,
+              "primary_mode": "Truck",
+              "est_cost_usd": 11415494
+            }
+          ]
+        },
+        {
+          "sctg2": "04",
+          "name": "Animal Feed",
+          "role": "Feedlot nutrition before processing",
+          "ratio": 0.3,
+          "total_tons_k": 40832.6,
+          "total_value_m": 8678.89,
+          "total_tmiles_m": 6279.51,
+          "est_cost_usd": 753540715,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.98
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.019
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.001
+            }
+          ],
+          "num_sources": 9,
+          "sources": [
+            {
+              "zone_id": 190,
+              "zone_name": "Iowa",
+              "state": "IA",
+              "latitude": 41.88,
+              "longitude": -93.1,
+              "tons_k": 35851.77,
+              "value_m": 7101.38,
+              "tmiles_m": 4524.9,
+              "pct_of_precursor": 0.8779,
+              "primary_mode": "Truck",
+              "est_cost_usd": 542988501
+            },
+            {
+              "zone_id": 399,
+              "zone_name": "Ohio",
+              "state": "OH",
+              "latitude": 40.42,
+              "longitude": -82.91,
+              "tons_k": 1111.65,
+              "value_m": 120.33,
+              "tmiles_m": 600.55,
+              "pct_of_precursor": 0.0272,
+              "primary_mode": "Truck",
+              "est_cost_usd": 72066535
+            },
+            {
+              "zone_id": 279,
+              "zone_name": "Minnesota",
+              "state": "MN",
+              "latitude": 46.73,
+              "longitude": -94.69,
+              "tons_k": 1026.93,
+              "value_m": 132.09,
+              "tmiles_m": 210.79,
+              "pct_of_precursor": 0.0251,
+              "primary_mode": "Truck",
+              "est_cost_usd": 25295598
+            },
+            {
+              "zone_id": 319,
+              "zone_name": "Nebraska",
+              "state": "NE",
+              "latitude": 41.49,
+              "longitude": -99.9,
+              "tons_k": 798.78,
+              "value_m": 164.01,
+              "tmiles_m": 173.74,
+              "pct_of_precursor": 0.0196,
+              "primary_mode": "Truck",
+              "est_cost_usd": 20848503
+            },
+            {
+              "zone_id": 311,
+              "zone_name": "Omaha NE-IA (NE Part)",
+              "state": "NE",
+              "latitude": 41.26,
+              "longitude": -95.94,
+              "tons_k": 472.0,
+              "value_m": 96.07,
+              "tmiles_m": 74.74,
+              "pct_of_precursor": 0.0116,
+              "primary_mode": "Rail",
+              "est_cost_usd": 2615831
+            },
+            {
+              "zone_id": 559,
+              "zone_name": "Wisconsin",
+              "state": "WI",
+              "latitude": 44.27,
+              "longitude": -89.62,
+              "tons_k": 469.14,
+              "value_m": 179.03,
+              "tmiles_m": 123.73,
+              "pct_of_precursor": 0.0115,
+              "primary_mode": "Truck",
+              "est_cost_usd": 14847026
+            },
+            {
+              "zone_id": 181,
+              "zone_name": "Chicago Metro",
+              "state": "IN",
+              "latitude": 41.8781,
+              "longitude": -87.6298,
+              "tons_k": 435.58,
+              "value_m": 80.05,
+              "tmiles_m": 120.95,
+              "pct_of_precursor": 0.0107,
+              "primary_mode": "Truck",
+              "est_cost_usd": 14514386
+            },
+            {
+              "zone_id": 179,
+              "zone_name": "Illinois",
+              "state": "IL",
+              "latitude": 40.12,
+              "longitude": -89.4,
+              "tons_k": 398.12,
+              "value_m": 123.05,
+              "tmiles_m": 86.16,
+              "pct_of_precursor": 0.0098,
+              "primary_mode": "Truck",
+              "est_cost_usd": 10339470
+            },
+            {
+              "zone_id": 460,
+              "zone_name": "South Dakota",
+              "state": "SD",
+              "latitude": 43.97,
+              "longitude": -99.9,
+              "tons_k": 268.62,
+              "value_m": 37.82,
+              "tmiles_m": 55.91,
+              "pct_of_precursor": 0.0066,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6709105
+            }
+          ]
+        },
+        {
+          "sctg2": "02",
+          "name": "Cereal Grains",
+          "role": "Grain finishing at feedlots",
+          "ratio": 0.15,
+          "total_tons_k": 138243.82,
+          "total_value_m": 14921.71,
+          "total_tmiles_m": 24158.36,
+          "est_cost_usd": 2899003434,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.972
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.028
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.0
+            }
+          ],
+          "num_sources": 5,
+          "sources": [
+            {
+              "zone_id": 190,
+              "zone_name": "Iowa",
+              "state": "IA",
+              "latitude": 41.88,
+              "longitude": -93.1,
+              "tons_k": 130485.53,
+              "value_m": 13941.09,
+              "tmiles_m": 21232.98,
+              "pct_of_precursor": 0.9438,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2547957520
+            },
+            {
+              "zone_id": 460,
+              "zone_name": "South Dakota",
+              "state": "SD",
+              "latitude": 43.97,
+              "longitude": -99.9,
+              "tons_k": 2676.26,
+              "value_m": 310.31,
+              "tmiles_m": 1009.49,
+              "pct_of_precursor": 0.0194,
+              "primary_mode": "Truck",
+              "est_cost_usd": 121139472
+            },
+            {
+              "zone_id": 279,
+              "zone_name": "Minnesota",
+              "state": "MN",
+              "latitude": 46.73,
+              "longitude": -94.69,
+              "tons_k": 2075.07,
+              "value_m": 259.42,
+              "tmiles_m": 657.91,
+              "pct_of_precursor": 0.015,
+              "primary_mode": "Truck",
+              "est_cost_usd": 78948742
+            },
+            {
+              "zone_id": 311,
+              "zone_name": "Omaha NE-IA (NE Part)",
+              "state": "NE",
+              "latitude": 41.26,
+              "longitude": -95.94,
+              "tons_k": 2068.7,
+              "value_m": 197.41,
+              "tmiles_m": 415.57,
+              "pct_of_precursor": 0.015,
+              "primary_mode": "Truck",
+              "est_cost_usd": 49868735
+            },
+            {
+              "zone_id": 179,
+              "zone_name": "Illinois",
+              "state": "IL",
+              "latitude": 40.12,
+              "longitude": -89.4,
+              "tons_k": 938.26,
+              "value_m": 98.65,
+              "tmiles_m": 333.83,
+              "pct_of_precursor": 0.0068,
+              "primary_mode": "Truck",
+              "est_cost_usd": 40060228
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "zone_id": 319,
+      "zone_name": "Nebraska",
+      "state": "NE",
+      "latitude": 41.49,
+      "longitude": -99.9,
+      "total_precursor_tons_k": 118563.01,
+      "total_est_cost_usd": 2560289528,
+      "precursors": [
+        {
+          "sctg2": "01",
+          "name": "Live Cattle",
+          "role": "Primary feedstock entering packing plants",
+          "ratio": 1.25,
+          "total_tons_k": 3423.08,
+          "total_value_m": 12634.82,
+          "total_tmiles_m": 618.9,
+          "est_cost_usd": 74268309,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 1.0
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.0
+            }
+          ],
+          "num_sources": 9,
+          "sources": [
+            {
+              "zone_id": 319,
+              "zone_name": "Nebraska",
+              "state": "NE",
+              "latitude": 41.49,
+              "longitude": -99.9,
+              "tons_k": 2696.88,
+              "value_m": 9568.72,
+              "tmiles_m": 386.84,
+              "pct_of_precursor": 0.7879,
+              "primary_mode": "Truck",
+              "est_cost_usd": 46420036
+            },
+            {
+              "zone_id": 209,
+              "zone_name": "Kansas",
+              "state": "KS",
+              "latitude": 38.5,
+              "longitude": -98.0,
+              "tons_k": 174.73,
+              "value_m": 980.3,
+              "tmiles_m": 43.76,
+              "pct_of_precursor": 0.051,
+              "primary_mode": "Truck",
+              "est_cost_usd": 5251764
+            },
+            {
+              "zone_id": 311,
+              "zone_name": "Omaha NE-IA (NE Part)",
+              "state": "NE",
+              "latitude": 41.26,
+              "longitude": -95.94,
+              "tons_k": 163.84,
+              "value_m": 461.75,
+              "tmiles_m": 25.93,
+              "pct_of_precursor": 0.0479,
+              "primary_mode": "Truck",
+              "est_cost_usd": 3111867
+            },
+            {
+              "zone_id": 81,
+              "zone_name": "Denver CO",
+              "state": "CO",
+              "latitude": 39.74,
+              "longitude": -104.99,
+              "tons_k": 133.9,
+              "value_m": 782.5,
+              "tmiles_m": 40.67,
+              "pct_of_precursor": 0.0391,
+              "primary_mode": "Truck",
+              "est_cost_usd": 4881062
+            },
+            {
+              "zone_id": 460,
+              "zone_name": "South Dakota",
+              "state": "SD",
+              "latitude": 43.97,
+              "longitude": -99.9,
+              "tons_k": 73.95,
+              "value_m": 197.17,
+              "tmiles_m": 19.43,
+              "pct_of_precursor": 0.0216,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2331916
+            },
+            {
+              "zone_id": 89,
+              "zone_name": "Colorado",
+              "state": "CO",
+              "latitude": 38.83,
+              "longitude": -105.78,
+              "tons_k": 67.25,
+              "value_m": 268.17,
+              "tmiles_m": 22.83,
+              "pct_of_precursor": 0.0196,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2739644
+            },
+            {
+              "zone_id": 219,
+              "zone_name": "Kentucky",
+              "state": "KY",
+              "latitude": 37.84,
+              "longitude": -84.27,
+              "tons_k": 48.73,
+              "value_m": 145.09,
+              "tmiles_m": 39.86,
+              "pct_of_precursor": 0.0142,
+              "primary_mode": "Truck",
+              "est_cost_usd": 4782920
+            },
+            {
+              "zone_id": 201,
+              "zone_name": "Kansas City MO-KS (KS Part)",
+              "state": "KS",
+              "latitude": 39.1,
+              "longitude": -94.58,
+              "tons_k": 44.74,
+              "value_m": 164.89,
+              "tmiles_m": 12.82,
+              "pct_of_precursor": 0.0131,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1538371
+            },
+            {
+              "zone_id": 19,
+              "zone_name": "Alabama",
+              "state": "AL",
+              "latitude": 32.38,
+              "longitude": -86.3,
+              "tons_k": 19.06,
+              "value_m": 50.17,
+              "tmiles_m": 19.63,
+              "pct_of_precursor": 0.0056,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2355485
+            }
+          ]
+        },
+        {
+          "sctg2": "04",
+          "name": "Animal Feed",
+          "role": "Feedlot nutrition before processing",
+          "ratio": 0.3,
+          "total_tons_k": 26712.25,
+          "total_value_m": 3560.77,
+          "total_tmiles_m": 3653.16,
+          "est_cost_usd": 438379765,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.996
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.003
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.001
+            }
+          ],
+          "num_sources": 3,
+          "sources": [
+            {
+              "zone_id": 319,
+              "zone_name": "Nebraska",
+              "state": "NE",
+              "latitude": 41.49,
+              "longitude": -99.9,
+              "tons_k": 25570.07,
+              "value_m": 2602.17,
+              "tmiles_m": 3194.44,
+              "pct_of_precursor": 0.9573,
+              "primary_mode": "Truck",
+              "est_cost_usd": 383332554
+            },
+            {
+              "zone_id": 190,
+              "zone_name": "Iowa",
+              "state": "IA",
+              "latitude": 41.88,
+              "longitude": -93.1,
+              "tons_k": 962.82,
+              "value_m": 318.95,
+              "tmiles_m": 230.63,
+              "pct_of_precursor": 0.036,
+              "primary_mode": "Truck",
+              "est_cost_usd": 27674971
+            },
+            {
+              "zone_id": 460,
+              "zone_name": "South Dakota",
+              "state": "SD",
+              "latitude": 43.97,
+              "longitude": -99.9,
+              "tons_k": 179.36,
+              "value_m": 38.3,
+              "tmiles_m": 41.18,
+              "pct_of_precursor": 0.0067,
+              "primary_mode": "Truck",
+              "est_cost_usd": 4941215
+            }
+          ]
+        },
+        {
+          "sctg2": "02",
+          "name": "Cereal Grains",
+          "role": "Grain finishing at feedlots",
+          "ratio": 0.15,
+          "total_tons_k": 88427.68,
+          "total_value_m": 9410.31,
+          "total_tmiles_m": 17063.68,
+          "est_cost_usd": 2047641454,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.915
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.08
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.005
+            }
+          ],
+          "num_sources": 4,
+          "sources": [
+            {
+              "zone_id": 319,
+              "zone_name": "Nebraska",
+              "state": "NE",
+              "latitude": 41.49,
+              "longitude": -99.9,
+              "tons_k": 78764.03,
+              "value_m": 8395.37,
+              "tmiles_m": 14315.35,
+              "pct_of_precursor": 0.8907,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1717842235
+            },
+            {
+              "zone_id": 311,
+              "zone_name": "Omaha NE-IA (NE Part)",
+              "state": "NE",
+              "latitude": 41.26,
+              "longitude": -95.94,
+              "tons_k": 4713.43,
+              "value_m": 524.95,
+              "tmiles_m": 883.2,
+              "pct_of_precursor": 0.0533,
+              "primary_mode": "Truck",
+              "est_cost_usd": 105984891
+            },
+            {
+              "zone_id": 460,
+              "zone_name": "South Dakota",
+              "state": "SD",
+              "latitude": 43.97,
+              "longitude": -99.9,
+              "tons_k": 3888.85,
+              "value_m": 366.39,
+              "tmiles_m": 1266.39,
+              "pct_of_precursor": 0.044,
+              "primary_mode": "Truck",
+              "est_cost_usd": 151966972
+            },
+            {
+              "zone_id": 190,
+              "zone_name": "Iowa",
+              "state": "IA",
+              "latitude": 41.88,
+              "longitude": -93.1,
+              "tons_k": 1061.37,
+              "value_m": 111.81,
+              "tmiles_m": 377.81,
+              "pct_of_precursor": 0.012,
+              "primary_mode": "Truck",
+              "est_cost_usd": 45338059
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "zone_id": 489,
+      "zone_name": "Texas",
+      "state": "TX",
+      "latitude": 31.97,
+      "longitude": -99.9,
+      "total_precursor_tons_k": 56234.15,
+      "total_est_cost_usd": 2755695561,
+      "precursors": [
+        {
+          "sctg2": "01",
+          "name": "Live Cattle",
+          "role": "Primary feedstock entering packing plants",
+          "ratio": 1.25,
+          "total_tons_k": 5604.69,
+          "total_value_m": 20088.26,
+          "total_tmiles_m": 1433.07,
+          "est_cost_usd": 171968581,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 1.0
+            },
+            {
+              "mode": "Air",
+              "pct": 0.0
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.0
+            }
+          ],
+          "num_sources": 12,
+          "sources": [
+            {
+              "zone_id": 489,
+              "zone_name": "Texas",
+              "state": "TX",
+              "latitude": 31.97,
+              "longitude": -99.9,
+              "tons_k": 4163.35,
+              "value_m": 16074.2,
+              "tmiles_m": 875.71,
+              "pct_of_precursor": 0.7428,
+              "primary_mode": "Truck",
+              "est_cost_usd": 105085891
+            },
+            {
+              "zone_id": 409,
+              "zone_name": "Oklahoma",
+              "state": "OK",
+              "latitude": 35.01,
+              "longitude": -97.09,
+              "tons_k": 468.75,
+              "value_m": 984.09,
+              "tmiles_m": 141.06,
+              "pct_of_precursor": 0.0836,
+              "primary_mode": "Truck",
+              "est_cost_usd": 16928153
+            },
+            {
+              "zone_id": 484,
+              "zone_name": "Dallas-Fort Worth TX",
+              "state": "TX",
+              "latitude": 32.78,
+              "longitude": -96.8,
+              "tons_k": 227.9,
+              "value_m": 636.43,
+              "tmiles_m": 50.77,
+              "pct_of_precursor": 0.0407,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6092233
+            },
+            {
+              "zone_id": 350,
+              "zone_name": "New Mexico",
+              "state": "NM",
+              "latitude": 34.52,
+              "longitude": -105.87,
+              "tons_k": 158.94,
+              "value_m": 368.72,
+              "tmiles_m": 57.85,
+              "pct_of_precursor": 0.0284,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6941398
+            },
+            {
+              "zone_id": 209,
+              "zone_name": "Kansas",
+              "state": "KS",
+              "latitude": 38.5,
+              "longitude": -98.0,
+              "tons_k": 127.97,
+              "value_m": 754.43,
+              "tmiles_m": 65.48,
+              "pct_of_precursor": 0.0228,
+              "primary_mode": "Truck",
+              "est_cost_usd": 7857223
+            },
+            {
+              "zone_id": 486,
+              "zone_name": "Houston TX",
+              "state": "TX",
+              "latitude": 29.76,
+              "longitude": -95.37,
+              "tons_k": 108.71,
+              "value_m": 266.96,
+              "tmiles_m": 23.76,
+              "pct_of_precursor": 0.0194,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2851729
+            },
+            {
+              "zone_id": 19,
+              "zone_name": "Alabama",
+              "state": "AL",
+              "latitude": 32.38,
+              "longitude": -86.3,
+              "tons_k": 79.88,
+              "value_m": 256.51,
+              "tmiles_m": 57.69,
+              "pct_of_precursor": 0.0143,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6923497
+            },
+            {
+              "zone_id": 488,
+              "zone_name": "San Antonio TX",
+              "state": "TX",
+              "latitude": 29.42,
+              "longitude": -98.49,
+              "tons_k": 78.66,
+              "value_m": 264.68,
+              "tmiles_m": 15.72,
+              "pct_of_precursor": 0.014,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1885678
+            },
+            {
+              "zone_id": 219,
+              "zone_name": "Kentucky",
+              "state": "KY",
+              "latitude": 37.84,
+              "longitude": -84.27,
+              "tons_k": 62.82,
+              "value_m": 283.42,
+              "tmiles_m": 52.39,
+              "pct_of_precursor": 0.0112,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6286030
+            },
+            {
+              "zone_id": 50,
+              "zone_name": "Arkansas",
+              "state": "AR",
+              "latitude": 34.75,
+              "longitude": -92.29,
+              "tons_k": 52.34,
+              "value_m": 81.22,
+              "tmiles_m": 20.57,
+              "pct_of_precursor": 0.0093,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2468240
+            },
+            {
+              "zone_id": 401,
+              "zone_name": "Oklahoma City OK",
+              "state": "OK",
+              "latitude": 35.47,
+              "longitude": -97.52,
+              "tons_k": 38.05,
+              "value_m": 89.11,
+              "tmiles_m": 12.24,
+              "pct_of_precursor": 0.0068,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1468512
+            },
+            {
+              "zone_id": 481,
+              "zone_name": "Austin TX",
+              "state": "TX",
+              "latitude": 30.27,
+              "longitude": -97.74,
+              "tons_k": 37.32,
+              "value_m": 147.32,
+              "tmiles_m": 6.97,
+              "pct_of_precursor": 0.0067,
+              "primary_mode": "Truck",
+              "est_cost_usd": 837195
+            }
+          ]
+        },
+        {
+          "sctg2": "04",
+          "name": "Animal Feed",
+          "role": "Feedlot nutrition before processing",
+          "ratio": 0.3,
+          "total_tons_k": 22449.0,
+          "total_value_m": 4752.26,
+          "total_tmiles_m": 8310.37,
+          "est_cost_usd": 997244725,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.791
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.115
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.093
+            },
+            {
+              "mode": "Air",
+              "pct": 0.0
+            }
+          ],
+          "num_sources": 12,
+          "sources": [
+            {
+              "zone_id": 489,
+              "zone_name": "Texas",
+              "state": "TX",
+              "latitude": 31.97,
+              "longitude": -99.9,
+              "tons_k": 15637.05,
+              "value_m": 2223.72,
+              "tmiles_m": 2586.81,
+              "pct_of_precursor": 0.6966,
+              "primary_mode": "Truck",
+              "est_cost_usd": 310416911
+            },
+            {
+              "zone_id": 190,
+              "zone_name": "Iowa",
+              "state": "IA",
+              "latitude": 41.88,
+              "longitude": -93.1,
+              "tons_k": 2611.98,
+              "value_m": 224.86,
+              "tmiles_m": 2396.96,
+              "pct_of_precursor": 0.1164,
+              "primary_mode": "Rail",
+              "est_cost_usd": 83893917
+            },
+            {
+              "zone_id": 189,
+              "zone_name": "Indiana",
+              "state": "IN",
+              "latitude": 40.27,
+              "longitude": -86.13,
+              "tons_k": 1369.21,
+              "value_m": 98.0,
+              "tmiles_m": 1518.67,
+              "pct_of_precursor": 0.061,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 106306959
+            },
+            {
+              "zone_id": 484,
+              "zone_name": "Dallas-Fort Worth TX",
+              "state": "TX",
+              "latitude": 32.78,
+              "longitude": -96.8,
+              "tons_k": 472.19,
+              "value_m": 107.09,
+              "tmiles_m": 94.51,
+              "pct_of_precursor": 0.021,
+              "primary_mode": "Truck",
+              "est_cost_usd": 11342073
+            },
+            {
+              "zone_id": 488,
+              "zone_name": "San Antonio TX",
+              "state": "TX",
+              "latitude": 29.42,
+              "longitude": -98.49,
+              "tons_k": 440.13,
+              "value_m": 687.09,
+              "tmiles_m": 77.24,
+              "pct_of_precursor": 0.0196,
+              "primary_mode": "Truck",
+              "est_cost_usd": 9268627
+            },
+            {
+              "zone_id": 380,
+              "zone_name": "North Dakota",
+              "state": "ND",
+              "latitude": 47.55,
+              "longitude": -100.34,
+              "tons_k": 411.76,
+              "value_m": 40.96,
+              "tmiles_m": 635.17,
+              "pct_of_precursor": 0.0183,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 44462013
+            },
+            {
+              "zone_id": 409,
+              "zone_name": "Oklahoma",
+              "state": "OK",
+              "latitude": 35.01,
+              "longitude": -97.09,
+              "tons_k": 392.74,
+              "value_m": 31.99,
+              "tmiles_m": 102.84,
+              "pct_of_precursor": 0.0175,
+              "primary_mode": "Truck",
+              "est_cost_usd": 12340561
+            },
+            {
+              "zone_id": 50,
+              "zone_name": "Arkansas",
+              "state": "AR",
+              "latitude": 34.75,
+              "longitude": -92.29,
+              "tons_k": 281.15,
+              "value_m": 86.91,
+              "tmiles_m": 91.78,
+              "pct_of_precursor": 0.0125,
+              "primary_mode": "Truck",
+              "est_cost_usd": 11012455
+            },
+            {
+              "zone_id": 279,
+              "zone_name": "Minnesota",
+              "state": "MN",
+              "latitude": 46.73,
+              "longitude": -94.69,
+              "tons_k": 247.48,
+              "value_m": 80.94,
+              "tmiles_m": 270.62,
+              "pct_of_precursor": 0.011,
+              "primary_mode": "Rail",
+              "est_cost_usd": 9471551
+            },
+            {
+              "zone_id": 486,
+              "zone_name": "Houston TX",
+              "state": "TX",
+              "latitude": 29.76,
+              "longitude": -95.37,
+              "tons_k": 210.51,
+              "value_m": 46.25,
+              "tmiles_m": 40.5,
+              "pct_of_precursor": 0.0094,
+              "primary_mode": "Truck",
+              "est_cost_usd": 4859333
+            },
+            {
+              "zone_id": 401,
+              "zone_name": "Oklahoma City OK",
+              "state": "OK",
+              "latitude": 35.47,
+              "longitude": -97.52,
+              "tons_k": 201.81,
+              "value_m": 239.78,
+              "tmiles_m": 61.18,
+              "pct_of_precursor": 0.009,
+              "primary_mode": "Truck",
+              "est_cost_usd": 7341486
+            },
+            {
+              "zone_id": 209,
+              "zone_name": "Kansas",
+              "state": "KS",
+              "latitude": 38.5,
+              "longitude": -98.0,
+              "tons_k": 172.99,
+              "value_m": 182.49,
+              "tmiles_m": 56.78,
+              "pct_of_precursor": 0.0077,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6813953
+            }
+          ]
+        },
+        {
+          "sctg2": "02",
+          "name": "Cereal Grains",
+          "role": "Grain finishing at feedlots",
+          "ratio": 0.15,
+          "total_tons_k": 28180.46,
+          "total_value_m": 3950.84,
+          "total_tmiles_m": 13220.69,
+          "est_cost_usd": 1586482255,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.721
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.249
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.03
+            }
+          ],
+          "num_sources": 12,
+          "sources": [
+            {
+              "zone_id": 489,
+              "zone_name": "Texas",
+              "state": "TX",
+              "latitude": 31.97,
+              "longitude": -99.9,
+              "tons_k": 21245.65,
+              "value_m": 3011.19,
+              "tmiles_m": 7194.73,
+              "pct_of_precursor": 0.754,
+              "primary_mode": "Truck",
+              "est_cost_usd": 863367906
+            },
+            {
+              "zone_id": 559,
+              "zone_name": "Wisconsin",
+              "state": "WI",
+              "latitude": 44.27,
+              "longitude": -89.62,
+              "tons_k": 1389.36,
+              "value_m": 179.67,
+              "tmiles_m": 1813.06,
+              "pct_of_precursor": 0.0493,
+              "primary_mode": "Rail",
+              "est_cost_usd": 63456967
+            },
+            {
+              "zone_id": 319,
+              "zone_name": "Nebraska",
+              "state": "NE",
+              "latitude": 41.49,
+              "longitude": -99.9,
+              "tons_k": 978.97,
+              "value_m": 155.94,
+              "tmiles_m": 979.96,
+              "pct_of_precursor": 0.0347,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 68596927
+            },
+            {
+              "zone_id": 279,
+              "zone_name": "Minnesota",
+              "state": "MN",
+              "latitude": 46.73,
+              "longitude": -94.69,
+              "tons_k": 860.9,
+              "value_m": 112.23,
+              "tmiles_m": 1125.28,
+              "pct_of_precursor": 0.0305,
+              "primary_mode": "Rail",
+              "est_cost_usd": 39384796
+            },
+            {
+              "zone_id": 179,
+              "zone_name": "Illinois",
+              "state": "IL",
+              "latitude": 40.12,
+              "longitude": -89.4,
+              "tons_k": 837.38,
+              "value_m": 112.11,
+              "tmiles_m": 843.68,
+              "pct_of_precursor": 0.0297,
+              "primary_mode": "Rail",
+              "est_cost_usd": 29528713
+            },
+            {
+              "zone_id": 486,
+              "zone_name": "Houston TX",
+              "state": "TX",
+              "latitude": 29.76,
+              "longitude": -95.37,
+              "tons_k": 585.01,
+              "value_m": 76.82,
+              "tmiles_m": 190.9,
+              "pct_of_precursor": 0.0208,
+              "primary_mode": "Truck",
+              "est_cost_usd": 22907623
+            },
+            {
+              "zone_id": 484,
+              "zone_name": "Dallas-Fort Worth TX",
+              "state": "TX",
+              "latitude": 32.78,
+              "longitude": -96.8,
+              "tons_k": 483.95,
+              "value_m": 63.75,
+              "tmiles_m": 135.15,
+              "pct_of_precursor": 0.0172,
+              "primary_mode": "Truck",
+              "est_cost_usd": 16218864
+            },
+            {
+              "zone_id": 409,
+              "zone_name": "Oklahoma",
+              "state": "OK",
+              "latitude": 35.01,
+              "longitude": -97.09,
+              "tons_k": 454.11,
+              "value_m": 54.53,
+              "tmiles_m": 182.1,
+              "pct_of_precursor": 0.0161,
+              "primary_mode": "Truck",
+              "est_cost_usd": 21852524
+            },
+            {
+              "zone_id": 209,
+              "zone_name": "Kansas",
+              "state": "KS",
+              "latitude": 38.5,
+              "longitude": -98.0,
+              "tons_k": 388.83,
+              "value_m": 49.91,
+              "tmiles_m": 237.73,
+              "pct_of_precursor": 0.0138,
+              "primary_mode": "Truck",
+              "est_cost_usd": 28527000
+            },
+            {
+              "zone_id": 483,
+              "zone_name": "Corpus Christi TX",
+              "state": "TX",
+              "latitude": 27.8,
+              "longitude": -97.4,
+              "tons_k": 351.65,
+              "value_m": 46.27,
+              "tmiles_m": 129.76,
+              "pct_of_precursor": 0.0125,
+              "primary_mode": "Truck",
+              "est_cost_usd": 15572168
+            },
+            {
+              "zone_id": 229,
+              "zone_name": "Louisiana",
+              "state": "LA",
+              "latitude": 31.17,
+              "longitude": -91.87,
+              "tons_k": 302.47,
+              "value_m": 41.72,
+              "tmiles_m": 139.8,
+              "pct_of_precursor": 0.0107,
+              "primary_mode": "Truck",
+              "est_cost_usd": 16776280
+            },
+            {
+              "zone_id": 481,
+              "zone_name": "Austin TX",
+              "state": "TX",
+              "latitude": 30.27,
+              "longitude": -97.74,
+              "tons_k": 302.19,
+              "value_m": 40.73,
+              "tmiles_m": 79.56,
+              "pct_of_precursor": 0.0107,
+              "primary_mode": "Truck",
+              "est_cost_usd": 9547110
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "zone_id": 379,
+      "zone_name": "North Carolina",
+      "state": "NC",
+      "latitude": 35.55,
+      "longitude": -79.39,
+      "total_precursor_tons_k": 30347.04,
+      "total_est_cost_usd": 1391347308,
+      "precursors": [
+        {
+          "sctg2": "01",
+          "name": "Live Cattle",
+          "role": "Primary feedstock entering packing plants",
+          "ratio": 1.25,
+          "total_tons_k": 4213.15,
+          "total_value_m": 5337.66,
+          "total_tmiles_m": 716.87,
+          "est_cost_usd": 86023846,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 1.0
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.0
+            },
+            {
+              "mode": "Air",
+              "pct": 0.0
+            }
+          ],
+          "num_sources": 10,
+          "sources": [
+            {
+              "zone_id": 379,
+              "zone_name": "North Carolina",
+              "state": "NC",
+              "latitude": 35.55,
+              "longitude": -79.39,
+              "tons_k": 2790.54,
+              "value_m": 2910.4,
+              "tmiles_m": 383.45,
+              "pct_of_precursor": 0.6622,
+              "primary_mode": "Truck",
+              "est_cost_usd": 46014223
+            },
+            {
+              "zone_id": 459,
+              "zone_name": "South Carolina",
+              "state": "SC",
+              "latitude": 34.0,
+              "longitude": -81.03,
+              "tons_k": 627.01,
+              "value_m": 1042.05,
+              "tmiles_m": 120.39,
+              "pct_of_precursor": 0.1488,
+              "primary_mode": "Truck",
+              "est_cost_usd": 14447323
+            },
+            {
+              "zone_id": 519,
+              "zone_name": "Virginia",
+              "state": "VA",
+              "latitude": 37.43,
+              "longitude": -78.66,
+              "tons_k": 218.24,
+              "value_m": 387.06,
+              "tmiles_m": 50.39,
+              "pct_of_precursor": 0.0518,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6047031
+            },
+            {
+              "zone_id": 373,
+              "zone_name": "Raleigh-Durham NC",
+              "state": "NC",
+              "latitude": 35.78,
+              "longitude": -78.64,
+              "tons_k": 184.34,
+              "value_m": 218.6,
+              "tmiles_m": 26.45,
+              "pct_of_precursor": 0.0438,
+              "primary_mode": "Truck",
+              "est_cost_usd": 3174454
+            },
+            {
+              "zone_id": 371,
+              "zone_name": "Charlotte NC-SC (NC Part)",
+              "state": "NC",
+              "latitude": 35.23,
+              "longitude": -80.84,
+              "tons_k": 123.33,
+              "value_m": 219.58,
+              "tmiles_m": 18.92,
+              "pct_of_precursor": 0.0293,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2271040
+            },
+            {
+              "zone_id": 372,
+              "zone_name": "Greensboro-Winston-Salem NC",
+              "state": "NC",
+              "latitude": 36.07,
+              "longitude": -79.79,
+              "tons_k": 100.16,
+              "value_m": 208.52,
+              "tmiles_m": 15.99,
+              "pct_of_precursor": 0.0238,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1918785
+            },
+            {
+              "zone_id": 299,
+              "zone_name": "Missouri",
+              "state": "MO",
+              "latitude": 38.57,
+              "longitude": -92.6,
+              "tons_k": 90.5,
+              "value_m": 144.05,
+              "tmiles_m": 64.7,
+              "pct_of_precursor": 0.0215,
+              "primary_mode": "Truck",
+              "est_cost_usd": 7764108
+            },
+            {
+              "zone_id": 131,
+              "zone_name": "Atlanta GA",
+              "state": "GA",
+              "latitude": 33.75,
+              "longitude": -84.39,
+              "tons_k": 34.44,
+              "value_m": 55.64,
+              "tmiles_m": 9.11,
+              "pct_of_precursor": 0.0082,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1093086
+            },
+            {
+              "zone_id": 473,
+              "zone_name": "Knoxville TN",
+              "state": "TN",
+              "latitude": 35.96,
+              "longitude": -83.92,
+              "tons_k": 23.07,
+              "value_m": 42.22,
+              "tmiles_m": 4.88,
+              "pct_of_precursor": 0.0055,
+              "primary_mode": "Truck",
+              "est_cost_usd": 585388
+            },
+            {
+              "zone_id": 219,
+              "zone_name": "Kentucky",
+              "state": "KY",
+              "latitude": 37.84,
+              "longitude": -84.27,
+              "tons_k": 21.51,
+              "value_m": 48.23,
+              "tmiles_m": 7.83,
+              "pct_of_precursor": 0.0051,
+              "primary_mode": "Truck",
+              "est_cost_usd": 938889
+            }
+          ]
+        },
+        {
+          "sctg2": "04",
+          "name": "Animal Feed",
+          "role": "Feedlot nutrition before processing",
+          "ratio": 0.3,
+          "total_tons_k": 9216.39,
+          "total_value_m": 3628.79,
+          "total_tmiles_m": 2395.91,
+          "est_cost_usd": 287509420,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.849
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.076
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.075
+            }
+          ],
+          "num_sources": 12,
+          "sources": [
+            {
+              "zone_id": 379,
+              "zone_name": "North Carolina",
+              "state": "NC",
+              "latitude": 35.55,
+              "longitude": -79.39,
+              "tons_k": 5037.77,
+              "value_m": 2301.71,
+              "tmiles_m": 541.74,
+              "pct_of_precursor": 0.5466,
+              "primary_mode": "Truck",
+              "est_cost_usd": 65008873
+            },
+            {
+              "zone_id": 371,
+              "zone_name": "Charlotte NC-SC (NC Part)",
+              "state": "NC",
+              "latitude": 35.23,
+              "longitude": -80.84,
+              "tons_k": 1681.44,
+              "value_m": 291.47,
+              "tmiles_m": 253.25,
+              "pct_of_precursor": 0.1824,
+              "primary_mode": "Truck",
+              "est_cost_usd": 30389187
+            },
+            {
+              "zone_id": 189,
+              "zone_name": "Indiana",
+              "state": "IN",
+              "latitude": 40.27,
+              "longitude": -86.13,
+              "tons_k": 762.81,
+              "value_m": 219.71,
+              "tmiles_m": 578.6,
+              "pct_of_precursor": 0.0828,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 40501779
+            },
+            {
+              "zone_id": 511,
+              "zone_name": "Richmond VA",
+              "state": "VA",
+              "latitude": 37.54,
+              "longitude": -77.44,
+              "tons_k": 479.2,
+              "value_m": 92.96,
+              "tmiles_m": 91.92,
+              "pct_of_precursor": 0.052,
+              "primary_mode": "Truck",
+              "est_cost_usd": 11031069
+            },
+            {
+              "zone_id": 190,
+              "zone_name": "Iowa",
+              "state": "IA",
+              "latitude": 41.88,
+              "longitude": -93.1,
+              "tons_k": 424.23,
+              "value_m": 163.61,
+              "tmiles_m": 433.5,
+              "pct_of_precursor": 0.046,
+              "primary_mode": "Rail",
+              "est_cost_usd": 15172329
+            },
+            {
+              "zone_id": 211,
+              "zone_name": "Cincinnati OH-KY-IN (KY Part)",
+              "state": "KY",
+              "latitude": 39.1,
+              "longitude": -84.51,
+              "tons_k": 342.34,
+              "value_m": 49.7,
+              "tmiles_m": 190.39,
+              "pct_of_precursor": 0.0371,
+              "primary_mode": "Rail",
+              "est_cost_usd": 6663660
+            },
+            {
+              "zone_id": 399,
+              "zone_name": "Ohio",
+              "state": "OH",
+              "latitude": 40.42,
+              "longitude": -82.91,
+              "tons_k": 107.6,
+              "value_m": 28.54,
+              "tmiles_m": 56.35,
+              "pct_of_precursor": 0.0117,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6762059
+            },
+            {
+              "zone_id": 372,
+              "zone_name": "Greensboro-Winston-Salem NC",
+              "state": "NC",
+              "latitude": 36.07,
+              "longitude": -79.79,
+              "tons_k": 95.2,
+              "value_m": 47.08,
+              "tmiles_m": 14.4,
+              "pct_of_precursor": 0.0103,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1727057
+            },
+            {
+              "zone_id": 269,
+              "zone_name": "Michigan",
+              "state": "MI",
+              "latitude": 44.31,
+              "longitude": -85.6,
+              "tons_k": 93.85,
+              "value_m": 7.38,
+              "tmiles_m": 77.69,
+              "pct_of_precursor": 0.0102,
+              "primary_mode": "Rail",
+              "est_cost_usd": 2719389
+            },
+            {
+              "zone_id": 429,
+              "zone_name": "Pennsylvania",
+              "state": "PA",
+              "latitude": 41.2,
+              "longitude": -77.19,
+              "tons_k": 73.68,
+              "value_m": 159.47,
+              "tmiles_m": 32.7,
+              "pct_of_precursor": 0.008,
+              "primary_mode": "Truck",
+              "est_cost_usd": 3923884
+            },
+            {
+              "zone_id": 373,
+              "zone_name": "Raleigh-Durham NC",
+              "state": "NC",
+              "latitude": 35.78,
+              "longitude": -78.64,
+              "tons_k": 59.66,
+              "value_m": 6.48,
+              "tmiles_m": 7.16,
+              "pct_of_precursor": 0.0065,
+              "primary_mode": "Truck",
+              "est_cost_usd": 858522
+            },
+            {
+              "zone_id": 473,
+              "zone_name": "Knoxville TN",
+              "state": "TN",
+              "latitude": 35.96,
+              "longitude": -83.92,
+              "tons_k": 58.61,
+              "value_m": 2.32,
+              "tmiles_m": 11.8,
+              "pct_of_precursor": 0.0064,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1415680
+            }
+          ]
+        },
+        {
+          "sctg2": "02",
+          "name": "Cereal Grains",
+          "role": "Grain finishing at feedlots",
+          "ratio": 0.15,
+          "total_tons_k": 16917.5,
+          "total_value_m": 2495.54,
+          "total_tmiles_m": 8481.78,
+          "est_cost_usd": 1017814042,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.534
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.381
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.085
+            }
+          ],
+          "num_sources": 12,
+          "sources": [
+            {
+              "zone_id": 379,
+              "zone_name": "North Carolina",
+              "state": "NC",
+              "latitude": 35.55,
+              "longitude": -79.39,
+              "tons_k": 8283.87,
+              "value_m": 1403.58,
+              "tmiles_m": 1496.94,
+              "pct_of_precursor": 0.4897,
+              "primary_mode": "Truck",
+              "est_cost_usd": 179632129
+            },
+            {
+              "zone_id": 269,
+              "zone_name": "Michigan",
+              "state": "MI",
+              "latitude": 44.31,
+              "longitude": -85.6,
+              "tons_k": 4521.85,
+              "value_m": 557.25,
+              "tmiles_m": 4478.57,
+              "pct_of_precursor": 0.2673,
+              "primary_mode": "Rail",
+              "est_cost_usd": 156749788
+            },
+            {
+              "zone_id": 393,
+              "zone_name": "Columbus OH",
+              "state": "OH",
+              "latitude": 39.96,
+              "longitude": -83.0,
+              "tons_k": 1671.48,
+              "value_m": 223.93,
+              "tmiles_m": 1146.32,
+              "pct_of_precursor": 0.0988,
+              "primary_mode": "Rail",
+              "est_cost_usd": 40121078
+            },
+            {
+              "zone_id": 399,
+              "zone_name": "Ohio",
+              "state": "OH",
+              "latitude": 40.42,
+              "longitude": -82.91,
+              "tons_k": 471.62,
+              "value_m": 63.77,
+              "tmiles_m": 358.67,
+              "pct_of_precursor": 0.0279,
+              "primary_mode": "Rail",
+              "est_cost_usd": 12553240
+            },
+            {
+              "zone_id": 371,
+              "zone_name": "Charlotte NC-SC (NC Part)",
+              "state": "NC",
+              "latitude": 35.23,
+              "longitude": -80.84,
+              "tons_k": 444.51,
+              "value_m": 56.5,
+              "tmiles_m": 83.89,
+              "pct_of_precursor": 0.0263,
+              "primary_mode": "Truck",
+              "est_cost_usd": 10067211
+            },
+            {
+              "zone_id": 189,
+              "zone_name": "Indiana",
+              "state": "IN",
+              "latitude": 40.27,
+              "longitude": -86.13,
+              "tons_k": 384.72,
+              "value_m": 50.72,
+              "tmiles_m": 314.31,
+              "pct_of_precursor": 0.0227,
+              "primary_mode": "Rail",
+              "est_cost_usd": 11000920
+            },
+            {
+              "zone_id": 392,
+              "zone_name": "Cleveland OH",
+              "state": "OH",
+              "latitude": 41.5,
+              "longitude": -81.69,
+              "tons_k": 342.33,
+              "value_m": 45.8,
+              "tmiles_m": 261.38,
+              "pct_of_precursor": 0.0202,
+              "primary_mode": "Rail",
+              "est_cost_usd": 9148398
+            },
+            {
+              "zone_id": 519,
+              "zone_name": "Virginia",
+              "state": "VA",
+              "latitude": 37.43,
+              "longitude": -78.66,
+              "tons_k": 245.98,
+              "value_m": 27.36,
+              "tmiles_m": 66.1,
+              "pct_of_precursor": 0.0145,
+              "primary_mode": "Truck",
+              "est_cost_usd": 7931918
+            },
+            {
+              "zone_id": 183,
+              "zone_name": "Fort Wayne IN",
+              "state": "IN",
+              "latitude": 41.08,
+              "longitude": -85.14,
+              "tons_k": 180.08,
+              "value_m": 23.44,
+              "tmiles_m": 149.85,
+              "pct_of_precursor": 0.0106,
+              "primary_mode": "Rail",
+              "est_cost_usd": 5244873
+            },
+            {
+              "zone_id": 373,
+              "zone_name": "Raleigh-Durham NC",
+              "state": "NC",
+              "latitude": 35.78,
+              "longitude": -78.64,
+              "tons_k": 163.29,
+              "value_m": 22.12,
+              "tmiles_m": 25.09,
+              "pct_of_precursor": 0.0097,
+              "primary_mode": "Truck",
+              "est_cost_usd": 3011402
+            },
+            {
+              "zone_id": 459,
+              "zone_name": "South Carolina",
+              "state": "SC",
+              "latitude": 34.0,
+              "longitude": -81.03,
+              "tons_k": 110.05,
+              "value_m": 16.02,
+              "tmiles_m": 24.39,
+              "pct_of_precursor": 0.0065,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2927391
+            },
+            {
+              "zone_id": 372,
+              "zone_name": "Greensboro-Winston-Salem NC",
+              "state": "NC",
+              "latitude": 36.07,
+              "longitude": -79.79,
+              "tons_k": 97.73,
+              "value_m": 12.27,
+              "tmiles_m": 17.69,
+              "pct_of_precursor": 0.0058,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2122903
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "zone_id": 131,
+      "zone_name": "Atlanta GA",
+      "state": "GA",
+      "latitude": 33.75,
+      "longitude": -84.39,
+      "total_precursor_tons_k": 14643.13,
+      "total_est_cost_usd": 329390540,
+      "precursors": [
+        {
+          "sctg2": "01",
+          "name": "Live Cattle",
+          "role": "Primary feedstock entering packing plants",
+          "ratio": 1.25,
+          "total_tons_k": 1368.84,
+          "total_value_m": 2095.19,
+          "total_tmiles_m": 125.02,
+          "est_cost_usd": 15001871,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 1.0
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.0
+            },
+            {
+              "mode": "Air",
+              "pct": 0.0
+            }
+          ],
+          "num_sources": 6,
+          "sources": [
+            {
+              "zone_id": 131,
+              "zone_name": "Atlanta GA",
+              "state": "GA",
+              "latitude": 33.75,
+              "longitude": -84.39,
+              "tons_k": 952.51,
+              "value_m": 1400.4,
+              "tmiles_m": 49.31,
+              "pct_of_precursor": 0.6959,
+              "primary_mode": "Truck",
+              "est_cost_usd": 5916789
+            },
+            {
+              "zone_id": 452,
+              "zone_name": "Greenville SC",
+              "state": "SC",
+              "latitude": 34.85,
+              "longitude": -82.39,
+              "tons_k": 173.49,
+              "value_m": 315.38,
+              "tmiles_m": 25.76,
+              "pct_of_precursor": 0.1267,
+              "primary_mode": "Truck",
+              "est_cost_usd": 3090874
+            },
+            {
+              "zone_id": 139,
+              "zone_name": "Georgia",
+              "state": "GA",
+              "latitude": 32.17,
+              "longitude": -82.9,
+              "tons_k": 134.05,
+              "value_m": 187.82,
+              "tmiles_m": 20.53,
+              "pct_of_precursor": 0.0979,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2463997
+            },
+            {
+              "zone_id": 19,
+              "zone_name": "Alabama",
+              "state": "AL",
+              "latitude": 32.38,
+              "longitude": -86.3,
+              "tons_k": 72.2,
+              "value_m": 100.78,
+              "tmiles_m": 14.31,
+              "pct_of_precursor": 0.0527,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1717224
+            },
+            {
+              "zone_id": 473,
+              "zone_name": "Knoxville TN",
+              "state": "TN",
+              "latitude": 35.96,
+              "longitude": -83.92,
+              "tons_k": 22.7,
+              "value_m": 41.54,
+              "tmiles_m": 4.98,
+              "pct_of_precursor": 0.0166,
+              "primary_mode": "Truck",
+              "est_cost_usd": 597083
+            },
+            {
+              "zone_id": 11,
+              "zone_name": "Birmingham AL",
+              "state": "AL",
+              "latitude": 33.52,
+              "longitude": -86.8,
+              "tons_k": 13.9,
+              "value_m": 18.39,
+              "tmiles_m": 2.38,
+              "pct_of_precursor": 0.0102,
+              "primary_mode": "Truck",
+              "est_cost_usd": 285993
+            }
+          ]
+        },
+        {
+          "sctg2": "04",
+          "name": "Animal Feed",
+          "role": "Feedlot nutrition before processing",
+          "ratio": 0.3,
+          "total_tons_k": 4061.21,
+          "total_value_m": 2244.35,
+          "total_tmiles_m": 989.04,
+          "est_cost_usd": 118685106,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.916
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.054
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.03
+            }
+          ],
+          "num_sources": 12,
+          "sources": [
+            {
+              "zone_id": 131,
+              "zone_name": "Atlanta GA",
+              "state": "GA",
+              "latitude": 33.75,
+              "longitude": -84.39,
+              "tons_k": 2254.3,
+              "value_m": 908.11,
+              "tmiles_m": 118.48,
+              "pct_of_precursor": 0.5551,
+              "primary_mode": "Truck",
+              "est_cost_usd": 14217583
+            },
+            {
+              "zone_id": 139,
+              "zone_name": "Georgia",
+              "state": "GA",
+              "latitude": 32.17,
+              "longitude": -82.9,
+              "tons_k": 713.19,
+              "value_m": 183.26,
+              "tmiles_m": 101.1,
+              "pct_of_precursor": 0.1756,
+              "primary_mode": "Truck",
+              "est_cost_usd": 12132189
+            },
+            {
+              "zone_id": 189,
+              "zone_name": "Indiana",
+              "state": "IN",
+              "latitude": 40.27,
+              "longitude": -86.13,
+              "tons_k": 203.74,
+              "value_m": 72.97,
+              "tmiles_m": 121.84,
+              "pct_of_precursor": 0.0502,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 8529191
+            },
+            {
+              "zone_id": 129,
+              "zone_name": "Florida",
+              "state": "FL",
+              "latitude": 28.1,
+              "longitude": -81.6,
+              "tons_k": 194.91,
+              "value_m": 27.24,
+              "tmiles_m": 76.49,
+              "pct_of_precursor": 0.048,
+              "primary_mode": "Truck",
+              "est_cost_usd": 9179026
+            },
+            {
+              "zone_id": 19,
+              "zone_name": "Alabama",
+              "state": "AL",
+              "latitude": 32.38,
+              "longitude": -86.3,
+              "tons_k": 124.39,
+              "value_m": 144.37,
+              "tmiles_m": 22.76,
+              "pct_of_precursor": 0.0306,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2731320
+            },
+            {
+              "zone_id": 394,
+              "zone_name": "Dayton OH",
+              "state": "OH",
+              "latitude": 39.76,
+              "longitude": -84.19,
+              "tons_k": 122.95,
+              "value_m": 32.93,
+              "tmiles_m": 69.51,
+              "pct_of_precursor": 0.0303,
+              "primary_mode": "Rail",
+              "est_cost_usd": 2432822
+            },
+            {
+              "zone_id": 179,
+              "zone_name": "Illinois",
+              "state": "IL",
+              "latitude": 40.12,
+              "longitude": -89.4,
+              "tons_k": 100.28,
+              "value_m": 13.07,
+              "tmiles_m": 56.03,
+              "pct_of_precursor": 0.0247,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6723948
+            },
+            {
+              "zone_id": 201,
+              "zone_name": "Kansas City MO-KS (KS Part)",
+              "state": "KS",
+              "latitude": 39.1,
+              "longitude": -94.58,
+              "tons_k": 99.03,
+              "value_m": 137.64,
+              "tmiles_m": 82.77,
+              "pct_of_precursor": 0.0244,
+              "primary_mode": "Truck",
+              "est_cost_usd": 9932161
+            },
+            {
+              "zone_id": 319,
+              "zone_name": "Nebraska",
+              "state": "NE",
+              "latitude": 41.49,
+              "longitude": -99.9,
+              "tons_k": 74.08,
+              "value_m": 104.63,
+              "tmiles_m": 77.52,
+              "pct_of_precursor": 0.0182,
+              "primary_mode": "Truck",
+              "est_cost_usd": 9303096
+            },
+            {
+              "zone_id": 182,
+              "zone_name": "Indianapolis IN",
+              "state": "IN",
+              "latitude": 39.77,
+              "longitude": -86.16,
+              "tons_k": 73.77,
+              "value_m": 58.82,
+              "tmiles_m": 44.43,
+              "pct_of_precursor": 0.0182,
+              "primary_mode": "Truck",
+              "est_cost_usd": 5331491
+            },
+            {
+              "zone_id": 559,
+              "zone_name": "Wisconsin",
+              "state": "WI",
+              "latitude": 44.27,
+              "longitude": -89.62,
+              "tons_k": 56.64,
+              "value_m": 198.26,
+              "tmiles_m": 51.4,
+              "pct_of_precursor": 0.0139,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6168830
+            },
+            {
+              "zone_id": 472,
+              "zone_name": "Nashville TN",
+              "state": "TN",
+              "latitude": 36.16,
+              "longitude": -86.78,
+              "tons_k": 43.93,
+              "value_m": 73.0,
+              "tmiles_m": 10.59,
+              "pct_of_precursor": 0.0108,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1269831
+            }
+          ]
+        },
+        {
+          "sctg2": "02",
+          "name": "Cereal Grains",
+          "role": "Grain finishing at feedlots",
+          "ratio": 0.15,
+          "total_tons_k": 9213.08,
+          "total_value_m": 1309.06,
+          "total_tmiles_m": 5591.53,
+          "est_cost_usd": 195703563,
+          "primary_mode": "Rail",
+          "mode_split": [
+            {
+              "mode": "Rail",
+              "pct": 0.589
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.251
+            },
+            {
+              "mode": "Truck",
+              "pct": 0.16
+            }
+          ],
+          "num_sources": 10,
+          "sources": [
+            {
+              "zone_id": 189,
+              "zone_name": "Indiana",
+              "state": "IN",
+              "latitude": 40.27,
+              "longitude": -86.13,
+              "tons_k": 5240.15,
+              "value_m": 617.43,
+              "tmiles_m": 3177.98,
+              "pct_of_precursor": 0.5688,
+              "primary_mode": "Rail",
+              "est_cost_usd": 111229177
+            },
+            {
+              "zone_id": 179,
+              "zone_name": "Illinois",
+              "state": "IL",
+              "latitude": 40.12,
+              "longitude": -89.4,
+              "tons_k": 2464.67,
+              "value_m": 326.6,
+              "tmiles_m": 1877.31,
+              "pct_of_precursor": 0.2675,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 131411454
+            },
+            {
+              "zone_id": 139,
+              "zone_name": "Georgia",
+              "state": "GA",
+              "latitude": 32.17,
+              "longitude": -82.9,
+              "tons_k": 1026.03,
+              "value_m": 169.32,
+              "tmiles_m": 171.08,
+              "pct_of_precursor": 0.1114,
+              "primary_mode": "Truck",
+              "est_cost_usd": 20529556
+            },
+            {
+              "zone_id": 279,
+              "zone_name": "Minnesota",
+              "state": "MN",
+              "latitude": 46.73,
+              "longitude": -94.69,
+              "tons_k": 97.72,
+              "value_m": 16.43,
+              "tmiles_m": 124.08,
+              "pct_of_precursor": 0.0106,
+              "primary_mode": "Truck",
+              "est_cost_usd": 14889148
+            },
+            {
+              "zone_id": 19,
+              "zone_name": "Alabama",
+              "state": "AL",
+              "latitude": 32.38,
+              "longitude": -86.3,
+              "tons_k": 85.85,
+              "value_m": 12.87,
+              "tmiles_m": 18.32,
+              "pct_of_precursor": 0.0093,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2197693
+            },
+            {
+              "zone_id": 379,
+              "zone_name": "North Carolina",
+              "state": "NC",
+              "latitude": 35.55,
+              "longitude": -79.39,
+              "tons_k": 81.54,
+              "value_m": 27.19,
+              "tmiles_m": 32.16,
+              "pct_of_precursor": 0.0089,
+              "primary_mode": "Truck",
+              "est_cost_usd": 3859258
+            },
+            {
+              "zone_id": 183,
+              "zone_name": "Fort Wayne IN",
+              "state": "IN",
+              "latitude": 41.08,
+              "longitude": -85.14,
+              "tons_k": 59.27,
+              "value_m": 8.47,
+              "tmiles_m": 41.32,
+              "pct_of_precursor": 0.0064,
+              "primary_mode": "Rail",
+              "est_cost_usd": 1446073
+            },
+            {
+              "zone_id": 393,
+              "zone_name": "Columbus OH",
+              "state": "OH",
+              "latitude": 39.96,
+              "longitude": -83.0,
+              "tons_k": 58.92,
+              "value_m": 7.81,
+              "tmiles_m": 37.74,
+              "pct_of_precursor": 0.0064,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 2641909
+            },
+            {
+              "zone_id": 472,
+              "zone_name": "Nashville TN",
+              "state": "TN",
+              "latitude": 36.16,
+              "longitude": -86.78,
+              "tons_k": 50.82,
+              "value_m": 5.36,
+              "tmiles_m": 15.73,
+              "pct_of_precursor": 0.0055,
+              "primary_mode": "Rail",
+              "est_cost_usd": 550713
+            },
+            {
+              "zone_id": 479,
+              "zone_name": "Tennessee",
+              "state": "TN",
+              "latitude": 35.52,
+              "longitude": -86.58,
+              "tons_k": 48.11,
+              "value_m": 6.24,
+              "tmiles_m": 13.48,
+              "pct_of_precursor": 0.0052,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1617426
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "zone_id": 61,
+      "zone_name": "Los Angeles CA",
+      "state": "CA",
+      "latitude": 33.94,
+      "longitude": -118.24,
+      "total_precursor_tons_k": 8886.19,
+      "total_est_cost_usd": 357980960,
+      "precursors": [
+        {
+          "sctg2": "01",
+          "name": "Live Cattle",
+          "role": "Primary feedstock entering packing plants",
+          "ratio": 1.25,
+          "total_tons_k": 354.54,
+          "total_value_m": 996.03,
+          "total_tmiles_m": 82.05,
+          "est_cost_usd": 9845833,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.997
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.002
+            },
+            {
+              "mode": "Air",
+              "pct": 0.001
+            }
+          ],
+          "num_sources": 6,
+          "sources": [
+            {
+              "zone_id": 61,
+              "zone_name": "Los Angeles CA",
+              "state": "CA",
+              "latitude": 33.94,
+              "longitude": -118.24,
+              "tons_k": 166.64,
+              "value_m": 317.67,
+              "tmiles_m": 6.85,
+              "pct_of_precursor": 0.47,
+              "primary_mode": "Truck",
+              "est_cost_usd": 821209
+            },
+            {
+              "zone_id": 41,
+              "zone_name": "Phoenix AZ",
+              "state": "AZ",
+              "latitude": 33.45,
+              "longitude": -112.07,
+              "tons_k": 62.65,
+              "value_m": 272.31,
+              "tmiles_m": 24.41,
+              "pct_of_precursor": 0.1767,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2929334
+            },
+            {
+              "zone_id": 49,
+              "zone_name": "Arizona",
+              "state": "AZ",
+              "latitude": 34.57,
+              "longitude": -111.86,
+              "tons_k": 55.66,
+              "value_m": 268.52,
+              "tmiles_m": 21.04,
+              "pct_of_precursor": 0.157,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2524215
+            },
+            {
+              "zone_id": 69,
+              "zone_name": "California",
+              "state": "CA",
+              "latitude": 36.78,
+              "longitude": -119.42,
+              "tons_k": 31.43,
+              "value_m": 78.46,
+              "tmiles_m": 6.95,
+              "pct_of_precursor": 0.0887,
+              "primary_mode": "Truck",
+              "est_cost_usd": 833279
+            },
+            {
+              "zone_id": 63,
+              "zone_name": "San Diego CA",
+              "state": "CA",
+              "latitude": 32.72,
+              "longitude": -117.16,
+              "tons_k": 26.81,
+              "value_m": 27.52,
+              "tmiles_m": 3.04,
+              "pct_of_precursor": 0.0756,
+              "primary_mode": "Truck",
+              "est_cost_usd": 364639
+            },
+            {
+              "zone_id": 460,
+              "zone_name": "South Dakota",
+              "state": "SD",
+              "latitude": 43.97,
+              "longitude": -99.9,
+              "tons_k": 11.35,
+              "value_m": 6.41,
+              "tmiles_m": 16.87,
+              "pct_of_precursor": 0.032,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2024023
+            }
+          ]
+        },
+        {
+          "sctg2": "04",
+          "name": "Animal Feed",
+          "role": "Feedlot nutrition before processing",
+          "ratio": 0.3,
+          "total_tons_k": 7186.59,
+          "total_value_m": 5984.51,
+          "total_tmiles_m": 2292.85,
+          "est_cost_usd": 275141792,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.953
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.041
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.006
+            }
+          ],
+          "num_sources": 12,
+          "sources": [
+            {
+              "zone_id": 61,
+              "zone_name": "Los Angeles CA",
+              "state": "CA",
+              "latitude": 33.94,
+              "longitude": -118.24,
+              "tons_k": 5331.89,
+              "value_m": 3684.43,
+              "tmiles_m": 230.72,
+              "pct_of_precursor": 0.7418,
+              "primary_mode": "Truck",
+              "est_cost_usd": 27685832
+            },
+            {
+              "zone_id": 69,
+              "zone_name": "California",
+              "state": "CA",
+              "latitude": 36.78,
+              "longitude": -119.42,
+              "tons_k": 570.79,
+              "value_m": 164.23,
+              "tmiles_m": 117.57,
+              "pct_of_precursor": 0.0794,
+              "primary_mode": "Truck",
+              "est_cost_usd": 14108466
+            },
+            {
+              "zone_id": 49,
+              "zone_name": "Arizona",
+              "state": "AZ",
+              "latitude": 34.57,
+              "longitude": -111.86,
+              "tons_k": 242.44,
+              "value_m": 318.23,
+              "tmiles_m": 69.87,
+              "pct_of_precursor": 0.0337,
+              "primary_mode": "Truck",
+              "est_cost_usd": 8384461
+            },
+            {
+              "zone_id": 460,
+              "zone_name": "South Dakota",
+              "state": "SD",
+              "latitude": 43.97,
+              "longitude": -99.9,
+              "tons_k": 195.17,
+              "value_m": 9.52,
+              "tmiles_m": 273.35,
+              "pct_of_precursor": 0.0272,
+              "primary_mode": "Truck",
+              "est_cost_usd": 32802163
+            },
+            {
+              "zone_id": 299,
+              "zone_name": "Missouri",
+              "state": "MO",
+              "latitude": 38.57,
+              "longitude": -92.6,
+              "tons_k": 167.91,
+              "value_m": 417.48,
+              "tmiles_m": 272.45,
+              "pct_of_precursor": 0.0234,
+              "primary_mode": "Truck",
+              "est_cost_usd": 32693962
+            },
+            {
+              "zone_id": 89,
+              "zone_name": "Colorado",
+              "state": "CO",
+              "latitude": 38.83,
+              "longitude": -105.78,
+              "tons_k": 167.86,
+              "value_m": 64.81,
+              "tmiles_m": 168.8,
+              "pct_of_precursor": 0.0234,
+              "primary_mode": "Truck",
+              "est_cost_usd": 20256624
+            },
+            {
+              "zone_id": 189,
+              "zone_name": "Indiana",
+              "state": "IN",
+              "latitude": 40.27,
+              "longitude": -86.13,
+              "tons_k": 134.86,
+              "value_m": 128.51,
+              "tmiles_m": 305.39,
+              "pct_of_precursor": 0.0188,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 21377546
+            },
+            {
+              "zone_id": 209,
+              "zone_name": "Kansas",
+              "state": "KS",
+              "latitude": 38.5,
+              "longitude": -98.0,
+              "tons_k": 120.38,
+              "value_m": 234.5,
+              "tmiles_m": 153.95,
+              "pct_of_precursor": 0.0168,
+              "primary_mode": "Truck",
+              "est_cost_usd": 18473615
+            },
+            {
+              "zone_id": 64,
+              "zone_name": "San Francisco CA",
+              "state": "CA",
+              "latitude": 37.77,
+              "longitude": -122.42,
+              "tons_k": 89.22,
+              "value_m": 71.17,
+              "tmiles_m": 34.25,
+              "pct_of_precursor": 0.0124,
+              "primary_mode": "Truck",
+              "est_cost_usd": 4110484
+            },
+            {
+              "zone_id": 65,
+              "zone_name": "Fresno CA",
+              "state": "CA",
+              "latitude": 36.75,
+              "longitude": -119.77,
+              "tons_k": 60.27,
+              "value_m": 50.73,
+              "tmiles_m": 14.84,
+              "pct_of_precursor": 0.0084,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1780440
+            },
+            {
+              "zone_id": 190,
+              "zone_name": "Iowa",
+              "state": "IA",
+              "latitude": 41.88,
+              "longitude": -93.1,
+              "tons_k": 55.3,
+              "value_m": 21.99,
+              "tmiles_m": 108.4,
+              "pct_of_precursor": 0.0077,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 7587846
+            },
+            {
+              "zone_id": 491,
+              "zone_name": "Salt Lake City UT",
+              "state": "UT",
+              "latitude": 40.76,
+              "longitude": -111.89,
+              "tons_k": 50.5,
+              "value_m": 208.0,
+              "tmiles_m": 34.5,
+              "pct_of_precursor": 0.007,
+              "primary_mode": "Truck",
+              "est_cost_usd": 4139855
+            }
+          ]
+        },
+        {
+          "sctg2": "02",
+          "name": "Cereal Grains",
+          "role": "Grain finishing at feedlots",
+          "ratio": 0.15,
+          "total_tons_k": 1345.06,
+          "total_value_m": 741.27,
+          "total_tmiles_m": 608.28,
+          "est_cost_usd": 72993335,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.909
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.069
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.022
+            }
+          ],
+          "num_sources": 11,
+          "sources": [
+            {
+              "zone_id": 61,
+              "zone_name": "Los Angeles CA",
+              "state": "CA",
+              "latitude": 33.94,
+              "longitude": -118.24,
+              "tons_k": 746.59,
+              "value_m": 560.56,
+              "tmiles_m": 37.84,
+              "pct_of_precursor": 0.555,
+              "primary_mode": "Truck",
+              "est_cost_usd": 4540842
+            },
+            {
+              "zone_id": 69,
+              "zone_name": "California",
+              "state": "CA",
+              "latitude": 36.78,
+              "longitude": -119.42,
+              "tons_k": 236.25,
+              "value_m": 73.87,
+              "tmiles_m": 73.8,
+              "pct_of_precursor": 0.1756,
+              "primary_mode": "Truck",
+              "est_cost_usd": 8855380
+            },
+            {
+              "zone_id": 487,
+              "zone_name": "Laredo TX",
+              "state": "TX",
+              "latitude": 27.51,
+              "longitude": -99.51,
+              "tons_k": 132.03,
+              "value_m": 15.46,
+              "tmiles_m": 183.31,
+              "pct_of_precursor": 0.0982,
+              "primary_mode": "Truck",
+              "est_cost_usd": 21997227
+            },
+            {
+              "zone_id": 160,
+              "zone_name": "Idaho",
+              "state": "ID",
+              "latitude": 43.62,
+              "longitude": -114.74,
+              "tons_k": 84.13,
+              "value_m": 14.78,
+              "tmiles_m": 97.07,
+              "pct_of_precursor": 0.0625,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 6794984
+            },
+            {
+              "zone_id": 209,
+              "zone_name": "Kansas",
+              "state": "KS",
+              "latitude": 38.5,
+              "longitude": -98.0,
+              "tons_k": 36.27,
+              "value_m": 2.8,
+              "tmiles_m": 59.83,
+              "pct_of_precursor": 0.027,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 4188180
+            },
+            {
+              "zone_id": 279,
+              "zone_name": "Minnesota",
+              "state": "MN",
+              "latitude": 46.73,
+              "longitude": -94.69,
+              "tons_k": 31.29,
+              "value_m": 6.48,
+              "tmiles_m": 57.45,
+              "pct_of_precursor": 0.0233,
+              "primary_mode": "Truck",
+              "est_cost_usd": 6894642
+            },
+            {
+              "zone_id": 41,
+              "zone_name": "Phoenix AZ",
+              "state": "AZ",
+              "latitude": 33.45,
+              "longitude": -112.07,
+              "tons_k": 19.58,
+              "value_m": 5.13,
+              "tmiles_m": 7.41,
+              "pct_of_precursor": 0.0146,
+              "primary_mode": "Truck",
+              "est_cost_usd": 889858
+            },
+            {
+              "zone_id": 300,
+              "zone_name": "Montana",
+              "state": "MT",
+              "latitude": 46.88,
+              "longitude": -110.36,
+              "tons_k": 18.33,
+              "value_m": 8.54,
+              "tmiles_m": 23.57,
+              "pct_of_precursor": 0.0136,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2828386
+            },
+            {
+              "zone_id": 63,
+              "zone_name": "San Diego CA",
+              "state": "CA",
+              "latitude": 32.72,
+              "longitude": -117.16,
+              "tons_k": 16.54,
+              "value_m": 4.23,
+              "tmiles_m": 1.79,
+              "pct_of_precursor": 0.0123,
+              "primary_mode": "Truck",
+              "est_cost_usd": 215115
+            },
+            {
+              "zone_id": 362,
+              "zone_name": "Buffalo NY",
+              "state": "NY",
+              "latitude": 42.89,
+              "longitude": -78.88,
+              "tons_k": 13.14,
+              "value_m": 27.73,
+              "tmiles_m": 33.69,
+              "pct_of_precursor": 0.0098,
+              "primary_mode": "Truck",
+              "est_cost_usd": 4042457
+            },
+            {
+              "zone_id": 62,
+              "zone_name": "Sacramento CA",
+              "state": "CA",
+              "latitude": 38.58,
+              "longitude": -121.49,
+              "tons_k": 10.91,
+              "value_m": 2.59,
+              "tmiles_m": 4.71,
+              "pct_of_precursor": 0.0081,
+              "primary_mode": "Truck",
+              "est_cost_usd": 565488
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "zone_id": 181,
+      "zone_name": "Chicago Metro",
+      "state": "IN",
+      "latitude": 41.8781,
+      "longitude": -87.6298,
+      "total_precursor_tons_k": 32684.04,
+      "total_est_cost_usd": 1011186188,
+      "precursors": [
+        {
+          "sctg2": "01",
+          "name": "Live Cattle",
+          "role": "Primary feedstock entering packing plants",
+          "ratio": 1.25,
+          "total_tons_k": 221.84,
+          "total_value_m": 422.94,
+          "total_tmiles_m": 36.88,
+          "est_cost_usd": 4425428,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.999
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.001
+            },
+            {
+              "mode": "Air",
+              "pct": 0.0
+            }
+          ],
+          "num_sources": 11,
+          "sources": [
+            {
+              "zone_id": 181,
+              "zone_name": "Chicago Metro",
+              "state": "IN",
+              "latitude": 41.8781,
+              "longitude": -87.6298,
+              "tons_k": 111.36,
+              "value_m": 131.5,
+              "tmiles_m": 7.16,
+              "pct_of_precursor": 0.5021,
+              "primary_mode": "Truck",
+              "est_cost_usd": 859269
+            },
+            {
+              "zone_id": 551,
+              "zone_name": "Milwaukee WI",
+              "state": "WI",
+              "latitude": 43.04,
+              "longitude": -87.91,
+              "tons_k": 42.0,
+              "value_m": 161.59,
+              "tmiles_m": 4.69,
+              "pct_of_precursor": 0.1893,
+              "primary_mode": "Truck",
+              "est_cost_usd": 562434
+            },
+            {
+              "zone_id": 189,
+              "zone_name": "Indiana",
+              "state": "IN",
+              "latitude": 40.27,
+              "longitude": -86.13,
+              "tons_k": 14.83,
+              "value_m": 20.77,
+              "tmiles_m": 3.15,
+              "pct_of_precursor": 0.0668,
+              "primary_mode": "Truck",
+              "est_cost_usd": 378959
+            },
+            {
+              "zone_id": 190,
+              "zone_name": "Iowa",
+              "state": "IA",
+              "latitude": 41.88,
+              "longitude": -93.1,
+              "tons_k": 11.11,
+              "value_m": 3.7,
+              "tmiles_m": 3.2,
+              "pct_of_precursor": 0.0501,
+              "primary_mode": "Truck",
+              "est_cost_usd": 384193
+            },
+            {
+              "zone_id": 219,
+              "zone_name": "Kentucky",
+              "state": "KY",
+              "latitude": 37.84,
+              "longitude": -84.27,
+              "tons_k": 11.11,
+              "value_m": 35.44,
+              "tmiles_m": 4.66,
+              "pct_of_precursor": 0.0501,
+              "primary_mode": "Truck",
+              "est_cost_usd": 559800
+            },
+            {
+              "zone_id": 279,
+              "zone_name": "Minnesota",
+              "state": "MN",
+              "latitude": 46.73,
+              "longitude": -94.69,
+              "tons_k": 10.23,
+              "value_m": 4.39,
+              "tmiles_m": 4.93,
+              "pct_of_precursor": 0.0461,
+              "primary_mode": "Truck",
+              "est_cost_usd": 592097
+            },
+            {
+              "zone_id": 460,
+              "zone_name": "South Dakota",
+              "state": "SD",
+              "latitude": 43.97,
+              "longitude": -99.9,
+              "tons_k": 8.95,
+              "value_m": 15.56,
+              "tmiles_m": 5.34,
+              "pct_of_precursor": 0.0403,
+              "primary_mode": "Truck",
+              "est_cost_usd": 641836
+            },
+            {
+              "zone_id": 172,
+              "zone_name": "St. Louis MO-IL (IL Part)",
+              "state": "IL",
+              "latitude": 38.63,
+              "longitude": -90.2,
+              "tons_k": 4.39,
+              "value_m": 6.23,
+              "tmiles_m": 1.2,
+              "pct_of_precursor": 0.0198,
+              "primary_mode": "Truck",
+              "est_cost_usd": 143073
+            },
+            {
+              "zone_id": 559,
+              "zone_name": "Wisconsin",
+              "state": "WI",
+              "latitude": 44.27,
+              "longitude": -89.62,
+              "tons_k": 3.98,
+              "value_m": 11.26,
+              "tmiles_m": 0.73,
+              "pct_of_precursor": 0.0179,
+              "primary_mode": "Truck",
+              "est_cost_usd": 88230
+            },
+            {
+              "zone_id": 182,
+              "zone_name": "Indianapolis IN",
+              "state": "IN",
+              "latitude": 39.77,
+              "longitude": -86.16,
+              "tons_k": 2.1,
+              "value_m": 3.01,
+              "tmiles_m": 0.48,
+              "pct_of_precursor": 0.0095,
+              "primary_mode": "Truck",
+              "est_cost_usd": 57486
+            },
+            {
+              "zone_id": 183,
+              "zone_name": "Fort Wayne IN",
+              "state": "IN",
+              "latitude": 41.08,
+              "longitude": -85.14,
+              "tons_k": 1.78,
+              "value_m": 2.76,
+              "tmiles_m": 0.35,
+              "pct_of_precursor": 0.008,
+              "primary_mode": "Truck",
+              "est_cost_usd": 42401
+            }
+          ]
+        },
+        {
+          "sctg2": "04",
+          "name": "Animal Feed",
+          "role": "Feedlot nutrition before processing",
+          "ratio": 0.3,
+          "total_tons_k": 8628.08,
+          "total_value_m": 4368.32,
+          "total_tmiles_m": 1631.82,
+          "est_cost_usd": 195818580,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.969
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.019
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.013
+            }
+          ],
+          "num_sources": 11,
+          "sources": [
+            {
+              "zone_id": 179,
+              "zone_name": "Illinois",
+              "state": "IL",
+              "latitude": 40.12,
+              "longitude": -89.4,
+              "tons_k": 4622.18,
+              "value_m": 1144.73,
+              "tmiles_m": 723.0,
+              "pct_of_precursor": 0.5358,
+              "primary_mode": "Truck",
+              "est_cost_usd": 86759360
+            },
+            {
+              "zone_id": 181,
+              "zone_name": "Chicago Metro",
+              "state": "IN",
+              "latitude": 41.8781,
+              "longitude": -87.6298,
+              "tons_k": 2268.73,
+              "value_m": 817.21,
+              "tmiles_m": 95.45,
+              "pct_of_precursor": 0.2629,
+              "primary_mode": "Truck",
+              "est_cost_usd": 11454579
+            },
+            {
+              "zone_id": 189,
+              "zone_name": "Indiana",
+              "state": "IN",
+              "latitude": 40.27,
+              "longitude": -86.13,
+              "tons_k": 743.81,
+              "value_m": 207.71,
+              "tmiles_m": 136.92,
+              "pct_of_precursor": 0.0862,
+              "primary_mode": "Truck",
+              "est_cost_usd": 16429973
+            },
+            {
+              "zone_id": 190,
+              "zone_name": "Iowa",
+              "state": "IA",
+              "latitude": 41.88,
+              "longitude": -93.1,
+              "tons_k": 272.86,
+              "value_m": 205.46,
+              "tmiles_m": 71.29,
+              "pct_of_precursor": 0.0316,
+              "primary_mode": "Truck",
+              "est_cost_usd": 8554184
+            },
+            {
+              "zone_id": 209,
+              "zone_name": "Kansas",
+              "state": "KS",
+              "latitude": 38.5,
+              "longitude": -98.0,
+              "tons_k": 182.09,
+              "value_m": 244.69,
+              "tmiles_m": 116.24,
+              "pct_of_precursor": 0.0211,
+              "primary_mode": "Truck",
+              "est_cost_usd": 13949005
+            },
+            {
+              "zone_id": 559,
+              "zone_name": "Wisconsin",
+              "state": "WI",
+              "latitude": 44.27,
+              "longitude": -89.62,
+              "tons_k": 119.59,
+              "value_m": 240.13,
+              "tmiles_m": 22.48,
+              "pct_of_precursor": 0.0139,
+              "primary_mode": "Truck",
+              "est_cost_usd": 2697255
+            },
+            {
+              "zone_id": 299,
+              "zone_name": "Missouri",
+              "state": "MO",
+              "latitude": 38.57,
+              "longitude": -92.6,
+              "tons_k": 117.35,
+              "value_m": 239.94,
+              "tmiles_m": 48.85,
+              "pct_of_precursor": 0.0136,
+              "primary_mode": "Truck",
+              "est_cost_usd": 5862894
+            },
+            {
+              "zone_id": 491,
+              "zone_name": "Salt Lake City UT",
+              "state": "UT",
+              "latitude": 40.76,
+              "longitude": -111.89,
+              "tons_k": 99.55,
+              "value_m": 739.86,
+              "tmiles_m": 138.18,
+              "pct_of_precursor": 0.0115,
+              "primary_mode": "Truck",
+              "est_cost_usd": 16581319
+            },
+            {
+              "zone_id": 551,
+              "zone_name": "Milwaukee WI",
+              "state": "WI",
+              "latitude": 43.04,
+              "longitude": -87.91,
+              "tons_k": 82.13,
+              "value_m": 132.48,
+              "tmiles_m": 9.15,
+              "pct_of_precursor": 0.0095,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1097830
+            },
+            {
+              "zone_id": 380,
+              "zone_name": "North Dakota",
+              "state": "ND",
+              "latitude": 47.55,
+              "longitude": -100.34,
+              "tons_k": 63.44,
+              "value_m": 14.57,
+              "tmiles_m": 52.67,
+              "pct_of_precursor": 0.0074,
+              "primary_mode": "Intermodal",
+              "est_cost_usd": 3687186
+            },
+            {
+              "zone_id": 394,
+              "zone_name": "Dayton OH",
+              "state": "OH",
+              "latitude": 39.76,
+              "longitude": -84.19,
+              "tons_k": 56.36,
+              "value_m": 13.67,
+              "tmiles_m": 14.47,
+              "pct_of_precursor": 0.0065,
+              "primary_mode": "Truck",
+              "est_cost_usd": 1736508
+            }
+          ]
+        },
+        {
+          "sctg2": "02",
+          "name": "Cereal Grains",
+          "role": "Grain finishing at feedlots",
+          "ratio": 0.15,
+          "total_tons_k": 23834.12,
+          "total_value_m": 3302.63,
+          "total_tmiles_m": 6757.85,
+          "est_cost_usd": 810942180,
+          "primary_mode": "Truck",
+          "mode_split": [
+            {
+              "mode": "Truck",
+              "pct": 0.729
+            },
+            {
+              "mode": "Rail",
+              "pct": 0.221
+            },
+            {
+              "mode": "Water",
+              "pct": 0.046
+            },
+            {
+              "mode": "Intermodal",
+              "pct": 0.005
+            }
+          ],
+          "num_sources": 9,
+          "sources": [
+            {
+              "zone_id": 179,
+              "zone_name": "Illinois",
+              "state": "IL",
+              "latitude": 40.12,
+              "longitude": -89.4,
+              "tons_k": 12569.38,
+              "value_m": 1404.79,
+              "tmiles_m": 2387.26,
+              "pct_of_precursor": 0.5274,
+              "primary_mode": "Truck",
+              "est_cost_usd": 286472167
+            },
+            {
+              "zone_id": 181,
+              "zone_name": "Chicago Metro",
+              "state": "IN",
+              "latitude": 41.8781,
+              "longitude": -87.6298,
+              "tons_k": 2991.59,
+              "value_m": 525.74,
+              "tmiles_m": 147.42,
+              "pct_of_precursor": 0.1255,
+              "primary_mode": "Truck",
+              "est_cost_usd": 17690568
+            },
+            {
+              "zone_id": 551,
+              "zone_name": "Milwaukee WI",
+              "state": "WI",
+              "latitude": 43.04,
+              "longitude": -87.91,
+              "tons_k": 2350.76,
+              "value_m": 322.9,
+              "tmiles_m": 291.12,
+              "pct_of_precursor": 0.0986,
+              "primary_mode": "Truck",
+              "est_cost_usd": 34934694
+            },
+            {
+              "zone_id": 460,
+              "zone_name": "South Dakota",
+              "state": "SD",
+              "latitude": 43.97,
+              "longitude": -99.9,
+              "tons_k": 2302.07,
+              "value_m": 435.02,
+              "tmiles_m": 1679.95,
+              "pct_of_precursor": 0.0966,
+              "primary_mode": "Rail",
+              "est_cost_usd": 58798223
+            },
+            {
+              "zone_id": 559,
+              "zone_name": "Wisconsin",
+              "state": "WI",
+              "latitude": 44.27,
+              "longitude": -89.62,
+              "tons_k": 1224.91,
+              "value_m": 141.27,
+              "tmiles_m": 311.81,
+              "pct_of_precursor": 0.0514,
+              "primary_mode": "Rail",
+              "est_cost_usd": 10913572
+            },
+            {
+              "zone_id": 219,
+              "zone_name": "Kentucky",
+              "state": "KY",
+              "latitude": 37.84,
+              "longitude": -84.27,
+              "tons_k": 1107.19,
+              "value_m": 206.12,
+              "tmiles_m": 973.21,
+              "pct_of_precursor": 0.0465,
+              "primary_mode": "Water",
+              "est_cost_usd": 14598156
+            },
+            {
+              "zone_id": 380,
+              "zone_name": "North Dakota",
+              "state": "ND",
+              "latitude": 47.55,
+              "longitude": -100.34,
+              "tons_k": 734.74,
+              "value_m": 171.98,
+              "tmiles_m": 622.47,
+              "pct_of_precursor": 0.0308,
+              "primary_mode": "Rail",
+              "est_cost_usd": 21786415
+            },
+            {
+              "zone_id": 189,
+              "zone_name": "Indiana",
+              "state": "IN",
+              "latitude": 40.27,
+              "longitude": -86.13,
+              "tons_k": 394.24,
+              "value_m": 49.13,
+              "tmiles_m": 90.16,
+              "pct_of_precursor": 0.0165,
+              "primary_mode": "Truck",
+              "est_cost_usd": 10820003
+            },
+            {
+              "zone_id": 487,
+              "zone_name": "Laredo TX",
+              "state": "TX",
+              "latitude": 27.51,
+              "longitude": -99.51,
+              "tons_k": 159.23,
+              "value_m": 16.55,
+              "tmiles_m": 219.99,
+              "pct_of_precursor": 0.0067,
+              "primary_mode": "Truck",
+              "est_cost_usd": 26399383
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -120,12 +120,12 @@
               "state": "WV",
               "latitude": 38.6,
               "longitude": -80.45,
-              "tons_k": 3366.71,
-              "value_m": 292.43,
-              "tmiles_m": 1812.35,
-              "pct_of_precursor": 0.406,
+              "tons_k": 3375.54,
+              "value_m": 293.2,
+              "tmiles_m": 1817.11,
+              "pct_of_precursor": 0.4068,
               "primary_mode": "Rail",
-              "est_cost_usd": 63432180
+              "est_cost_usd": 63598636
             },
             {
               "zone_id": 560,
@@ -133,12 +133,12 @@
               "state": "WY",
               "latitude": 43.08,
               "longitude": -107.29,
-              "tons_k": 2225.14,
-              "value_m": 27.75,
-              "tmiles_m": 2708.6,
-              "pct_of_precursor": 0.268,
+              "tons_k": 2230.98,
+              "value_m": 27.82,
+              "tmiles_m": 2715.71,
+              "pct_of_precursor": 0.2688,
               "primary_mode": "Rail",
-              "est_cost_usd": 94801129
+              "est_cost_usd": 95049902
             },
             {
               "zone_id": 179,
@@ -146,12 +146,12 @@
               "state": "IL",
               "latitude": 40.12,
               "longitude": -89.4,
-              "tons_k": 1399.66,
-              "value_m": 43.45,
-              "tmiles_m": 310.24,
-              "pct_of_precursor": 0.169,
+              "tons_k": 1403.33,
+              "value_m": 43.56,
+              "tmiles_m": 311.05,
+              "pct_of_precursor": 0.1691,
               "primary_mode": "Rail",
-              "est_cost_usd": 10858550
+              "est_cost_usd": 10887045
             },
             {
               "zone_id": 219,
@@ -159,12 +159,12 @@
               "state": "KY",
               "latitude": 37.84,
               "longitude": -84.27,
-              "tons_k": 921.48,
-              "value_m": 65.32,
-              "tmiles_m": 445.05,
-              "pct_of_precursor": 0.111,
+              "tons_k": 923.9,
+              "value_m": 65.49,
+              "tmiles_m": 446.22,
+              "pct_of_precursor": 0.1113,
               "primary_mode": "Rail",
-              "est_cost_usd": 15576730
+              "est_cost_usd": 15617606
             },
             {
               "zone_id": 89,
@@ -172,12 +172,12 @@
               "state": "CO",
               "latitude": 38.83,
               "longitude": -105.78,
-              "tons_k": 363.96,
-              "value_m": 9.38,
-              "tmiles_m": 443.36,
+              "tons_k": 364.92,
+              "value_m": 9.4,
+              "tmiles_m": 444.52,
               "pct_of_precursor": 0.044,
               "primary_mode": "Rail",
-              "est_cost_usd": 15517612
+              "est_cost_usd": 15558333
             }
           ]
         }
@@ -224,12 +224,12 @@
               "state": "MN",
               "latitude": 46.73,
               "longitude": -94.69,
-              "tons_k": 3809.36,
-              "value_m": 236.68,
-              "tmiles_m": 3162.57,
-              "pct_of_precursor": 0.948,
+              "tons_k": 3864.11,
+              "value_m": 240.08,
+              "tmiles_m": 3208.02,
+              "pct_of_precursor": 0.9612,
               "primary_mode": "Water",
-              "est_cost_usd": 47438525
+              "est_cost_usd": 48120341
             },
             {
               "zone_id": 399,
@@ -237,12 +237,12 @@
               "state": "OH",
               "latitude": 40.42,
               "longitude": -82.91,
-              "tons_k": 112.53,
-              "value_m": 34.77,
-              "tmiles_m": 13.7,
-              "pct_of_precursor": 0.028,
+              "tons_k": 114.15,
+              "value_m": 35.27,
+              "tmiles_m": 13.9,
+              "pct_of_precursor": 0.0284,
               "primary_mode": "Truck",
-              "est_cost_usd": 1644182
+              "est_cost_usd": 1667813
             },
             {
               "zone_id": 11,
@@ -250,12 +250,12 @@
               "state": "AL",
               "latitude": 33.52,
               "longitude": -86.8,
-              "tons_k": 41.2,
-              "value_m": 227.78,
-              "tmiles_m": 29.89,
-              "pct_of_precursor": 0.01,
+              "tons_k": 41.79,
+              "value_m": 231.05,
+              "tmiles_m": 30.32,
+              "pct_of_precursor": 0.0104,
               "primary_mode": "Truck",
-              "est_cost_usd": 3586562
+              "est_cost_usd": 3638110
             }
           ]
         },
@@ -291,12 +291,12 @@
               "state": "WV",
               "latitude": 38.6,
               "longitude": -80.45,
-              "tons_k": 977.22,
-              "value_m": 53.8,
-              "tmiles_m": 313.09,
-              "pct_of_precursor": 0.498,
+              "tons_k": 982.48,
+              "value_m": 54.09,
+              "tmiles_m": 314.77,
+              "pct_of_precursor": 0.5004,
               "primary_mode": "Rail",
-              "est_cost_usd": 10958260
+              "est_cost_usd": 11017235
             },
             {
               "zone_id": 219,
@@ -304,12 +304,12 @@
               "state": "KY",
               "latitude": 37.84,
               "longitude": -84.27,
-              "tons_k": 713.04,
-              "value_m": 29.33,
-              "tmiles_m": 1273.93,
-              "pct_of_precursor": 0.363,
+              "tons_k": 716.88,
+              "value_m": 29.49,
+              "tmiles_m": 1280.79,
+              "pct_of_precursor": 0.3651,
               "primary_mode": "Water",
-              "est_cost_usd": 19108921
+              "est_cost_usd": 19211761
             },
             {
               "zone_id": 392,
@@ -317,12 +317,12 @@
               "state": "OH",
               "latitude": 41.5,
               "longitude": -81.69,
-              "tons_k": 262.63,
-              "value_m": 9.28,
-              "tmiles_m": 7.08,
-              "pct_of_precursor": 0.134,
+              "tons_k": 264.04,
+              "value_m": 9.33,
+              "tmiles_m": 7.12,
+              "pct_of_precursor": 0.1345,
               "primary_mode": "Truck",
-              "est_cost_usd": 850068
+              "est_cost_usd": 854643
             }
           ]
         }
@@ -369,12 +369,12 @@
               "state": "MN",
               "latitude": 46.73,
               "longitude": -94.69,
-              "tons_k": 4512.31,
-              "value_m": 226.76,
-              "tmiles_m": 3630.39,
-              "pct_of_precursor": 0.991,
+              "tons_k": 4551.73,
+              "value_m": 228.74,
+              "tmiles_m": 3662.11,
+              "pct_of_precursor": 1.0,
               "primary_mode": "Intermodal",
-              "est_cost_usd": 254126980
+              "est_cost_usd": 256347059
             }
           ]
         },
@@ -410,12 +410,12 @@
               "state": "WY",
               "latitude": 43.08,
               "longitude": -107.29,
-              "tons_k": 2548.0,
-              "value_m": 31.91,
-              "tmiles_m": 3755.24,
-              "pct_of_precursor": 0.535,
+              "tons_k": 2549.36,
+              "value_m": 31.93,
+              "tmiles_m": 3757.24,
+              "pct_of_precursor": 0.5353,
               "primary_mode": "Rail",
-              "est_cost_usd": 131433427
+              "est_cost_usd": 131503563
             },
             {
               "zone_id": 300,
@@ -423,12 +423,12 @@
               "state": "MT",
               "latitude": 46.88,
               "longitude": -110.36,
-              "tons_k": 1715.64,
-              "value_m": 26.2,
-              "tmiles_m": 3081.86,
-              "pct_of_precursor": 0.36,
+              "tons_k": 1716.56,
+              "value_m": 26.21,
+              "tmiles_m": 3083.5,
+              "pct_of_precursor": 0.3604,
               "primary_mode": "Rail",
-              "est_cost_usd": 107864942
+              "est_cost_usd": 107922502
             },
             {
               "zone_id": 540,
@@ -436,12 +436,12 @@
               "state": "WV",
               "latitude": 38.6,
               "longitude": -80.45,
-              "tons_k": 496.25,
-              "value_m": 48.91,
-              "tmiles_m": 211.15,
-              "pct_of_precursor": 0.104,
+              "tons_k": 496.51,
+              "value_m": 48.94,
+              "tmiles_m": 211.26,
+              "pct_of_precursor": 0.1043,
               "primary_mode": "Rail",
-              "est_cost_usd": 7390169
+              "est_cost_usd": 7394113
             }
           ]
         }
@@ -488,12 +488,12 @@
               "state": "MN",
               "latitude": 46.73,
               "longitude": -94.69,
-              "tons_k": 3327.14,
-              "value_m": 173.8,
-              "tmiles_m": 3493.84,
-              "pct_of_precursor": 0.963,
+              "tons_k": 3380.7,
+              "value_m": 176.6,
+              "tmiles_m": 3550.09,
+              "pct_of_precursor": 0.9781,
               "primary_mode": "Intermodal",
-              "est_cost_usd": 244569021
+              "est_cost_usd": 248506191
             },
             {
               "zone_id": 540,
@@ -501,12 +501,12 @@
               "state": "WV",
               "latitude": 38.6,
               "longitude": -80.45,
-              "tons_k": 42.14,
-              "value_m": 8.22,
-              "tmiles_m": 8.55,
-              "pct_of_precursor": 0.012,
+              "tons_k": 42.82,
+              "value_m": 8.35,
+              "tmiles_m": 8.69,
+              "pct_of_precursor": 0.0124,
               "primary_mode": "Truck",
-              "est_cost_usd": 1026072
+              "est_cost_usd": 1042590
             },
             {
               "zone_id": 160,
@@ -514,12 +514,12 @@
               "state": "ID",
               "latitude": 43.62,
               "longitude": -114.74,
-              "tons_k": 32.3,
-              "value_m": 214.79,
-              "tmiles_m": 73.1,
-              "pct_of_precursor": 0.009,
+              "tons_k": 32.82,
+              "value_m": 218.25,
+              "tmiles_m": 74.28,
+              "pct_of_precursor": 0.0095,
               "primary_mode": "Truck",
-              "est_cost_usd": 8772145
+              "est_cost_usd": 8913363
             }
           ]
         },
@@ -559,12 +559,12 @@
               "state": "WV",
               "latitude": 38.6,
               "longitude": -80.45,
-              "tons_k": 21501.63,
-              "value_m": 856.43,
-              "tmiles_m": 5797.58,
-              "pct_of_precursor": 0.72,
+              "tons_k": 21504.68,
+              "value_m": 856.55,
+              "tmiles_m": 5798.4,
+              "pct_of_precursor": 0.7205,
               "primary_mode": "Water",
-              "est_cost_usd": 86963671
+              "est_cost_usd": 86976027
             },
             {
               "zone_id": 429,
@@ -572,12 +572,12 @@
               "state": "PA",
               "latitude": 41.2,
               "longitude": -77.19,
-              "tons_k": 5518.41,
-              "value_m": 378.85,
-              "tmiles_m": 913.63,
-              "pct_of_precursor": 0.185,
+              "tons_k": 5519.19,
+              "value_m": 378.9,
+              "tmiles_m": 913.76,
+              "pct_of_precursor": 0.1849,
               "primary_mode": "Rail",
-              "est_cost_usd": 31976878
+              "est_cost_usd": 31981421
             },
             {
               "zone_id": 399,
@@ -585,12 +585,12 @@
               "state": "OH",
               "latitude": 40.42,
               "longitude": -82.91,
-              "tons_k": 1701.35,
-              "value_m": 63.84,
-              "tmiles_m": 795.28,
+              "tons_k": 1701.59,
+              "value_m": 63.85,
+              "tmiles_m": 795.39,
               "pct_of_precursor": 0.057,
               "primary_mode": "Water",
-              "est_cost_usd": 11929141
+              "est_cost_usd": 11930836
             },
             {
               "zone_id": 422,
@@ -598,12 +598,12 @@
               "state": "PA",
               "latitude": 40.44,
               "longitude": -80.0,
-              "tons_k": 725.13,
+              "tons_k": 725.23,
               "value_m": 32.31,
               "tmiles_m": 23.86,
-              "pct_of_precursor": 0.024,
+              "pct_of_precursor": 0.0243,
               "primary_mode": "Truck",
-              "est_cost_usd": 2862787
+              "est_cost_usd": 2863194
             },
             {
               "zone_id": 219,
@@ -611,12 +611,12 @@
               "state": "KY",
               "latitude": 37.84,
               "longitude": -84.27,
-              "tons_k": 396.49,
+              "tons_k": 396.55,
               "value_m": 27.55,
-              "tmiles_m": 240.8,
-              "pct_of_precursor": 0.013,
+              "tmiles_m": 240.83,
+              "pct_of_precursor": 0.0133,
               "primary_mode": "Rail",
-              "est_cost_usd": 8427920
+              "est_cost_usd": 8429117
             }
           ]
         }
@@ -661,10 +661,10 @@
               "longitude": -110.97,
               "tons_k": 8.31,
               "value_m": 3.83,
-              "tmiles_m": 13.46,
-              "pct_of_precursor": 0.385,
+              "tmiles_m": 13.45,
+              "pct_of_precursor": 0.3846,
               "primary_mode": "Truck",
-              "est_cost_usd": 1614707
+              "est_cost_usd": 1613959
             },
             {
               "zone_id": 559,
@@ -675,9 +675,9 @@
               "tons_k": 3.64,
               "value_m": 9.17,
               "tmiles_m": 3.4,
-              "pct_of_precursor": 0.168,
+              "pct_of_precursor": 0.1687,
               "primary_mode": "Truck",
-              "est_cost_usd": 407890
+              "est_cost_usd": 407701
             },
             {
               "zone_id": 219,
@@ -688,9 +688,9 @@
               "tons_k": 2.94,
               "value_m": 1.95,
               "tmiles_m": 1.18,
-              "pct_of_precursor": 0.136,
+              "pct_of_precursor": 0.1362,
               "primary_mode": "Truck",
-              "est_cost_usd": 141915
+              "est_cost_usd": 141849
             },
             {
               "zone_id": 551,
@@ -701,9 +701,9 @@
               "tons_k": 2.15,
               "value_m": 3.7,
               "tmiles_m": 1.81,
-              "pct_of_precursor": 0.099,
+              "pct_of_precursor": 0.0996,
               "primary_mode": "Truck",
-              "est_cost_usd": 216992
+              "est_cost_usd": 216891
             },
             {
               "zone_id": 261,
@@ -714,9 +714,9 @@
               "tons_k": 1.88,
               "value_m": 1.92,
               "tmiles_m": 1.47,
-              "pct_of_precursor": 0.087,
+              "pct_of_precursor": 0.0871,
               "primary_mode": "Truck",
-              "est_cost_usd": 176980
+              "est_cost_usd": 176898
             },
             {
               "zone_id": 422,
@@ -727,9 +727,9 @@
               "tons_k": 0.98,
               "value_m": 0.98,
               "tmiles_m": 0.78,
-              "pct_of_precursor": 0.045,
+              "pct_of_precursor": 0.0454,
               "primary_mode": "Truck",
-              "est_cost_usd": 93556
+              "est_cost_usd": 93513
             },
             {
               "zone_id": 179,
@@ -740,9 +740,9 @@
               "tons_k": 0.88,
               "value_m": 0.01,
               "tmiles_m": 0.56,
-              "pct_of_precursor": 0.041,
+              "pct_of_precursor": 0.0408,
               "primary_mode": "Truck",
-              "est_cost_usd": 67369
+              "est_cost_usd": 67338
             },
             {
               "zone_id": 212,
@@ -755,7 +755,7 @@
               "tmiles_m": 0.29,
               "pct_of_precursor": 0.032,
               "primary_mode": "Truck",
-              "est_cost_usd": 35016
+              "est_cost_usd": 35000
             },
             {
               "zone_id": 50,
@@ -766,9 +766,9 @@
               "tons_k": 0.12,
               "value_m": 1.96,
               "tmiles_m": 0.06,
-              "pct_of_precursor": 0.006,
+              "pct_of_precursor": 0.0056,
               "primary_mode": "Truck",
-              "est_cost_usd": 6795
+              "est_cost_usd": 6792
             }
           ]
         },
@@ -804,12 +804,12 @@
               "state": "WY",
               "latitude": 43.08,
               "longitude": -107.29,
-              "tons_k": 781.66,
-              "value_m": 10.74,
-              "tmiles_m": 1280.72,
-              "pct_of_precursor": 0.602,
+              "tons_k": 784.29,
+              "value_m": 10.78,
+              "tmiles_m": 1285.04,
+              "pct_of_precursor": 0.604,
               "primary_mode": "Rail",
-              "est_cost_usd": 44825224
+              "est_cost_usd": 44976250
             },
             {
               "zone_id": 19,
@@ -817,12 +817,12 @@
               "state": "AL",
               "latitude": 32.38,
               "longitude": -86.3,
-              "tons_k": 428.81,
-              "value_m": 99.79,
-              "tmiles_m": 130.84,
-              "pct_of_precursor": 0.33,
+              "tons_k": 430.25,
+              "value_m": 100.13,
+              "tmiles_m": 131.28,
+              "pct_of_precursor": 0.3314,
               "primary_mode": "Water",
-              "est_cost_usd": 1962530
+              "est_cost_usd": 1969142
             },
             {
               "zone_id": 219,
@@ -830,12 +830,12 @@
               "state": "KY",
               "latitude": 37.84,
               "longitude": -84.27,
-              "tons_k": 63.1,
-              "value_m": 7.91,
-              "tmiles_m": 24.66,
-              "pct_of_precursor": 0.049,
+              "tons_k": 63.31,
+              "value_m": 7.94,
+              "tmiles_m": 24.74,
+              "pct_of_precursor": 0.0488,
               "primary_mode": "Truck",
-              "est_cost_usd": 2959403
+              "est_cost_usd": 2969374
             },
             {
               "zone_id": 11,
@@ -843,12 +843,12 @@
               "state": "AL",
               "latitude": 33.52,
               "longitude": -86.8,
-              "tons_k": 20.5,
-              "value_m": 2.34,
-              "tmiles_m": 1.92,
-              "pct_of_precursor": 0.016,
+              "tons_k": 20.57,
+              "value_m": 2.35,
+              "tmiles_m": 1.93,
+              "pct_of_precursor": 0.0158,
               "primary_mode": "Truck",
-              "est_cost_usd": 230506
+              "est_cost_usd": 231283
             }
           ]
         }
@@ -895,12 +895,12 @@
               "state": "AL",
               "latitude": 32.38,
               "longitude": -86.3,
-              "tons_k": 13.82,
-              "value_m": 2.94,
-              "tmiles_m": 12.56,
-              "pct_of_precursor": 0.313,
+              "tons_k": 13.96,
+              "value_m": 2.97,
+              "tmiles_m": 12.68,
+              "pct_of_precursor": 0.3162,
               "primary_mode": "Truck",
-              "est_cost_usd": 1506896
+              "est_cost_usd": 1521720
             },
             {
               "zone_id": 261,
@@ -908,12 +908,12 @@
               "state": "MI",
               "latitude": 42.33,
               "longitude": -83.05,
-              "tons_k": 9.84,
-              "value_m": 9.84,
-              "tmiles_m": 4.4,
-              "pct_of_precursor": 0.223,
+              "tons_k": 9.94,
+              "value_m": 9.94,
+              "tmiles_m": 4.44,
+              "pct_of_precursor": 0.2252,
               "primary_mode": "Truck",
-              "est_cost_usd": 528164
+              "est_cost_usd": 533360
             },
             {
               "zone_id": 422,
@@ -921,12 +921,12 @@
               "state": "PA",
               "latitude": 40.44,
               "longitude": -80.0,
-              "tons_k": 4.92,
-              "value_m": 0.98,
-              "tmiles_m": 0.94,
-              "pct_of_precursor": 0.111,
+              "tons_k": 4.97,
+              "value_m": 0.99,
+              "tmiles_m": 0.95,
+              "pct_of_precursor": 0.1126,
               "primary_mode": "Truck",
-              "est_cost_usd": 112359
+              "est_cost_usd": 113464
             },
             {
               "zone_id": 219,
@@ -934,12 +934,12 @@
               "state": "KY",
               "latitude": 37.84,
               "longitude": -84.27,
-              "tons_k": 4.91,
-              "value_m": 29.39,
-              "tmiles_m": 2.83,
-              "pct_of_precursor": 0.111,
+              "tons_k": 4.96,
+              "value_m": 29.68,
+              "tmiles_m": 2.86,
+              "pct_of_precursor": 0.1124,
               "primary_mode": "Truck",
-              "est_cost_usd": 339199
+              "est_cost_usd": 342536
             },
             {
               "zone_id": 321,
@@ -947,12 +947,12 @@
               "state": "NV",
               "latitude": 36.17,
               "longitude": -115.14,
-              "tons_k": 2.94,
-              "value_m": 27.51,
-              "tmiles_m": 6.98,
-              "pct_of_precursor": 0.067,
+              "tons_k": 2.97,
+              "value_m": 27.78,
+              "tmiles_m": 7.05,
+              "pct_of_precursor": 0.0673,
               "primary_mode": "Truck",
-              "est_cost_usd": 838162
+              "est_cost_usd": 846407
             },
             {
               "zone_id": 369,
@@ -960,12 +960,12 @@
               "state": "NY",
               "latitude": 42.17,
               "longitude": -74.95,
-              "tons_k": 2.44,
-              "value_m": 0.71,
-              "tmiles_m": 0.57,
-              "pct_of_precursor": 0.055,
+              "tons_k": 2.46,
+              "value_m": 0.72,
+              "tmiles_m": 0.58,
+              "pct_of_precursor": 0.0557,
               "primary_mode": "Truck",
-              "est_cost_usd": 68082
+              "est_cost_usd": 68752
             },
             {
               "zone_id": 361,
@@ -973,12 +973,12 @@
               "state": "NY",
               "latitude": 42.65,
               "longitude": -73.75,
-              "tons_k": 2.06,
+              "tons_k": 2.08,
               "value_m": 0.09,
-              "tmiles_m": 0.62,
-              "pct_of_precursor": 0.047,
+              "tmiles_m": 0.63,
+              "pct_of_precursor": 0.0471,
               "primary_mode": "Truck",
-              "est_cost_usd": 74761
+              "est_cost_usd": 75496
             },
             {
               "zone_id": 473,
@@ -986,12 +986,12 @@
               "state": "TN",
               "latitude": 35.96,
               "longitude": -83.92,
-              "tons_k": 0.99,
-              "value_m": 3.09,
-              "tmiles_m": 0.58,
-              "pct_of_precursor": 0.022,
+              "tons_k": 1.0,
+              "value_m": 3.12,
+              "tmiles_m": 0.59,
+              "pct_of_precursor": 0.0227,
               "primary_mode": "Truck",
-              "est_cost_usd": 69307
+              "est_cost_usd": 69989
             },
             {
               "zone_id": 491,
@@ -999,12 +999,12 @@
               "state": "UT",
               "latitude": 40.76,
               "longitude": -111.89,
-              "tons_k": 0.84,
+              "tons_k": 0.85,
               "value_m": 0.02,
-              "tmiles_m": 1.82,
-              "pct_of_precursor": 0.019,
+              "tmiles_m": 1.84,
+              "pct_of_precursor": 0.0193,
               "primary_mode": "Intermodal",
-              "est_cost_usd": 127510
+              "est_cost_usd": 128764
             },
             {
               "zone_id": 50,
@@ -1013,11 +1013,11 @@
               "latitude": 34.75,
               "longitude": -92.29,
               "tons_k": 0.37,
-              "value_m": 69.71,
+              "value_m": 70.4,
               "tmiles_m": 0.4,
-              "pct_of_precursor": 0.008,
+              "pct_of_precursor": 0.0084,
               "primary_mode": "Truck",
-              "est_cost_usd": 47603
+              "est_cost_usd": 48071
             },
             {
               "zone_id": 364,
@@ -1028,9 +1028,9 @@
               "tons_k": 0.3,
               "value_m": 0.01,
               "tmiles_m": 0.1,
-              "pct_of_precursor": 0.007,
+              "pct_of_precursor": 0.0068,
               "primary_mode": "Intermodal",
-              "est_cost_usd": 6963
+              "est_cost_usd": 7031
             },
             {
               "zone_id": 300,
@@ -1039,11 +1039,11 @@
               "latitude": 46.88,
               "longitude": -110.36,
               "tons_k": 0.28,
-              "value_m": 7.27,
-              "tmiles_m": 0.57,
-              "pct_of_precursor": 0.006,
+              "value_m": 7.34,
+              "tmiles_m": 0.58,
+              "pct_of_precursor": 0.0063,
               "primary_mode": "Truck",
-              "est_cost_usd": 68432
+              "est_cost_usd": 69105
             }
           ]
         },
@@ -1083,12 +1083,12 @@
               "state": "PA",
               "latitude": 41.2,
               "longitude": -77.19,
-              "tons_k": 18155.17,
-              "value_m": 936.9,
-              "tmiles_m": 1727.67,
-              "pct_of_precursor": 0.898,
+              "tons_k": 18174.81,
+              "value_m": 937.91,
+              "tmiles_m": 1729.54,
+              "pct_of_precursor": 0.8985,
               "primary_mode": "Truck",
-              "est_cost_usd": 207320979
+              "est_cost_usd": 207545267
             },
             {
               "zone_id": 540,
@@ -1096,12 +1096,12 @@
               "state": "WV",
               "latitude": 38.6,
               "longitude": -80.45,
-              "tons_k": 1516.16,
-              "value_m": 55.83,
-              "tmiles_m": 699.35,
+              "tons_k": 1517.8,
+              "value_m": 55.89,
+              "tmiles_m": 700.11,
               "pct_of_precursor": 0.075,
               "primary_mode": "Rail",
-              "est_cost_usd": 24477109
+              "est_cost_usd": 24503589
             },
             {
               "zone_id": 422,
@@ -1109,12 +1109,12 @@
               "state": "PA",
               "latitude": 40.44,
               "longitude": -80.0,
-              "tons_k": 535.0,
-              "value_m": 27.57,
-              "tmiles_m": 66.25,
-              "pct_of_precursor": 0.026,
+              "tons_k": 535.58,
+              "value_m": 27.6,
+              "tmiles_m": 66.32,
+              "pct_of_precursor": 0.0265,
               "primary_mode": "Truck",
-              "est_cost_usd": 7949818
+              "est_cost_usd": 7958418
             }
           ]
         }
@@ -1165,12 +1165,12 @@
               "state": "KY",
               "latitude": 37.84,
               "longitude": -84.27,
-              "tons_k": 36.28,
-              "value_m": 14.69,
-              "tmiles_m": 11.32,
-              "pct_of_precursor": 0.28,
+              "tons_k": 36.81,
+              "value_m": 14.91,
+              "tmiles_m": 11.49,
+              "pct_of_precursor": 0.2842,
               "primary_mode": "Truck",
-              "est_cost_usd": 1358209
+              "est_cost_usd": 1378106
             },
             {
               "zone_id": 179,
@@ -1178,12 +1178,12 @@
               "state": "IL",
               "latitude": 40.12,
               "longitude": -89.4,
-              "tons_k": 23.39,
-              "value_m": 5.84,
-              "tmiles_m": 10.07,
-              "pct_of_precursor": 0.181,
+              "tons_k": 23.73,
+              "value_m": 5.93,
+              "tmiles_m": 10.22,
+              "pct_of_precursor": 0.1832,
               "primary_mode": "Truck",
-              "est_cost_usd": 1207918
+              "est_cost_usd": 1225613
             },
             {
               "zone_id": 361,
@@ -1191,12 +1191,12 @@
               "state": "NY",
               "latitude": 42.65,
               "longitude": -73.75,
-              "tons_k": 17.64,
-              "value_m": 15.0,
-              "tmiles_m": 10.75,
-              "pct_of_precursor": 0.136,
+              "tons_k": 17.9,
+              "value_m": 15.22,
+              "tmiles_m": 10.91,
+              "pct_of_precursor": 0.1382,
               "primary_mode": "Truck",
-              "est_cost_usd": 1290140
+              "est_cost_usd": 1309040
             },
             {
               "zone_id": 261,
@@ -1204,12 +1204,12 @@
               "state": "MI",
               "latitude": 42.33,
               "longitude": -83.05,
-              "tons_k": 12.77,
-              "value_m": 13.77,
-              "tmiles_m": 2.6,
-              "pct_of_precursor": 0.099,
+              "tons_k": 12.96,
+              "value_m": 13.97,
+              "tmiles_m": 2.64,
+              "pct_of_precursor": 0.1001,
               "primary_mode": "Truck",
-              "est_cost_usd": 311409
+              "est_cost_usd": 315971
             },
             {
               "zone_id": 392,
@@ -1217,12 +1217,12 @@
               "state": "OH",
               "latitude": 41.5,
               "longitude": -81.69,
-              "tons_k": 11.8,
-              "value_m": 40.18,
-              "tmiles_m": 1.56,
-              "pct_of_precursor": 0.091,
+              "tons_k": 11.97,
+              "value_m": 40.77,
+              "tmiles_m": 1.58,
+              "pct_of_precursor": 0.0924,
               "primary_mode": "Truck",
-              "est_cost_usd": 187148
+              "est_cost_usd": 189890
             },
             {
               "zone_id": 19,
@@ -1230,12 +1230,12 @@
               "state": "AL",
               "latitude": 32.38,
               "longitude": -86.3,
-              "tons_k": 6.89,
-              "value_m": 0.98,
-              "tmiles_m": 4.43,
-              "pct_of_precursor": 0.053,
+              "tons_k": 6.99,
+              "value_m": 0.99,
+              "tmiles_m": 4.49,
+              "pct_of_precursor": 0.054,
               "primary_mode": "Truck",
-              "est_cost_usd": 531907
+              "est_cost_usd": 539699
             },
             {
               "zone_id": 321,
@@ -1243,12 +1243,12 @@
               "state": "NV",
               "latitude": 36.17,
               "longitude": -115.14,
-              "tons_k": 6.85,
-              "value_m": 104.05,
-              "tmiles_m": 14.14,
-              "pct_of_precursor": 0.053,
+              "tons_k": 6.95,
+              "value_m": 105.57,
+              "tmiles_m": 14.35,
+              "pct_of_precursor": 0.0537,
               "primary_mode": "Truck",
-              "est_cost_usd": 1697198
+              "est_cost_usd": 1722061
             },
             {
               "zone_id": 499,
@@ -1256,12 +1256,12 @@
               "state": "UT",
               "latitude": 39.32,
               "longitude": -111.09,
-              "tons_k": 3.72,
-              "value_m": 182.35,
-              "tmiles_m": 6.84,
-              "pct_of_precursor": 0.029,
+              "tons_k": 3.77,
+              "value_m": 185.02,
+              "tmiles_m": 6.94,
+              "pct_of_precursor": 0.0291,
               "primary_mode": "Truck",
-              "est_cost_usd": 821321
+              "est_cost_usd": 833353
             },
             {
               "zone_id": 559,
@@ -1269,12 +1269,12 @@
               "state": "WI",
               "latitude": 44.27,
               "longitude": -89.62,
-              "tons_k": 2.59,
-              "value_m": 18.61,
-              "tmiles_m": 1.47,
-              "pct_of_precursor": 0.02,
+              "tons_k": 2.63,
+              "value_m": 18.88,
+              "tmiles_m": 1.49,
+              "pct_of_precursor": 0.0203,
               "primary_mode": "Truck",
-              "est_cost_usd": 176300
+              "est_cost_usd": 178883
             },
             {
               "zone_id": 124,
@@ -1282,12 +1282,12 @@
               "state": "FL",
               "latitude": 27.95,
               "longitude": -82.46,
-              "tons_k": 1.97,
-              "value_m": 4.93,
-              "tmiles_m": 2.06,
-              "pct_of_precursor": 0.015,
+              "tons_k": 2.0,
+              "value_m": 5.0,
+              "tmiles_m": 2.09,
+              "pct_of_precursor": 0.0154,
               "primary_mode": "Truck",
-              "est_cost_usd": 246647
+              "est_cost_usd": 250260
             },
             {
               "zone_id": 271,
@@ -1295,12 +1295,12 @@
               "state": "MN",
               "latitude": 44.98,
               "longitude": -93.27,
-              "tons_k": 1.97,
-              "value_m": 4.93,
-              "tmiles_m": 1.57,
-              "pct_of_precursor": 0.015,
+              "tons_k": 2.0,
+              "value_m": 5.0,
+              "tmiles_m": 1.59,
+              "pct_of_precursor": 0.0154,
               "primary_mode": "Truck",
-              "est_cost_usd": 188695
+              "est_cost_usd": 191459
             },
             {
               "zone_id": 551,
@@ -1308,12 +1308,12 @@
               "state": "WI",
               "latitude": 43.04,
               "longitude": -87.91,
-              "tons_k": 1.78,
-              "value_m": 1.23,
-              "tmiles_m": 0.78,
+              "tons_k": 1.81,
+              "value_m": 1.25,
+              "tmiles_m": 0.79,
               "pct_of_precursor": 0.014,
               "primary_mode": "Truck",
-              "est_cost_usd": 93639
+              "est_cost_usd": 95011
             }
           ]
         },
@@ -1353,12 +1353,12 @@
               "state": "WV",
               "latitude": 38.6,
               "longitude": -80.45,
-              "tons_k": 15628.98,
-              "value_m": 783.89,
-              "tmiles_m": 8613.04,
-              "pct_of_precursor": 0.653,
+              "tons_k": 15658.55,
+              "value_m": 785.37,
+              "tmiles_m": 8629.33,
+              "pct_of_precursor": 0.6547,
               "primary_mode": "Water",
-              "est_cost_usd": 129195613
+              "est_cost_usd": 129440022
             },
             {
               "zone_id": 399,
@@ -1366,12 +1366,12 @@
               "state": "OH",
               "latitude": 40.42,
               "longitude": -82.91,
-              "tons_k": 6067.99,
-              "value_m": 236.79,
-              "tmiles_m": 3507.27,
-              "pct_of_precursor": 0.254,
+              "tons_k": 6079.47,
+              "value_m": 237.24,
+              "tmiles_m": 3513.9,
+              "pct_of_precursor": 0.2541,
               "primary_mode": "Water",
-              "est_cost_usd": 52609042
+              "est_cost_usd": 52708567
             },
             {
               "zone_id": 393,
@@ -1379,12 +1379,12 @@
               "state": "OH",
               "latitude": 39.96,
               "longitude": -83.0,
-              "tons_k": 1578.48,
-              "value_m": 80.31,
-              "tmiles_m": 251.29,
-              "pct_of_precursor": 0.066,
+              "tons_k": 1581.47,
+              "value_m": 80.46,
+              "tmiles_m": 251.77,
+              "pct_of_precursor": 0.0661,
               "primary_mode": "Rail",
-              "est_cost_usd": 8795297
+              "est_cost_usd": 8811936
             },
             {
               "zone_id": 392,
@@ -1392,12 +1392,12 @@
               "state": "OH",
               "latitude": 41.5,
               "longitude": -81.69,
-              "tons_k": 378.33,
-              "value_m": 12.86,
-              "tmiles_m": 36.77,
-              "pct_of_precursor": 0.016,
+              "tons_k": 379.05,
+              "value_m": 12.88,
+              "tmiles_m": 36.84,
+              "pct_of_precursor": 0.0158,
               "primary_mode": "Truck",
-              "est_cost_usd": 4412512
+              "est_cost_usd": 4420859
             },
             {
               "zone_id": 219,
@@ -1405,12 +1405,12 @@
               "state": "KY",
               "latitude": 37.84,
               "longitude": -84.27,
-              "tons_k": 223.25,
-              "value_m": 39.91,
-              "tmiles_m": 69.06,
-              "pct_of_precursor": 0.009,
+              "tons_k": 223.67,
+              "value_m": 39.99,
+              "tmiles_m": 69.19,
+              "pct_of_precursor": 0.0093,
               "primary_mode": "Truck",
-              "est_cost_usd": 8286733
+              "est_cost_usd": 8302410
             }
           ]
         }
@@ -1457,12 +1457,12 @@
               "state": "GA",
               "latitude": 33.75,
               "longitude": -84.39,
-              "tons_k": 133.98,
-              "value_m": 20.2,
-              "tmiles_m": 7.8,
-              "pct_of_precursor": 0.711,
+              "tons_k": 135.81,
+              "value_m": 20.48,
+              "tmiles_m": 7.91,
+              "pct_of_precursor": 0.7211,
               "primary_mode": "Rail",
-              "est_cost_usd": 272846
+              "est_cost_usd": 276576
             },
             {
               "zone_id": 124,
@@ -1470,12 +1470,12 @@
               "state": "FL",
               "latitude": 27.95,
               "longitude": -82.46,
-              "tons_k": 21.54,
-              "value_m": 44.26,
-              "tmiles_m": 10.28,
-              "pct_of_precursor": 0.114,
+              "tons_k": 21.83,
+              "value_m": 44.87,
+              "tmiles_m": 10.42,
+              "pct_of_precursor": 0.1159,
               "primary_mode": "Truck",
-              "est_cost_usd": 1233464
+              "est_cost_usd": 1250326
             },
             {
               "zone_id": 551,
@@ -1483,12 +1483,12 @@
               "state": "WI",
               "latitude": 43.04,
               "longitude": -87.91,
-              "tons_k": 17.68,
-              "value_m": 13.19,
-              "tmiles_m": 15.12,
-              "pct_of_precursor": 0.094,
+              "tons_k": 17.92,
+              "value_m": 13.37,
+              "tmiles_m": 15.33,
+              "pct_of_precursor": 0.0951,
               "primary_mode": "Truck",
-              "est_cost_usd": 1814706
+              "est_cost_usd": 1839514
             },
             {
               "zone_id": 361,
@@ -1496,12 +1496,12 @@
               "state": "NY",
               "latitude": 42.65,
               "longitude": -73.75,
-              "tons_k": 7.02,
-              "value_m": 6.9,
-              "tmiles_m": 7.2,
-              "pct_of_precursor": 0.037,
+              "tons_k": 7.12,
+              "value_m": 6.99,
+              "tmiles_m": 7.3,
+              "pct_of_precursor": 0.0378,
               "primary_mode": "Truck",
-              "est_cost_usd": 864205
+              "est_cost_usd": 876019
             },
             {
               "zone_id": 121,
@@ -1509,12 +1509,12 @@
               "state": "FL",
               "latitude": 30.33,
               "longitude": -81.66,
-              "tons_k": 1.98,
+              "tons_k": 2.01,
               "value_m": 0.12,
-              "tmiles_m": 0.73,
-              "pct_of_precursor": 0.01,
+              "tmiles_m": 0.74,
+              "pct_of_precursor": 0.0107,
               "primary_mode": "Truck",
-              "est_cost_usd": 87070
+              "est_cost_usd": 88260
             },
             {
               "zone_id": 491,
@@ -1522,12 +1522,12 @@
               "state": "UT",
               "latitude": 40.76,
               "longitude": -111.89,
-              "tons_k": 1.44,
-              "value_m": 5.57,
-              "tmiles_m": 2.71,
-              "pct_of_precursor": 0.008,
+              "tons_k": 1.46,
+              "value_m": 5.65,
+              "tmiles_m": 2.75,
+              "pct_of_precursor": 0.0078,
               "primary_mode": "Truck",
-              "est_cost_usd": 325626
+              "est_cost_usd": 330078
             },
             {
               "zone_id": 559,
@@ -1535,12 +1535,12 @@
               "state": "WI",
               "latitude": 44.27,
               "longitude": -89.62,
-              "tons_k": 1.11,
+              "tons_k": 1.13,
               "value_m": 0.04,
-              "tmiles_m": 1.05,
+              "tmiles_m": 1.06,
               "pct_of_precursor": 0.006,
               "primary_mode": "Truck",
-              "est_cost_usd": 126546
+              "est_cost_usd": 128276
             },
             {
               "zone_id": 81,
@@ -1548,12 +1548,12 @@
               "state": "CO",
               "latitude": 39.74,
               "longitude": -104.99,
-              "tons_k": 1.05,
+              "tons_k": 1.06,
               "value_m": 0.04,
-              "tmiles_m": 1.5,
-              "pct_of_precursor": 0.006,
+              "tmiles_m": 1.52,
+              "pct_of_precursor": 0.0056,
               "primary_mode": "Truck",
-              "est_cost_usd": 180355
+              "est_cost_usd": 182821
             }
           ]
         },
