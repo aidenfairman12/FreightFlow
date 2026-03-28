@@ -3,12 +3,12 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
-import { Truck } from 'lucide-react'
+import { Truck, ArrowLeft } from 'lucide-react'
 
-const NAV_ITEMS = [
-  { href: '/', label: 'Risk Overview' },
+const APP_NAV = [
+  { href: '/freightflow',    label: 'Risk Overview' },
   { href: '/critical-nodes', label: 'Critical Nodes' },
-  { href: '/explorer', label: 'Explorer' },
+  { href: '/explorer',       label: 'Explorer' },
 ]
 
 export default function NavBar() {
@@ -16,17 +16,29 @@ export default function NavBar() {
 
   return (
     <nav className="flex h-12 shrink-0 items-center gap-1 border-b border-border bg-background px-4">
+      {/* Back to portfolio */}
       <Link
         href="/"
-        className="mr-5 flex items-center gap-2 text-sm font-bold tracking-tight text-primary no-underline"
+        className="mr-3 flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-card/50 hover:text-foreground no-underline"
+      >
+        <ArrowLeft className="h-3.5 w-3.5" />
+        Portfolio
+      </Link>
+
+      <span className="mr-3 h-4 w-px bg-border" />
+
+      {/* FreightFlow brand */}
+      <Link
+        href="/freightflow"
+        className="mr-4 flex items-center gap-2 text-sm font-bold tracking-tight text-primary no-underline"
       >
         <Truck className="h-4 w-4" />
         FreightFlow
       </Link>
-      {NAV_ITEMS.map(item => {
-        const active = item.href === '/'
-          ? pathname === '/'
-          : pathname === item.href || pathname.startsWith(item.href + '/')
+
+      {/* App page links */}
+      {APP_NAV.map(item => {
+        const active = pathname === item.href || pathname.startsWith(item.href + '/')
         return (
           <Link
             key={item.href}
