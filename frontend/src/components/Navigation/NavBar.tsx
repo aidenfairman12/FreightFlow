@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { href: '/',               label: 'Risk Overview' },
   { href: '/explorer',       label: 'Explorer' },
   { href: '/critical-nodes', label: 'Critical Nodes' },
+  { href: '/case-study',     label: 'Case Study' },
 ]
 
 export default function NavBar() {
