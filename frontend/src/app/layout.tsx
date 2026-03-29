@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import LayoutShell from '@/components/Navigation/LayoutShell'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={cn('dark font-sans', inter.variable)}>
       <body>
         <LayoutShell>{children}</LayoutShell>
+        <Analytics />
       </body>
     </html>
   )
