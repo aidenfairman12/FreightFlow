@@ -109,5 +109,6 @@ export default function CaseStudyPage() {
 
           </div>
     </div>
+    </div>
   )
 }
