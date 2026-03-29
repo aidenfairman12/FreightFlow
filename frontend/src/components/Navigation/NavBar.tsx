@@ -7,8 +7,8 @@ import { Truck } from 'lucide-react'
 
 const NAV_ITEMS = [
   { href: '/',               label: 'Risk Overview' },
-  { href: '/critical-nodes', label: 'Critical Nodes' },
   { href: '/explorer',       label: 'Explorer' },
+  { href: '/critical-nodes', label: 'Critical Nodes' },
 ]
 
 export default function NavBar() {
