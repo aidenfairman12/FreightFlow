@@ -273,14 +273,18 @@ function ExplorerContent() {
   return (
     <div className="flex h-full flex-col overflow-hidden">
       {/* ── Top bar ─────────────────────────────────────────── */}
-      <div className="flex shrink-0 items-center gap-3 border-b border-white/6 px-5 py-3">
-        <a href="/" className="flex items-center gap-1 text-xs text-white/30 hover:text-white/60 transition-colors">
-          <ChevronLeft className="h-3 w-3" /> Overview
-        </a>
-        <span className="text-white/15">/</span>
-        <span className="text-xs font-medium text-white/60">Supply Chain Explorer</span>
+      <div className="flex shrink-0 items-center border-b border-white/6 px-5 py-3">
+        {/* Left — breadcrumb */}
+        <div className="flex flex-1 items-center gap-1">
+          <a href="/" className="flex items-center gap-1 text-xs text-white/30 hover:text-white/60 transition-colors">
+            <ChevronLeft className="h-3 w-3" /> Overview
+          </a>
+          <span className="text-white/15">/</span>
+          <span className="text-xs font-medium text-white/60">Supply Chain Explorer</span>
+        </div>
 
-        <div className="ml-auto flex items-center gap-2">
+        {/* Centre — product selector */}
+        <div className="flex items-center gap-2">
           <span className="text-xs font-medium text-white/50">Product</span>
           <select
             value={selectedProduct}
@@ -293,6 +297,9 @@ function ExplorerContent() {
             ))}
           </select>
         </div>
+
+        {/* Right — spacer to balance breadcrumb */}
+        <div className="flex-1" />
       </div>
 
       {/* ── Main layout ──────────────────────────────────────── */}
