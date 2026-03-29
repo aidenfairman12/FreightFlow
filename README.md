@@ -60,13 +60,7 @@ npm run dev       # http://localhost:3000
 
 All data is pre-computed and lives in `frontend/public/data/`. No environment variables or external services required.
 
-To regenerate the data from FAF5 source files:
-
-```bash
-# Requires FAF5 CSV files in backend/data/faf5/
-pip install -r backend/requirements.txt
-python3 precompute.py
-```
+The pre-computed JSON files are included in the repo, so no regeneration is needed to run the app. The backend services in `backend/services/` contain the original data pipeline logic (FAF5 parsing, cost modelling, zone seeding) if you want to inspect or extend the data.
 
 ---
 
@@ -84,7 +78,6 @@ FreightFlow/
 │   └── services/
 │       ├── commodity_dependencies.py   Finished goods → precursor commodity mappings
 │       └── freight_cost_model.py       Cost per ton-mile by mode (ATRI/AAR/BTS rates)
-├── precompute.py               Generates all frontend/public/data/ JSON from FAF5 CSVs
 └── docs/
     ├── ARCHITECTURE.md         System architecture
     └── ESTIMATION_CONSTANTS.md All hardcoded rate constants with sources

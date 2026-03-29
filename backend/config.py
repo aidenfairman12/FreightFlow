@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    database_url: str = "postgresql+asyncpg://planelogistics:changeme@postgres:5432/planelogistics"
+    database_url: str = "postgresql+asyncpg://freightflow:changeme@postgres:5432/freightflow"
     redis_url: str = "redis://redis:6379"
     frontend_url: str = "http://localhost:3000"
     # EIA API key for diesel/crude prices (free at eia.gov)
