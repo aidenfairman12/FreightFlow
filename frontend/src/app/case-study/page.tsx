@@ -58,6 +58,7 @@ const NEXT_STEPS = [
 
 export default function CaseStudyPage() {
   return (
+    <div className="h-full overflow-y-auto">
     <div className="mx-auto max-w-3xl px-6 py-16">
 
       <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-primary">
@@ -106,7 +107,7 @@ export default function CaseStudyPage() {
           </div>
         </section>
 
-      </div>
+          </div>
     </div>
   )
 }

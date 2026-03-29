@@ -280,11 +280,12 @@ function ExplorerContent() {
         <span className="text-white/15">/</span>
         <span className="text-xs font-medium text-white/60">Supply Chain Explorer</span>
 
-        <div className="ml-auto">
+        <div className="ml-auto flex items-center gap-2">
+          <span className="text-xs font-medium text-white/50">Product</span>
           <select
             value={selectedProduct}
             onChange={e => { setProduct(e.target.value); setHighlighted(null) }}
-            className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-white/80 focus:outline-none focus:ring-1 focus:ring-sky-500"
+            className="rounded-lg border border-sky-500/50 bg-sky-500/10 px-3 py-1.5 text-sm font-medium text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
           >
             <option value="" disabled>Select product…</option>
             {products.map(p => (
